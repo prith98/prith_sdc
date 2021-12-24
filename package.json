@@ -1,5 +1,5 @@
 {
-  "name": "sam-wise-fec",
+  "name": "hackreactor-groceries",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "react-dev": "webpack --config ./webpack.config.js --mode development -w",
     "start": "nodemon server/index.js"
   },
-  "author": "Brett Mogen, Prith Jaganathan, Zach Fry",
+  "author": "Beth Johnson",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.12.13",
@@ -23,7 +23,6 @@
     "express": "^4.17.1",
     "live-server": "^1.2.1",
     "mysql": "^2.18.1",
-    "net": "^1.0.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
   }
