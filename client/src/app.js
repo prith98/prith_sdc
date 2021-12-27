@@ -29,8 +29,8 @@ const App = () => {
     <div className='main'>
     <MainContext.Provider value={{products, setProducts, cart, setCart}}>
       <Overview />
-      <Qna />
-      <Rnr />
+      {/* <Qna />
+      <Rnr /> */}
     </MainContext.Provider>
     </div>
   );
