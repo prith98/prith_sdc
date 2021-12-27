@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect} from 'react';
-import {MainContext} from '../../contexts/contexts.js'
+import {MainContext} from '../contexts/contexts.js'
 import Axios from 'axios';
 
 function Qna () {
