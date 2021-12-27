@@ -1,29 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-import contexts from './contexts/contexts.js';
+import { MainContext } from './contexts/contexts.js';
 import Overview from './overview/overview.js';
-import Qna from './qna/qna.js';
-import Rnr from './rnr/rnr.js';
+// import Qna from './qna/qna.js';
+// import Rnr from './rnr/rnr.js';
 
 const App = () => {
   const [products, setProducts] = useState(null);
-  const [qna, setQna] = useState(null);
-  const [rnr, setRnr] = useState(null);
   const [cart, setCart] = useState(null);
-
-  let endPoints = ['/products', '/qa/questions', '/reviews/', '/cart'];
   let getRequests = [];
-  let setStatements = [setProducts, setQna, setRnr, setCart];
-  let count = -1;
-
-  getRequests = endPoints.map((endpoint) => {
-    count++;
-    return Promise(Axios.get(endpoint).then((result) => { let func = setStatements[count]; func(result.data); }))
-  });
 
   useEffect(() => {
-    Promise.all(getRequests);
+      getRequests.push(Axios.get('/products').then((result) => { return result.data; }));
+      getRequests.push(Axios.get('/cart').then((result) => { return result.data; }));
+
+    Promise.all(getRequests).then((values) => {
+      setProducts(values[0]);
+      setCart(values[1]);
+    });
   }, []);
+
 
   if (cart == null) {
     return <h1>Loading...</h1>
@@ -31,17 +27,11 @@ const App = () => {
 
   return (
     <div className='main'>
-    <contexts.overviewContext.Provider value={{products, setProducts, cart, setCart}}>
+    <MainContext.Provider value={{products, setProducts, cart, setCart}}>
       <Overview />
-    </contexts.overviewContext.Provider>
-
-    <contexts.qnaContext.Provider value={{qna, setQna}}>
-      <Qna />
-    </contexts.qnaContext.Provider>
-
-    <contexts.rnrContext.Provider value={{rnr, setRnr}}>
-      <Rnr />
-    </contexts.rnrContext.Provider>
+    </MainContext.Provider>
     </div>
   );
 };
+
+export default App;
