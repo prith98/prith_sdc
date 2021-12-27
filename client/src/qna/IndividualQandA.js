@@ -4,9 +4,27 @@ import Axios from 'axios';
 
 function IndividualQandA () {
 
-  return(
+  const {products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions} = useContext(MainContext);
+
+  useEffect(() => {
+
+  }, []);
+
+  if (allQuestions === null) {
+    return (
+      <div>
+        LOADING...
+      </div>
+    )
+  }
+
+  return (
     <div>
-      <div id="IndQandA">Q:</div>
+      {allQuestions.map(oneQuestion => (
+        <div key={oneQuestion.product_id}>
+          <div>Q: {oneQuestion.results[0].question_body}</div>
+        </div>
+      ))}
     </div>
   )
 

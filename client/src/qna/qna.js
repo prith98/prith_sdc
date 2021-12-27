@@ -23,13 +23,12 @@ function Qna () {
 
 
   return (
-    <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions}}>
-
-      <div id="qna">
-        <SearchQuestions />
-        <IndividualQandA />
-      </div>
-    </MainContext.Provider>
+    <div>
+      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions}}>
+          <SearchQuestions />
+          <IndividualQandA />
+      </MainContext.Provider>
+    </div>
   );
 
 }
