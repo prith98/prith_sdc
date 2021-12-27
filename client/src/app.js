@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { MainContext } from './contexts/contexts.js';
 import Overview from './overview/overview.js';
-// import Qna from './qna/qna.js';
+import Qna from './qna/qna.js';
 import Rnr from './rnr/rnr.js';
 
 const App = () => {
@@ -34,10 +34,14 @@ const App = () => {
     <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme}}>
       <Overview />
 <<<<<<< HEAD
+<<<<<<< HEAD
       {/* <Qna />
       <Rnr /> */}
 =======
       {/* <Qna /> */}
+=======
+      <Qna />
+>>>>>>> main
       <Rnr />
 >>>>>>> main
     </MainContext.Provider>
