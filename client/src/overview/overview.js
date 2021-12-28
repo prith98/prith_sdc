@@ -6,7 +6,7 @@ import RightPanel from './rightpanel/rightpanel.js';
 import ProductOverview from './productoverview/productoverview.js'
 
 function Overview() {
-  const {products, setProducts, cart, setCart} = useContext(MainContext);
+  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme} = useContext(MainContext);
   const [features, setFeatures] = useState(null);
   const [styles, setStyles] = useState(null);
 
@@ -28,6 +28,10 @@ function Overview() {
     });
 
   }, []);
+
+  if (styles == null) {
+    return <div>Loading...</div>
+  }
 
     // var slideIndex = 1;
     // showSlides(slideIndex);
@@ -57,8 +61,7 @@ function Overview() {
     // }
 
   return (
-    <MainContext.Provider value={{products, setProducts, cart, setCart, features, setFeatures, styles, setStyles}}>
-
+    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, features, setFeatures, styles, setStyles}}>
       <div className="overview-columns">
         <Carousel />
         <RightPanel />
