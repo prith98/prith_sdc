@@ -5,7 +5,7 @@ import Slides from './slides.js';
 import Thumbnails from './thumbnails.js';
 
 function Carousel() {
-  const {products, setProducts, cart, setCart, features, setFeatures, styles, setStyles} = useContext(MainContext);
+  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, features, setFeatures, styles, setStyles} = useContext(MainContext);
 
   useEffect(() => {
 

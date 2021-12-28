@@ -25,7 +25,7 @@ const App = () => {
   }, []);
 
 
-  if (cart == null) {
+  if (currentProductId == null) {
     return <h1>Loading...</h1>
   }
 
