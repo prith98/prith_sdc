@@ -7,22 +7,27 @@ function IndividualQandA () {
   const {products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions, currentQuestion, setCurrentQuestion} = useContext(MainContext);
   const [currentAnswers, setCurrentAnswers] = useState(null);
   const [currentProductAnswer, setCurrentProductAnswer] = useState(null);
+  const [currentQuestionAnswers, setCurrentQuestionAnswers] = useState(null);
   let currentAnswersData = [];
 
   // console.log(currentQuestion);
   // console.log(currentProductId)
 
-  useEffect(() => {
+  const getAnswers = function (id) {
+    axios
+      .get('/qa/questions/' + id.toString() + '/answers')
+      .then((results) => {
+        return results.data.results
+      })
+  }
 
+  useEffect(() => {
     currentQuestion && currentQuestion.length && currentQuestion.forEach((question) => {
       currentAnswersData.push(axios.get('/qa/questions/' + question.question_id + '/answers').then((result) => { return result.data; }));
     });
-
     Promise.all(currentAnswersData).then((values) => {
       setCurrentAnswers(values);
-      console.log(values);
     });
-
   }, [currentQuestion]);
 
 
@@ -40,16 +45,29 @@ function IndividualQandA () {
   return (
     <div>
       {/* Dynamically renders questions from currentQuestion prop in the format of Question, then Answer, then asker name, date asked, helpful, how many people found it helpful, and report*/}
-      {currentQuestion.map(oneQuestion => (
-        <div key={oneQuestion.question_id}>
-          <div>
-            Q: {oneQuestion.question_body}
-            <span> by {oneQuestion.asker_name}, Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <u class="yes-underline">Yes</u> ({oneQuestion.question_helpfulness})   |   <u class="report-underline"> Add Answer </u> </span>
+      {currentQuestion.map(oneQuestion => {
+        // console.log(Object.values(oneQuestion.answers))
+        // let answers = getAnswers(oneQuestion.question_id)
+        let answerArray = Object.values(oneQuestion.answers);
+        let finalAnswer = answerArray.map(oneAnswer => {
+          return (
+            <div key={oneAnswer.id}>
+              <div>A: {oneAnswer.body}</div>
+            </div>
+          );
+        });
+        console.log(finalAnswer);
+        return (
+          <div key={oneQuestion.question_id}>
+            <div>
+              Q: {oneQuestion.question_body}
+              <span> by {oneQuestion.asker_name}, Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <u class="yes-underline">Yes</u> ({oneQuestion.question_helpfulness})   |   <u class="report-underline"> Add Answer </u> </span>
+            </div>
+            <div id="answers">{finalAnswer}</div>
+            <div>by</div>
           </div>
-          <div>A: Generic Answer</div>
-          <div>by</div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 
