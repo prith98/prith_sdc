@@ -33,8 +33,8 @@ const App = () => {
     <div className='main'>
     <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme}}>
       <Overview />
-      <Rnr />
       <Qna />
+      <Rnr />
     </MainContext.Provider>
     </div>
   );
