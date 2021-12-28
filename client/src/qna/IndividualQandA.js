@@ -20,6 +20,19 @@ function IndividualQandA () {
       })
   }
 
+  const updateQHelpful = function(e) {
+
+    console.log(e.currentTarget.dataset.id);
+    let qID = e.currentTarget.dataset.id;
+
+    axios
+      .put('/qa/questions/' + qID.toString() + '/helpful')
+      .then((results) => {
+        console.log('success');
+      })
+
+  }
+
   useEffect(() => {
     currentQuestion && currentQuestion.length && currentQuestion.forEach((question) => {
       currentAnswersData.push(axios.get('/qa/questions/' + question.question_id + '/answers').then((result) => { return result.data; }));
@@ -59,7 +72,7 @@ function IndividualQandA () {
           <div key={oneQuestion.question_id} className="individualQA">
             <div>
               Q: {oneQuestion.question_body}
-              <span> by {oneQuestion.asker_name}, Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <u>Yes</u> ({oneQuestion.question_helpfulness})   |   <u> Add Answer </u> </span>
+              <span> by {oneQuestion.asker_name}, Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <span data-id={oneQuestion.question_id} onClick={updateQHelpful}><u>Yes</u></span> ({oneQuestion.question_helpfulness})   |   <u> Add Answer </u> </span>
             </div>
             <div id="answers">{finalAnswers}</div>
           </div>
