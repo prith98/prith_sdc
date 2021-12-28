@@ -25,8 +25,7 @@ function Qna () {
       setAllQuestions(values);
     });
     Promise.all(currentQuestionData).then((values) => {
-      setCurrentQuestion(values);
-      console.log(values);
+      setCurrentQuestion(values[0].results);
     })
   }, []);
 
