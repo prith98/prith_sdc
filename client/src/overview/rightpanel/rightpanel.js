@@ -7,15 +7,18 @@ import SelectSize from './selectsize.js';
 import AddToCart from './addtocart.js';
 
 function RightPanel() {
-  //const {products, setProducts, cart, setCart} = useContext(MainContext);
+  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, features, setFeatures, styles, setStyles} = useContext(MainContext);
 
   return (
-    <div className="rightpanel" style={{border: '1px solid black'}}>
-      <ProductInfo />
-      <StyleSelector />
-      <SelectSize />
-      <AddToCart />
-    </div>
+    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, features, setFeatures, styles, setStyles}}>
+      <div className="rightpanel" >
+        <ProductInfo />
+        <div>Style > Selected style</div>
+        <StyleSelector />
+        <SelectSize />
+        <AddToCart />
+      </div>
+    </MainContext.Provider>
   );
 }
 

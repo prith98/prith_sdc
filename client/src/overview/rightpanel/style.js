@@ -2,14 +2,11 @@ import React, { useState, useContext, useEffect} from 'react';
 import {MainContext} from '../../contexts/contexts.js'
 import Axios from 'axios';
 
-function Thumbnail() {
+function Style(props) {
   const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, features, setFeatures, styles, setStyles} = useContext(MainContext);
-
   return (
-    <div>
-      <img className="dot" onClick={currentSlide(1)} src="https://cdn.pixabay.com/photo/2019/07/06/11/49/woman-4320328_1280.jpg"/>
-    </div>
+    <img className="style" src={props.url} />
   );
 }
 
-export default Thumbnail;
+export default Style;

@@ -25,7 +25,7 @@ const App = () => {
   }, []);
 
 
-  if (cart == null) {
+  if (currentProductId == null) {
     return <h1>Loading...</h1>
   }
 
@@ -33,17 +33,8 @@ const App = () => {
     <div className='main'>
     <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme}}>
       <Overview />
-<<<<<<< HEAD
-<<<<<<< HEAD
-      {/* <Qna />
-      <Rnr /> */}
-=======
-      {/* <Qna /> */}
-=======
-      <Qna />
->>>>>>> main
       <Rnr />
->>>>>>> main
+      <Qna />
     </MainContext.Provider>
     </div>
   );
