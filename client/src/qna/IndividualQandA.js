@@ -27,7 +27,7 @@ function IndividualQandA () {
         <div key={oneQuestion.question_id}>
           <div>Q: {oneQuestion.question_body}</div>
           <div>A: Generic Answer</div>
-          <div>by {oneQuestion.asker_name}, {oneQuestion.question_date.slice(0, 10)}</div>
+          <div>by {oneQuestion.asker_name}, {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <u class="yes-underline">Yes</u> ({oneQuestion.question_helpfulness})   |   <u class="report-underline">Report</u></div>
         </div>
       ))}
     </div>
