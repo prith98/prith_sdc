@@ -21,7 +21,7 @@ app.get('/*', (req, res) => {
 });
 
 app.put('/*', (req, res) => {
-  Axios.get(URL + req.originalUrl, config).then((response) => {res.send("success")});
+  Axios.put(URL + req.originalUrl, req.body, config).then((response) => {res.send("success")});
 });
 
 app.listen(3000, () => {console.log('Server listening on port 3000')});
