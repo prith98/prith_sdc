@@ -6,8 +6,7 @@ function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions, currentQuestion, setCurrentQuestion} = useContext(MainContext);
   const [currentAnswers, setCurrentAnswers] = useState(null);
-  const [currentProductAnswer, setCurrentProductAnswer] = useState(null);
-  const [currentQuestionAnswers, setCurrentQuestionAnswers] = useState(null);
+
   let currentAnswersData = [];
 
   // console.log(currentQuestion);
@@ -46,25 +45,22 @@ function IndividualQandA () {
     <div>
       {/* Dynamically renders questions from currentQuestion prop in the format of Question, then Answer, then asker name, date asked, helpful, how many people found it helpful, and report*/}
       {currentQuestion.map(oneQuestion => {
-        // console.log(Object.values(oneQuestion.answers))
-        // let answers = getAnswers(oneQuestion.question_id)
         let answerArray = Object.values(oneQuestion.answers);
-        let finalAnswer = answerArray.map(oneAnswer => {
+        console.log(answerArray);
+        let finalAnswers = answerArray.map(oneAnswer => {
           return (
             <div key={oneAnswer.id}>
               <div>A: {oneAnswer.body}</div>
             </div>
           );
         });
-        console.log(finalAnswer);
         return (
-          <div key={oneQuestion.question_id}>
+          <div key={oneQuestion.question_id} className="individualQA">
             <div>
               Q: {oneQuestion.question_body}
-              <span> by {oneQuestion.asker_name}, Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <u class="yes-underline">Yes</u> ({oneQuestion.question_helpfulness})   |   <u class="report-underline"> Add Answer </u> </span>
+              <span> by {oneQuestion.asker_name}, Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <u>Yes</u> ({oneQuestion.question_helpfulness})   |   <u> Add Answer </u> </span>
             </div>
-            <div id="answers">{finalAnswer}</div>
-            <div>by</div>
+            <div id="answers">{finalAnswers}</div>
           </div>
         )
       })}

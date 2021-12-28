@@ -143,6 +143,16 @@ img {vertical-align: middle;}
 
 /* Start Prith Section Here*/
 
+.individualQA {
+  border-style: solid;
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  padding: 20px;
+  width: 80%;
+  margin: 50px auto;
+  position: relative;
+
+}
 
 /* Start Brett Section Here*/
 .ratingsAndReviews {
