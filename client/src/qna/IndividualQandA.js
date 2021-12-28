@@ -1,17 +1,30 @@
 import React, { useState, useContext, useEffect} from 'react';
 import {MainContext} from '../contexts/contexts.js'
-import Axios from 'axios';
+import axios from 'axios';
 
 function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions, currentQuestion, setCurrentQuestion} = useContext(MainContext);
+  const [currentAnswers, setCurrentAnswers] = useState(null);
+  const [currentProductAnswer, setCurrentProductAnswer] = useState(null);
+  let currentAnswersData = [];
+
+  // console.log(currentQuestion);
+  // console.log(currentProductId)
 
   useEffect(() => {
 
-  }, []);
+    currentQuestion && currentQuestion.length && currentQuestion.forEach((question) => {
+      currentAnswersData.push(axios.get('/qa/questions/' + question.question_id + '/answers').then((result) => { return result.data; }));
+    });
 
-  // console.log(allQuestions);
-  console.log(currentQuestion);
+    Promise.all(currentAnswersData).then((values) => {
+      setCurrentAnswers(values);
+      console.log(values);
+    });
+
+  }, [currentQuestion]);
+
 
   // Will show "LOADING..." until
   // currentQuestion object has been resolved in qna.js
