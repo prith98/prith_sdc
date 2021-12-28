@@ -50,7 +50,8 @@ function IndividualQandA () {
         let finalAnswers = answerArray.map(oneAnswer => {
           return (
             <div key={oneAnswer.id}>
-              <div>A: {oneAnswer.body}</div>
+              <div className="answerBody">A: {oneAnswer.body}</div>
+              <div className="answerBottomText">by {oneAnswer.answerer_name}, {oneAnswer.date.slice(0,10)}   |   Helpful? <u>Yes</u>({oneAnswer.helpfulness})   |   <u>Report</u></div>
             </div>
           );
         });

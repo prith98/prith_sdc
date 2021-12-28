@@ -154,6 +154,12 @@ img {vertical-align: middle;}
 
 }
 
+#searchBar {
+  width: 80%;
+  margin: 50px auto;
+  position: relative;
+}
+
 /* Start Brett Section Here*/
 .ratingsAndReviews {
   display: block;
