@@ -4,11 +4,12 @@ import Axios from 'axios';
 
 function IndividualQandA () {
 
-  const {products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions} = useContext(MainContext);
+  const {products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions, currentQuestion, setCurrentQuestion} = useContext(MainContext);
 
   useEffect(() => {
 
   }, []);
+
 
   if (allQuestions === null) {
     return (
