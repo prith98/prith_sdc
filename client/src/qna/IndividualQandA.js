@@ -6,12 +6,14 @@ function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions, currentQuestion, setCurrentQuestion} = useContext(MainContext);
   const [currentAnswers, setCurrentAnswers] = useState(null);
+  const [questionIDs, setQuestionIDs] = useState(null;)
 
   let currentAnswersData = [];
 
   // console.log(currentQuestion);
   // console.log(currentProductId)
 
+  // Get all answers for a specific Question based on questionID
   const getAnswers = function (id) {
     axios
       .get('/qa/questions/' + id.toString() + '/answers')
@@ -20,17 +22,15 @@ function IndividualQandA () {
       })
   }
 
+  // Send a PUT Request for a specific Question ID if it was helpful to increase the helpful count on server
   const updateQHelpful = function(e) {
-
     console.log(e.currentTarget.dataset.id);
     let qID = e.currentTarget.dataset.id;
-
     axios
       .put('/qa/questions/' + qID.toString() + '/helpful')
       .then((results) => {
         console.log('success');
       })
-
   }
 
   useEffect(() => {
