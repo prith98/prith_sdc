@@ -9,6 +9,9 @@ function Overview() {
   const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme} = useContext(MainContext);
   const [features, setFeatures] = useState(null);
   const [styles, setStyles] = useState(null);
+  const [currStyle, setCurrStyle] = useState(null);
+  const [mainPicture, setMainPicture] = useState(null);
+  const [mainPictures, setMainPictures] = useState(null);
 
   let featuresData = [];
   let stylesData = [];
@@ -30,43 +33,18 @@ function Overview() {
   }, []);
 
   if (styles == null) {
-    return <div>Loading...</div>
+    return <div>Loading....</div>
   }
 
-    // var slideIndex = 1;
-    // showSlides(slideIndex);
-
-    // function plusSlides(n) {
-    //   showSlides(slideIndex += n);
-    // }
-
-    // function currentSlide(n) {
-    //   showSlides(slideIndex = n);
-    // }
-
-    // function showSlides(n) {
-    //   var i;
-    //   var slides = document.getElementsByClassName("mySlides");
-    //   var dots = document.getElementsByClassName("dot");
-    //   if (n > slides.length) {slideIndex = 1}
-    //   if (n < 1) {slideIndex = slides.length}
-    //   for (i = 0; i < slides.length; i++) {
-    //       slides[i].style.display = "none";
-    //   }
-    //   for (i = 0; i < dots.length; i++) {
-    //       dots[i].className = dots[i].className.replace(" active", "");
-    //   }
-    //   slides[slideIndex-1].style.display = "block";
-    //   dots[slideIndex-1].className += " active";
-    // }
-
   return (
-    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, features, setFeatures, styles, setStyles}}>
-      <div className="overview-columns">
-        <Carousel />
-        <RightPanel />
+    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, features, setFeatures, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures}}>
+      <div className="wrapper">
+        <div className="overview-columns">
+          <Carousel />
+          <RightPanel />
+        </div>
+        <ProductOverview />
       </div>
-      <ProductOverview />
 
     </MainContext.Provider>
   );

@@ -6,9 +6,11 @@ img {vertical-align: middle;}
 /* Slideshow container */
 .slideshow-container {
   width: 800px;
+  min-width: 800px;
   position: relative;
   height: 500px;
-  left: 200px;
+  margin-left: 10%;
+
 }
 
 /* Next & previous buttons */
@@ -29,7 +31,7 @@ img {vertical-align: middle;}
 }
 
 .prev {
-	left: 70px;
+	left: 63px;
 }
 
 /* Position the "next button" to the right */
@@ -63,6 +65,7 @@ img {vertical-align: middle;}
   margin-bottom: 10px;
   display: inline-block;
   transition: background-color 0.6s ease;
+  object-fit: cover;
 }
 
 .dot-container {
@@ -85,7 +88,6 @@ img {vertical-align: middle;}
   display:flex;
   flex-direction: row;
   border:1px solid black;
-  justify-content: space-evenly;
 }
 
 .poverview {
@@ -93,8 +95,12 @@ img {vertical-align: middle;}
   flex-direction: row;
   border:1px solid black;
   width: 700px;
-  left: 500px;
+  left: 15%;
   position: relative;
+}
+
+.wrapper {
+  border: 1px solid black;
 }
 
 .styles-wrap {
@@ -123,7 +129,9 @@ img {vertical-align: middle;}
 }
 
 .rightpanel {
-  margin-left: 30px;
+  position: relative;
+  margin-left: 2%;
+  right: 5px;
 }
 
 @-webkit-keyframes fade {
