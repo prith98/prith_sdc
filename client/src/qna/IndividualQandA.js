@@ -9,9 +9,7 @@ function IndividualQandA () {
   const [questionIDs, setQuestionIDs] = useState(null);
 
   let currentAnswersData = [];
-
-  // console.log(currentQuestion);
-  // console.log(currentProductId)
+  let questionIDsArray = [];
 
   // Get all answers for a specific Question based on questionID
   const getAnswers = function (id) {
@@ -34,13 +32,23 @@ function IndividualQandA () {
   }
 
   useEffect(() => {
+
     currentQuestion && currentQuestion.length && currentQuestion.forEach((question) => {
+      let qID = question.question_id;
+      let newObj = {[question.question_id]: true};
+      questionIDsArray.push(newObj);
       currentAnswersData.push(axios.get('/qa/questions/' + question.question_id + '/answers').then((result) => { return result.data; }));
     });
     Promise.all(currentAnswersData).then((values) => {
       setCurrentAnswers(values);
     });
+    Promise.all(questionIDsArray).then((values) => {
+      setQuestionIDs(values);
+      console.log(values);
+    });
+
   }, [currentQuestion]);
+
 
 
   // Will show "LOADING..." until
@@ -59,7 +67,6 @@ function IndividualQandA () {
       {/* Dynamically renders questions from currentQuestion prop in the format of Question, then Answer, then asker name, date asked, helpful, how many people found it helpful, and report*/}
       {currentQuestion.map(oneQuestion => {
         let answerArray = Object.values(oneQuestion.answers);
-        console.log(answerArray);
         let finalAnswers = answerArray.map(oneAnswer => {
           return (
             <div key={oneAnswer.id}>
