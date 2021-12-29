@@ -181,3 +181,8 @@ img {vertical-align: middle;}
   height: 95%;
   border: 2px solid green;
 }
+
+.show-more-reviews {
+  margin-top: 15px;
+  margin-right: 15px;
+}
