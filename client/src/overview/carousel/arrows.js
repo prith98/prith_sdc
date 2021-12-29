@@ -7,18 +7,6 @@ var slideIndex = 0;
 function Arrows(props) {
   const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, features, setFeatures, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures} = useContext(MainContext);
 
-  if (mainPictures == null) {
-    setMainPictures(props.mainPhotosArr);
-    return <div>Loading Arrows LOL</div>
-  }
-
-  useEffect(() => {
-    setMainPictures(props.mainPhotosArr);
-  }, []);
-
-  console.log('d');
-
-
     function plusSlides(n) {
       showSlides(slideIndex += n);
     }
@@ -28,7 +16,6 @@ function Arrows(props) {
     }
 
     function showSlides(n) {
-      if (mainPictures) {
       //var dots = document.getElementsByClassName("dot");
       if (n === mainPictures.length) {slideIndex = 0}
       if (n < 1) {slideIndex = mainPictures.length -1}
@@ -37,15 +24,18 @@ function Arrows(props) {
       // }
       setMainPicture(mainPictures[slideIndex]);
       //dots[slideIndex-1].className += " active";
-      }
+    }
+
+    if (mainPictures == null) {
+      return <div>Loading</div>
     }
 
   return (
-    <div className="arrows">
+    <div>
       <a className="prev" onClick={() => {plusSlides(-1)}}>&#10094;</a>
       <a className="next" onClick={() => {plusSlides(1)}}>&#10095;</a>
     </div>
-      );
+    )
   }
 
   export default Arrows;

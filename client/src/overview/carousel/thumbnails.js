@@ -6,15 +6,12 @@ import Arrows from './arrows.js';
 
 function Thumbnails() {
   const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, features, setFeatures, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures} = useContext(MainContext);
-
-  if (currStyle == null) {
-    return <div>Loading...</div>
-  }
   let photos;
   let currProdStyles;
-  var mainPhotosArr = ['d'];
-  //Find currentProduct in styles
-  styles.forEach(p => {
+  var mainPhotosArr = [];
+
+   //Find currentProduct in styles
+   styles.forEach(p => {
     if (Number(p.product_id) === currentProductId) {
       currProdStyles = p;
     }
@@ -31,10 +28,23 @@ function Thumbnails() {
     return <Thumbnail url={photo['thumbnail_url']} photo={photo}/>
   });
 
+  if (mainPictures == null) {
+    setMainPictures(mainPhotosArr);
+    return <div>Loading...</div>
+  }
+
+  if (mainPictures[0] !== mainPhotosArr[0]) {
+    setMainPictures(mainPhotosArr);
+    return <div>Loading...</div>
+  }
+
+  // if (mainPhotosArr[0] !== mainPictures[0]) {
+  //   setMainPictures(mainPhotosArr);
+  // }
+
   return (
     <div className="dot-container">
       {thumbnailsArr}
-      <Arrows mainPhotosArr = {mainPhotosArr}/>
     </div>
   );
 }
