@@ -9,21 +9,19 @@ function Rnr() {
   const { products, setProducts, currentProductId, setCurrentProductId } = useContext(MainContext);
 
   const [productReviews, setProductReviews] = useState(null);
-  const [additionalReviews, setAdditionalReviews] = useState(null);
   const [reviewsRendered, setReviewsRendered] = useState(2);
 
   useEffect(() => {
     Axios.get(`/reviews?product_id=${currentProductId}`).then((response) => {
       setProductReviews(response.data);
-      setAdditionalReviews(response.data.results.length - 2);
     });
   }, currentProductId);
 
-  if (productReviews == null || additionalReviews == null) {
+  if (productReviews == null) {
     return (<div>Loading...</div>);
   } else {
     return (
-      <MainContext.Provider value={{ products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, additionalReviews, setAdditionalReviews, reviewsRendered, setReviewsRendered }}>
+      <MainContext.Provider value={{ products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered }}>
         <div className="ratingsAndReviews">
           <div className="ratingsAndReviews-title">
             Ratings and Reviews

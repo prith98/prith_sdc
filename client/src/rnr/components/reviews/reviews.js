@@ -4,25 +4,23 @@ import { MainContext } from '../../../contexts/contexts.js';
 import Review from './review.js';
 
 function Reviews() {
-  const { products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, additionalReviews, setAdditionalReviews, reviewsRendered, setReviewsRendered } = useContext(MainContext);
+  const { products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered } = useContext(MainContext);
 
-  let reviews;
+  const [reviews, setReviews] = useState(null);
+
   let reviewResults;
 
   let mapOverReviews = function () {
-    reviews = reviewResults.map(() =>
+    setReviews(reviewResults.map(() =>
       <Review />
-    )
+    ))
   }
 
   let showMoreReviews = function (event) {
     event.preventDefault();
     reviewResults = productReviews.results.slice(0, reviewsRendered + 2);
     mapOverReviews();
-    let addTwoToReviewsRendered = reviewsRendered + 2;
-    let subtractTwoFromAdditionalReviews = additionalReviews - 2;
-    setAdditionalReviews(subtractTwoFromAdditionalReviews);
-    setReviewsRendered(addTwoToReviewsRendered);
+    setReviewsRendered(reviewsRendered + 2);
   }
 
   if (reviews == null) {
@@ -31,14 +29,14 @@ function Reviews() {
   }
 
   return (
-    <MainContext.Provider value={{ products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, additionalReviews, setAdditionalReviews, reviewsRendered, setReviewsRendered }}>
+    <MainContext.Provider value={{ products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered }}>
       <div>
         <div className="relevance">
           {productReviews.results.length} reviews, sorted by relevance
         </div>
         {reviews}
         <div>
-          {additionalReviews > 0 ? <button className="show-more-reviews" onClick={(event) => {
+          { reviewsRendered < productReviews.results.length ? <button className="show-more-reviews" onClick={(event) => {
             showMoreReviews(event);
           }}>Show more reviews</button> : ''}
         </div>
