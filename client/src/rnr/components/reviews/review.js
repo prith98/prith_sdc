@@ -4,7 +4,7 @@ import Reviews from './reviews.js';
 import { MainContext } from '../../../contexts/contexts.js';
 
 function Review() {
-  const { products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, additionalReviews, setAdditionalReviews, reviewsRendered, setReviewsRendered } = useContext(MainContext);
+  const { products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered, reviewIndex, setReviewIndex } = useContext(MainContext);
 
   return (
     <div className="review">
