@@ -1,4 +1,4 @@
-// Features:
+// productInformation:
 {
     "id": 44388,
     "campus": "hr-den",
@@ -9,7 +9,7 @@
     "default_price": "140.00",
     "created_at": "2021-08-13T14:40:29.181Z",
     "updated_at": "2021-08-13T14:40:29.181Z",
-    "features": [
+    "productInformation": [
         {
             "feature": "Fabric",
             "value": "Canvas"
