@@ -256,9 +256,17 @@ textarea:focus, .searchtext:focus{
 
 }
 
-#searchBar {
+h1#QAHeader{
   width: 80%;
   margin: 50px auto;
+  position: relative;
+}
+
+input#QASearch {
+  width: 80%;
+  padding: 12px 20px;
+  margin-left: 180px;
+  box-sizing: border-box;
   position: relative;
 }
 
