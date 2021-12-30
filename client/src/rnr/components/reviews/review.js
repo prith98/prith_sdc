@@ -3,36 +3,47 @@ import Rnr from '../../rnr.js';
 import Reviews from './reviews.js';
 import { MainContext } from '../../../contexts/contexts.js';
 
-function Review() {
-  const { products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered, reviewIndex, setReviewIndex } = useContext(MainContext);
+function Review(reviewData) {
+  const { products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered } = useContext(MainContext);
+
+  //   reviewData:
+  // body: "Great outfit for huntin clams!"
+  // date: "2021-11-09T00:00:00.000Z"
+  // helpfulness: 5
+  // photos: []
+  // rating: 5
+  // recommend: true
+  // response: null
+  // review_id: 1094634
+  // reviewer_name: "Clamboni"
+  // summary: "Clams"
+
+  console.log(reviewData.reviewData.date);
 
   return (
     <div className="review">
-      <div className="star-rating">
+      <div className="review-star-rating">
         Star Rating
       </div>
-      <div className="verified">
-        Verified
+      <div className="review-user-header">
+        Verified, {reviewData.reviewData.reviewer_name}, {reviewData.reviewData.date}
       </div>
-      <div className="review-date">
-        Review Date
-      </div>
-      <div className="review-title">
-        Review Title
+      <div className="review-summary">
+        {reviewData.reviewData.summary}
       </div>
       <div className="review-body">
-        Review Body
+        {reviewData.reviewData.body}
       </div>
-      <div className="recommend">
+      <div className="review-recommend">
         Recommend
       </div>
-      <div className="response">
+      <div className="review-response">
         Response
       </div>
-      <div className="helpful">
+      <div className="review-helpful">
         Helpful
       </div>
-      <div className="report">
+      <div className="review-report">
         Report
       </div>
     </div>
