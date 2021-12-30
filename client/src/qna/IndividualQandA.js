@@ -1,12 +1,13 @@
-import React, { useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import {MainContext} from '../contexts/contexts.js'
 import axios from 'axios';
 
 function IndividualQandA () {
 
-  const {products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions, currentQuestion, setCurrentQuestion} = useContext(MainContext);
+  const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy,
+    allQuestions, setAllQuestions, currentQuestion, questionIDs, setQuestionIDs,
+     setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions} = useContext(MainContext);
   const [currentAnswers, setCurrentAnswers] = useState(null);
-  const [questionIDs, setQuestionIDs] = useState(null);
 
   let currentAnswersData = [];
   let questionIDsArray = [];
@@ -20,32 +21,69 @@ function IndividualQandA () {
       })
   }
 
-  // Send a PUT Request for a specific Question ID if it was helpful to increase the helpful count on server
-  const updateQHelpful = function(e) {
-    console.log(e.currentTarget.dataset.id);
-    let qID = e.currentTarget.dataset.id;
+  // Updates the currentQuestion list to show that the YES count has increased
+  const updateCPID = function() {
     axios
-      .put('/qa/questions/' + qID.toString() + '/helpful')
-      .then((results) => {
-        console.log('success');
+      .get('/qa/questions?product_id=' + currentProductId)
+      .then((result) => {
+        setCurrentQuestion(result.data.results);
       })
+  }
+
+  // Send a PUT Request for a specific Answer ID to mark it as helpful and increase helpful count on server
+  const updateAHelpful = function(e) {
+    let aID = e.currentTarget.dataset.id;
+    axios
+      .put('/qa/answers/' + aID.toString() + '/helpful')
+      .then((results) => {
+        console.log('Successfully marked answer ' + aID.toString() + ' as helpful');
+      })
+      .then(() => {updateCPID()})
+  }
+
+
+  // Send a PUT Request for a specific Question ID if it was helpful to increase the helpful count on server
+  // if user has already marked a question as helpful, will not send a PUT request and alert user that they
+  // have already marked this question as helpful
+  const updateQHelpful = function(e) {
+    let qID = e.currentTarget.dataset.id;
+    let questionIDsCopy = questionIDs;
+    if (questionIDs[qID]) {
+      axios
+        .put('/qa/questions/' + qID.toString() + '/helpful')
+        .then((results) => {
+          console.log('Successfully marked question ' + qID + ' as helpful');
+        })
+        .then(() => {
+          updateCPID()
+        })
+        .then(() => {
+          questionIDsCopy[qID] = false;
+          setQuestionIDs(questionIDsCopy);
+        })
+    } else {
+      alert ('You have already marked this question as helpful!');
+    }
+
+    // axios
+    //   .put('/qa/questions/' + qID.toString() + '/helpful')
+    //   .then((results) => {
+    //     console.log('Successfully marked question ' + qID + ' as helpful');
+    //   })
+    //   .then(() => {
+    //     updateCPID()
+    //   })
   }
 
   useEffect(() => {
 
     currentQuestion && currentQuestion.length && currentQuestion.forEach((question) => {
-      let qID = question.question_id;
-      let newObj = {[question.question_id]: true};
-      questionIDsArray.push(newObj);
       currentAnswersData.push(axios.get('/qa/questions/' + question.question_id + '/answers').then((result) => { return result.data; }));
     });
     Promise.all(currentAnswersData).then((values) => {
       setCurrentAnswers(values);
     });
-    Promise.all(questionIDsArray).then((values) => {
-      setQuestionIDs(values);
-      console.log(values);
-    });
+
 
   }, [currentQuestion]);
 
@@ -54,7 +92,7 @@ function IndividualQandA () {
   // Will show "LOADING..." until
   // currentQuestion object has been resolved in qna.js
   // and successfully passed down to this component
-  if (currentQuestion === null) {
+  if (cqCopy === null) {
     return (
       <div>
         LOADING...
@@ -71,7 +109,7 @@ function IndividualQandA () {
           return (
             <div key={oneAnswer.id}>
               <div className="answerBody">A: {oneAnswer.body}</div>
-              <div className="answerBottomText">by {oneAnswer.answerer_name}, {oneAnswer.date.slice(0,10)}   |   Helpful? <u>Yes</u>({oneAnswer.helpfulness})   |   <u>Report</u></div>
+              <div className="answerBottomText">by {oneAnswer.answerer_name}, {oneAnswer.date.slice(0,10)}   |   Helpful? <span data-id={oneAnswer.id} onClick={updateAHelpful}><u>Yes</u></span>({oneAnswer.helpfulness})   |   <u>Report</u></div>
             </div>
           );
         });
