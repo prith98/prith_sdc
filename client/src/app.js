@@ -31,7 +31,7 @@ const App = () => {
 
   return (
     <div className='main'>
-    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme}}>
+    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme }}>
       <Overview />
       <Qna />
       <Rnr />
