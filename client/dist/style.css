@@ -42,17 +42,24 @@ img {vertical-align: middle;}
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
+  background-color: RGB(82,82,82);
+  opacity: 0.8;
 }
 
 /* Number text (1/3 etc) */
 .extend {
+  top: 20px;
+  right: 20px;
   cursor: pointer;
   position: absolute;
   color: black;
   font-weight: bold;
   transition: 0.6s ease;
   user-select: none;
+}
+
+textarea:focus, .searchtext:focus{
+  outline: none;
 }
 
 /* The dots/bullets/indicators */
@@ -80,27 +87,107 @@ img {vertical-align: middle;}
   text-align: center;
 }
 
+.feat {
+  white-space: nowrap;
+  margin-bottom: 9px;
+}
+
+.overviewsearch {
+  display: flex;
+  height: 77PX;
+  width: 80%;
+  background-color: RGB(82,82,82);
+  margin: auto;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.searchicon {
+  color: white;
+}
+
 .active, .dot:hover {
   background-color: #717171;
+}
+
+.searchtext {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom: 2px solid white;
+  background-color: #eee;
+  color: white;
+  margin-right:15px;
+  width: 120px;
 }
 
 .overview-columns {
   display:flex;
   flex-direction: row;
-  border:1px solid black;
+}
+
+.addbagbutton {
+  height: 56px;
+  width: 284px;
+  background-color: white;
+  border: 1px solid black;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: sans-serif;
+  text-align: start;
+  color: RGB(82,82,82);
+  padding-left: 22px;
+}
+
+.starbutton {
+  height: 56px;
+  width: 56px;
+  background-color: white;
+  border: 1px solid black;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: sans-serif;
+  text-align: middle;
+  color: RGB(82,82,82);
+  margin-left: 20px;
+}
+
+.selectsizetext {
+  height: 56px;
+  width: 240px;
+  background-color: white;
+  border: 1px solid black;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: sans-serif;
+  text-align: start;
+  color: RGB(82,82,82);
+  padding-left: 22px;
+  margin-top: 10px;
+}
+
+.quantitycarttext {
+  height: 56px;
+  width: 100px;
+  background-color: white;
+  border: 1px solid black;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: sans-serif;
+  text-align: middle;
+  color: RGB(82,82,82);
+  padding-left: 12px;
+  margin-left: 20px;
 }
 
 .poverview {
   display:flex;
   flex-direction: row;
-  border:1px solid black;
-  width: 700px;
+  width: 880px;
   left: 15%;
+  margin-right: 5px;
+  margin-top: 3%;
   position: relative;
-}
-
-.wrapper {
-  border: 1px solid black;
 }
 
 .styles-wrap {
@@ -120,6 +207,13 @@ img {vertical-align: middle;}
   object-fit: cover;
 }
 
+.featureslist {
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid RGB(82,82,82);
+  padding-left: 15px;
+}
+
 /* Fading animation */
 .fade {
   -webkit-animation-name: fade;
@@ -130,7 +224,7 @@ img {vertical-align: middle;}
 
 .rightpanel {
   position: relative;
-  margin-left: 2%;
+  margin-left: 3%;
   right: 5px;
 }
 
