@@ -4,7 +4,7 @@ import Axios from 'axios';
 import Style from './style.js';
 
 function StyleSelector() {
-  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, features, setFeatures, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture} = useContext(MainContext);
+  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture} = useContext(MainContext);
   let currProdStyles;
   //Find currentProduct in styles
   styles.forEach(p => {
@@ -32,7 +32,7 @@ function StyleSelector() {
     </div>
   );
 }
-//ProductInfo.js
+//productInformation.js
 //----------------
 //Star Ratings
 //Category
