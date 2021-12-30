@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import {MainContext} from '../contexts/contexts.js'
 import axios from 'axios';
 import IndividualQandA from '/client/src/qna/IndividualQandA.js';
@@ -13,9 +13,16 @@ function Qna () {
   // an array of questions for the currentProductId
   const [allQuestions, setAllQuestions] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [cqCopy, setCQCopy] = useState(null);
+  const [query, setQuery] = useState("");
+  const [filteredQuestions, setFilteredQuestions] = useState(null);
+  const [questionIDs, setQuestionIDs] = useState(null);
+
 
   let allQuestionsData = [];
   let currentQuestionData = [];
+  let questionIDsObj = {};
+
 
 
   useEffect(() => {
@@ -36,6 +43,11 @@ function Qna () {
     });
     Promise.all(currentQuestionData).then((values) => {
       setCurrentQuestion(values[0].results);
+      setCQCopy(values[0].results);
+      for (let i = 0; i < values[0].results.length; i++) {
+        questionIDsObj[values[0].results[i]["question_id"]] = true;
+      }
+      setQuestionIDs(questionIDsObj);
     })
   }, []);
 
@@ -43,8 +55,9 @@ function Qna () {
 
   return (
     <div>
+      <h1 id="QAHeader">Question & Answers</h1>
       {/* Passing down all the state values to SearchQuestions and IndividualQandA */}
-      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions, currentQuestion, setCurrentQuestion}}>
+      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions}}>
           <SearchQuestions />
           <IndividualQandA />
       </MainContext.Provider>
