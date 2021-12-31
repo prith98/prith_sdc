@@ -275,6 +275,8 @@ input#QASearch {
 }
 
 button#qnaButton {
+  margin-left: 182px;
+  position: relative;
   padding: 13px 29px;
   font-size: 1rem;
   font-weight: bold;
@@ -300,8 +302,8 @@ button#qnaButton {
 }
 .container .modal {
   z-index: 1;
-  width: 350px;
-  height: 220px;
+  width: 800px;
+  height: 800px;
   background: white;
   display: flex;
   align-items: center;
