@@ -18,7 +18,21 @@ function Review(reviewData) {
   // reviewer_name: "Clamboni"
   // summary: "Clams"
 
-  console.log(reviewData.reviewData.date);
+  let reviewYear = reviewData.reviewData.date.slice(0, 4);
+  let reviewMonth = reviewData.reviewData.date.slice(5, 7);
+  let reviewDay = reviewData.reviewData.date.slice(8, 10);
+
+  let monthArray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  if (reviewMonth[0] === '0') {
+    reviewMonth = monthArray[reviewMonth[1] - 1];
+  } else {
+    reviewMonth = monthArray[reviewMonth - 1];
+  }
+
+  if (reviewDay[0] === '0') {
+    reviewDay = reviewDay[1];
+  }
 
   return (
     <div className="review">
@@ -26,7 +40,7 @@ function Review(reviewData) {
         Star Rating
       </div>
       <div className="review-user-header">
-        Verified, {reviewData.reviewData.reviewer_name}, {reviewData.reviewData.date}
+        Verified, {reviewData.reviewData.reviewer_name}, {reviewMonth} {reviewDay}, {reviewYear}
       </div>
       <div className="review-summary">
         {reviewData.reviewData.summary}
@@ -35,18 +49,30 @@ function Review(reviewData) {
         {reviewData.reviewData.body}
       </div>
       <div className="review-recommend">
-        Recommend
+        {reviewData.reviewData.recommend === true ? 'I recommend this product' : ''}
       </div>
       <div className="review-response">
-        Response
+        {reviewData.reviewData.response === null ? '' : reviewData.reviewData.response}
       </div>
-      <div className="review-helpful">
-        Helpful
-      </div>
-      <div className="review-report">
-        Report
+      <div className="review-footer">
+        <div className="review-helpful">
+          Helfpul?
+        </div>
+        <div className="review-yes">
+          Yes
+        </div>
+        <div className="review-helpful-count">
+          &#40;{reviewData.reviewData.helpfulness}&#41;
+        </div>
+        <div className="review-spacer">
+          |
+        </div>
+        <div className="review-report">
+          Report
+        </div>
       </div>
     </div>
+
   )
 }
 

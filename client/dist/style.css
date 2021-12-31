@@ -307,6 +307,7 @@ textarea:focus, .searchtext:focus{
 
 .review {
   display: block;
+  position: relative;
   width: 100%;
   margin-bottom: 15px;
   border: 2px solid purple;
@@ -323,4 +324,37 @@ textarea:focus, .searchtext:focus{
   font-style: italic;
   color: gray;
   right: 4px;
+  top: 0px;
+}
+
+.review-footer {
+  display: inline-block;
+  font-size: 10px;
+  color: gray;
+}
+
+.review-spacer {
+  display: inline-block;
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.review-helpful-count {
+  display: inline-block;
+}
+
+.review-yes {
+  display: inline-block;
+  text-decoration: underline;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.review-helpful {
+  display: inline-block;
+}
+
+.review-report {
+  display: inline-block;
+  text-decoration: underline;
 }
