@@ -56,6 +56,7 @@ function IndividualQandA () {
         })
         .then(() => {
           updateCPID()
+          console.log(currentProductId)
         })
         .then(() => {
           questionIDsCopy[qID] = false;
