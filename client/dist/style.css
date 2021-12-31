@@ -256,6 +256,13 @@ textarea:focus, .searchtext:focus{
 
 }
 
+h2#formQF {
+  top: 0px;
+  position: absolute;
+  text-align: center;
+
+}
+
 .button-xlarge {
   font-size: 125%;
 }
@@ -273,6 +280,7 @@ input#QASearch {
   box-sizing: border-box;
   position: relative;
 }
+
 
 button#qnaButton {
   margin-left: 182px;
@@ -313,8 +321,10 @@ button#qnaButton {
   animation: animate 0.3s;
 }
 .modal button {
+  display: flex;
+  justify-content: center;
   position: absolute;
-  top: 7px;
+  bottom: 7px;
   right: 7px;
   padding: 8px 11px;
   background: crimson;

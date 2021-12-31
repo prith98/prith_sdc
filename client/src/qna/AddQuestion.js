@@ -30,28 +30,32 @@ function AddQuestion () {
   return ReactDOM.createPortal(
     <div className="container" ref={modalRef} onClick={closeModal}>
       <div className="modal">
-        <h2>This is a Modal</h2>
+        <h2 id="formQF">Question Fields</h2>
         <form onSubmit={onSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input className="form-control" id="name" />
+            <label htmlFor="question">Question (MANDATORY FIELD)</label>
+            <input className="form-control" id="qnaFormQuestion" />
           </div>
           <div className="form-group">
-            <label htmlFor="email">Email address</label>
+            <label htmlFor="nickname">Nickname (MANDATORY FIELD)</label>
+            <input
+              type="name"
+              className="form-control"
+              id="qnaFormNickname"
+              placeholder="jackson11!"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email address (MANDATORY FIELD)</label>
             <input
               type="email"
               className="form-control"
               id="email"
-              placeholder="name@example.com"
+              placeholder="Why did you like this product or not?"
             />
           </div>
-          <div className="form-group">
-            <button className="form-control btn btn-primary" type="submit">
-              Submit
-            </button>
-          </div>
         </form>
-        <button onClick={() => setShowModal(false)}>Submit Question</button>
+        <button id="formSubmit">Submit Question</button>
       </div>
     </div>,
     document.getElementById("app")
