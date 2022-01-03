@@ -3,6 +3,7 @@ import {MainContext} from '../contexts/contexts.js'
 import axios from 'axios';
 import IndividualQandA from '/client/src/qna/IndividualQandA.js';
 import SearchQuestions from '/client/src/qna/SearchQuestions.js';
+import AddQuestion from '/client/src/qna/AddQuestion.js';
 
 function Qna () {
 
@@ -17,6 +18,7 @@ function Qna () {
   const [query, setQuery] = useState("");
   const [filteredQuestions, setFilteredQuestions] = useState(null);
   const [questionIDs, setQuestionIDs] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
 
   let allQuestionsData = [];
@@ -24,6 +26,9 @@ function Qna () {
   let questionIDsObj = {};
 
 
+  const openModal = function () {
+    setShowModal(true);
+  }
 
   useEffect(() => {
 
@@ -57,9 +62,11 @@ function Qna () {
     <div>
       <h1 id="QAHeader">Question & Answers</h1>
       {/* Passing down all the state values to SearchQuestions and IndividualQandA */}
-      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions}}>
+      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showModal, setShowModal}}>
           <SearchQuestions />
           <IndividualQandA />
+          <button id="qnaButton" onClick={openModal}>Add A Question</button>
+          {showModal ? <AddQuestion setShowModal={setShowModal} /> : null}
       </MainContext.Provider>
     </div>
   );
