@@ -14,6 +14,13 @@ function Overview() {
   const [currStyle, setCurrStyle] = useState(null);
   const [mainPicture, setMainPicture] = useState(null);
   const [mainPictures, setMainPictures] = useState(null);
+  const [size, setSize] = useState(null);
+  const [quantityList, setQuantityList] = useState(null);
+  const [isActive, setIsActive] = useState(false);
+  const [thumbnailCount, setThumbnailCount] = useState(null);
+  const [loadNextThumbnail, setLoadNextThumbnail] = useState(false);
+  const [thumbnailIncrement, setThumbnailIncrement] = useState(0);
+  const [quantity, setQuantity] = useState('-');
 
   let productInformationData = [];
   let stylesData = [];
@@ -28,7 +35,6 @@ function Overview() {
     Promise.all(stylesData).then((values) => {
       setStyles(values);
     });
-
   }, []);
 
   if (styles == null) {
@@ -36,7 +42,7 @@ function Overview() {
   }
 
   return (
-    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures}}>
+    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, size, setSize, quantityList, setQuantityList, isActive, setIsActive, thumbnailCount, setThumbnailCount, loadNextThumbnail, setLoadNextThumbnail, thumbnailIncrement, setThumbnailIncrement}}>
       <div className="wrapper">
         <div className="overviewsearch">
           <TiChartArea style={{height: '65px', width: '65px', color: 'white', marginLeft: '20px'}}/>

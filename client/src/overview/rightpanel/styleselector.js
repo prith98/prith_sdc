@@ -4,7 +4,7 @@ import Axios from 'axios';
 import Style from './style.js';
 
 function StyleSelector() {
-  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture} = useContext(MainContext);
+  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, size, setSize, quantityList, setQuantityList, isActive, setIsActive} = useContext(MainContext);
   let currProdStyles;
   //Find currentProduct in styles
   styles.forEach(p => {
@@ -14,7 +14,7 @@ function StyleSelector() {
   });
 
   let stylesData = currProdStyles.results.map(style => {
-    return <Style url={style.photos[0]['thumbnail_url']} main={style.photos[0]['url']} style_id={style.style_id}/>
+    return <Style url={style.photos[0]['thumbnail_url']} main={style.photos[0]['url']} style_id={style.style_id} skus={style.skus}/>
   });
 
   useEffect(() => {

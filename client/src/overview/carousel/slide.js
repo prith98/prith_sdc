@@ -18,7 +18,7 @@ function Slide() {
   // }
 
   return (
-    <div className="mySlides fade" style={{width:'100%', backgroundColor:'yellow', height:'500px', display: 'block'}}>
+    <div className="mySlides fade" style={{width:'94%', backgroundColor:'yellow', height:'590px', display: 'block'}}>
       <FaExpand className="extend"/>
       <img src={mainPicture} style={{height: '100%', width: '100%', objectFit: 'cover'}}/>
     </div>

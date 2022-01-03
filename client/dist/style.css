@@ -9,15 +9,14 @@ img {vertical-align: middle;}
   min-width: 800px;
   position: relative;
   height: 500px;
-  margin-left: 10%;
-
+  margin-left: 11%;
 }
 
 /* Next & previous buttons */
-.prev, .next {
+.prev, .next, .down, .up {
   cursor: pointer;
   position: absolute;
-  top: 50%;
+  top: 57%;
   width: auto;
   padding: 16px;
   margin-top: -22px;
@@ -31,13 +30,23 @@ img {vertical-align: middle;}
 }
 
 .prev {
-	left: 63px;
+  left: 101px;
+}
+
+.up {
+  left: 33px;
+  top: 15px;
 }
 
 /* Position the "next button" to the right */
 .next {
-  right: 0;
+  right: 60px;
   border-radius: 3px 0 0 3px;
+}
+
+.down {
+  left: 33px;
+  top: 450px;
 }
 
 /* On hover, add a black background color with a little bit see-through */
@@ -46,10 +55,22 @@ img {vertical-align: middle;}
   opacity: 0.8;
 }
 
+.checkmark {
+  left: -41px;
+  top: -15px;
+  color: black;
+  position: relative;
+  border-radius: 50%;
+  height: 19px;
+  width: 19px;
+  background-color: white;
+  margin-right: -19px;
+}
+
 /* Number text (1/3 etc) */
 .extend {
-  top: 20px;
-  right: 20px;
+  top: 26px;
+  right: 77px;
   cursor: pointer;
   position: absolute;
   color: black;
@@ -65,14 +86,15 @@ textarea:focus, .searchtext:focus{
 /* The dots/bullets/indicators */
 .dot {
   cursor: pointer;
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   margin: 0 2px;
   background-color: #bbb;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   display: inline-block;
   transition: background-color 0.6s ease;
   object-fit: cover;
+  border: 1px solid RGB(82,82,82);
 }
 
 .dot-container {
@@ -82,9 +104,11 @@ textarea:focus, .searchtext:focus{
   font-size: 15px;
   padding: 8px 12px;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 33px;
+  left: 15px;
   text-align: center;
+  overflow: hidden;
+  max-height: 410px;
 }
 
 .feat {
@@ -95,7 +119,7 @@ textarea:focus, .searchtext:focus{
 .overviewsearch {
   display: flex;
   height: 77PX;
-  width: 80%;
+  width: 78%;
   background-color: RGB(82,82,82);
   margin: auto;
   align-items: center;
@@ -128,7 +152,7 @@ textarea:focus, .searchtext:focus{
 
 .addbagbutton {
   height: 56px;
-  width: 284px;
+  width: 300px;
   background-color: white;
   border: 1px solid black;
   font-size: 15px;
@@ -168,7 +192,7 @@ textarea:focus, .searchtext:focus{
 
 .quantitycarttext {
   height: 56px;
-  width: 100px;
+  width: 116px;
   background-color: white;
   border: 1px solid black;
   font-size: 15px;
@@ -181,13 +205,14 @@ textarea:focus, .searchtext:focus{
 }
 
 .poverview {
-  display:flex;
+  display: flex;
   flex-direction: row;
   width: 880px;
-  left: 15%;
+  left: 19%;
   margin-right: 5px;
   margin-top: 3%;
   position: relative;
+  top: 98px;
 }
 
 .styles-wrap {
@@ -211,7 +236,8 @@ textarea:focus, .searchtext:focus{
   display: flex;
   flex-direction: column;
   border-left: 2px solid RGB(82,82,82);
-  padding-left: 15px;
+  padding-left: 26px;
+  margin-bottom: 117px;
 }
 
 /* Fading animation */
@@ -225,7 +251,8 @@ textarea:focus, .searchtext:focus{
 .rightpanel {
   position: relative;
   margin-left: 3%;
-  right: 5px;
+  right: 64px;
+  top: 24px;
 }
 
 @-webkit-keyframes fade {
