@@ -21,12 +21,14 @@ function Qna () {
   const [showModal, setShowModal] = useState(false);
   const [numCurrentQuestions, setNumCurrentQuestions] = useState(null);
   const [currentCount, setCurrentCount] = useState(2);
+  const [limitQuestions, setLimitQuestions] = useState(null);
 
 
 
   let allQuestionsData = [];
   let currentQuestionData = [];
   let questionIDsObj = {};
+  let limitQuestionsData = [];
 
   const increaseCount = function () {
     if (numCurrentQuestions > currentCount + 2) {
@@ -72,7 +74,7 @@ function Qna () {
     <div>
       <h1 id="QAHeader">Question & Answers</h1>
       {/* Passing down all the state values to SearchQuestions and IndividualQandA */}
-      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, allQuestions, setAllQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showModal, setShowModal}}>
+      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, allQuestions, setAllQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showModal, setShowModal, limitQuestions, setLimitQuestions}}>
           <SearchQuestions />
           <IndividualQandA />
           <button id="qnaButton" onClick={increaseCount}>More Answered Questions</button>

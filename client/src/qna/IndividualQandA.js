@@ -6,7 +6,7 @@ function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, cqCopy, setCQCopy,
     allQuestions, setAllQuestions, currentQuestion, questionIDs, setQuestionIDs, currentCount, setCurrentCount,
-     setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions} = useContext(MainContext);
+     setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions} = useContext(MainContext);
   const [currentAnswers, setCurrentAnswers] = useState(null);
 
   let currentAnswersData = [];
