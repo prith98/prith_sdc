@@ -3,39 +3,76 @@ import Rnr from '../../rnr.js';
 import Reviews from './reviews.js';
 import { MainContext } from '../../../contexts/contexts.js';
 
-function Review() {
-  const { products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered, reviewIndex, setReviewIndex } = useContext(MainContext);
+function Review(reviewData) {
+  const { products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered } = useContext(MainContext);
+
+  //   reviewData:
+  // body: "Great outfit for huntin clams!"
+  // date: "2021-11-09T00:00:00.000Z"
+  // helpfulness: 5
+  // photos: []
+  // rating: 5
+  // recommend: true
+  // response: null
+  // review_id: 1094634
+  // reviewer_name: "Clamboni"
+  // summary: "Clams"
+
+  let reviewYear = reviewData.reviewData.date.slice(0, 4);
+  let reviewMonth = reviewData.reviewData.date.slice(5, 7);
+  let reviewDay = reviewData.reviewData.date.slice(8, 10);
+
+  let monthArray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  if (reviewMonth[0] === '0') {
+    reviewMonth = monthArray[reviewMonth[1] - 1];
+  } else {
+    reviewMonth = monthArray[reviewMonth - 1];
+  }
+
+  if (reviewDay[0] === '0') {
+    reviewDay = reviewDay[1];
+  }
 
   return (
     <div className="review">
-      <div className="star-rating">
+      <div className="review-star-rating">
         Star Rating
       </div>
-      <div className="verified">
-        Verified
+      <div className="review-user-header">
+        Verified, {reviewData.reviewData.reviewer_name}, {reviewMonth} {reviewDay}, {reviewYear}
       </div>
-      <div className="review-date">
-        Review Date
-      </div>
-      <div className="review-title">
-        Review Title
+      <div className="review-summary">
+        {reviewData.reviewData.summary}
       </div>
       <div className="review-body">
-        Review Body
+        {reviewData.reviewData.body}
       </div>
-      <div className="recommend">
-        Recommend
+      <div className="review-recommend">
+        {reviewData.reviewData.recommend === true ? 'I recommend this product' : ''}
       </div>
-      <div className="response">
-        Response
+      <div className="review-response">
+        {reviewData.reviewData.response === null ? '' : reviewData.reviewData.response}
       </div>
-      <div className="helpful">
-        Helpful
-      </div>
-      <div className="report">
-        Report
+      <div className="review-footer">
+        <div className="review-helpful">
+          Helfpul?
+        </div>
+        <div className="review-yes">
+          Yes
+        </div>
+        <div className="review-helpful-count">
+          &#40;{reviewData.reviewData.helpfulness}&#41;
+        </div>
+        <div className="review-spacer">
+          |
+        </div>
+        <div className="review-report">
+          Report
+        </div>
       </div>
     </div>
+
   )
 }
 
