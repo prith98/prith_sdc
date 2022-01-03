@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import {MainContext} from '../contexts/contexts.js'
 import axios from 'axios';
-import { Form } from './Form.js';
+// import { Form } from './Form.js';
 
 
 function AddQuestion () {
@@ -21,11 +21,11 @@ function AddQuestion () {
     }
   }
 
-  const onSubmit = (event) => {
-    // event.preventDefault(event);
-    console.log(event.target.name.value);
-    console.log(event.target.email.value);
-  }
+  // const onSubmit = (event) => {
+  //   // event.preventDefault(event);
+  //   console.log(event.target.name.value);
+  //   console.log(event.target.email.value);
+  // }
 
   return ReactDOM.createPortal(
     <div className="container" ref={modalRef} onClick={closeModal}>
@@ -34,12 +34,12 @@ function AddQuestion () {
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="question">Question (MANDATORY FIELD)</label>
-            <input className="form-control" id="qnaFormQuestion" />
+            <input className="form-control" id="qnaFormQuestion" type="text" />
           </div>
           <div className="form-group">
             <label htmlFor="nickname">Nickname (MANDATORY FIELD)</label>
             <input
-              type="name"
+              type="text"
               className="form-control"
               id="qnaFormNickname"
               placeholder="jackson11!"
@@ -48,7 +48,7 @@ function AddQuestion () {
           <div className="form-group">
             <label htmlFor="email">Email address (MANDATORY FIELD)</label>
             <input
-              type="email"
+              type="text"
               className="form-control"
               id="email"
               placeholder="Why did you like this product or not?"
