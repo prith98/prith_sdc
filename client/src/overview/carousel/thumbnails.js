@@ -20,6 +20,7 @@ function Thumbnails() {
 
   let stylesData = currProdStyles.results.map(style => {
     if (style.style_id === currStyle) {
+      console.log(style);
       photos = style.photos;
       setThumbnailCount(photos.length);
     }
@@ -28,6 +29,7 @@ function Thumbnails() {
     if (thumbnailsArr.length === 0) {
       for (let i = 0; i < photos.length - 1; i++) {
         let photo = photos[i + thumbnailIncrement];
+        console.log(photo);
         mainPhotosArr.push(photo['url']);
         thumbnailsArr.push(<Thumbnail url={photo['thumbnail_url']} photo={photo} count={photo.length}/>);
       }
