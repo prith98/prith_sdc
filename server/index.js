@@ -20,6 +20,10 @@ app.get('/*', (req, res) => {
   Axios.get(URL + req.originalUrl, config).then((response) => {res.send(response.data)});
 });
 
+app.post('/*', (req, res) => {
+  Axios.post(URL + req.originalUrl, req.body, config).then((response) => {res.send(response.data)});
+});
+
 app.put('/*', (req, res) => {
   Axios.put(URL + req.originalUrl, req.body, config).then((response) => {res.send("success")});
 });
