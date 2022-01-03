@@ -4,7 +4,7 @@ import Axios from 'axios';
 
 function SearchQuestions (props) {
 
-  const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy, currentQuestion, setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions} = useContext(MainContext);
+  const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy, currentQuestion, setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions} = useContext(MainContext);
 
   // Handles text change in query
   const onFormChange = function(e) {
@@ -17,9 +17,9 @@ function SearchQuestions (props) {
   const onQueryChange = function () {
     let filter = filteredQuestion();
     if (query.length >= 3) {
-      setCurrentQuestion(filter);
+      setLimitQuestions(filter);
     } else {
-      setCurrentQuestion(cqCopy)
+      setLimitQuestions(cqCopy)
     }
   }
 

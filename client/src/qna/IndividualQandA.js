@@ -93,14 +93,15 @@ function IndividualQandA () {
   useEffect(() => {
 
     let isMounted = true;
-    if(isMounted) {
       limitQuestions && limitQuestions.length && limitQuestions.forEach((question) => {
         currentAnswersData.push(axios.get('/qa/questions/' + question.question_id + '/answers').then((result) => { return result.data; }));
       });
       Promise.all(currentAnswersData).then((values) => {
-        setCurrentAnswers(values);
+        if (isMounted) {
+          setCurrentAnswers(values);
+        }
       });
-    }
+
     return () => { isMounted = false };
 
   }, []);
@@ -119,9 +120,11 @@ function IndividualQandA () {
   }
 
   return (
+
     <div>
       {/* Dynamically renders questions from currentQuestion prop in the format of Question, then Answer, then asker name, date asked, helpful, how many people found it helpful, and report*/}
-      {limitQuestions.map(oneQuestion => {
+
+      {limitQuestions ? limitQuestions.map(oneQuestion => {
         let answerArray = Object.values(oneQuestion.answers);
         let finalAnswers = answerArray.map(oneAnswer => {
           return (
@@ -140,7 +143,7 @@ function IndividualQandA () {
             <div id="answers">{finalAnswers}</div>
           </div>
         )
-      })}
+      }): console.log('hello')}
     </div>
   )
 
