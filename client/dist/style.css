@@ -308,7 +308,11 @@ input#QASearch {
   position: relative;
 }
 
-span.report{
+span.reportAnswer{
+  cursor: pointer;
+}
+
+span.addAnswer{
   cursor: pointer;
 }
 

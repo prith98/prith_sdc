@@ -21,14 +21,17 @@ function Qna () {
   const [showModal, setShowModal] = useState(false);
   const [numCurrentQuestions, setNumCurrentQuestions] = useState(null);
   const [currentCount, setCurrentCount] = useState(2);
+  const [limitQuestions, setLimitQuestions] = useState(null);
 
 
 
   let allQuestionsData = [];
   let currentQuestionData = [];
   let questionIDsObj = {};
+  let limitQuestionsData = [];
 
   const increaseCount = function () {
+    console.log(numCurrentQuestions)
     if (numCurrentQuestions > currentCount + 2) {
       setCurrentCount(currentCount + 2);
       console.log(currentCount)
@@ -48,6 +51,8 @@ function Qna () {
 
     // Getting all the questions for the specified currentProductId and storing it in currentQuestionData as a promisified object
     currentQuestionData.push(axios.get('/qa/questions?product_id=' + currentProductId + '&page=1&count=100').then((result) => { return result.data; }));
+    limitQuestionsData.push(axios.get('/qa/questions?product_id=' + currentProductId + '&page=1&count=' + currentCount).then((result) => { return result.data; }));
+
 
 
     // Iterate over Promisified array to see if each promise resolves, if they do, then the output will be the specific data
@@ -63,8 +68,11 @@ function Qna () {
       }
       setQuestionIDs(questionIDsObj);
       setNumCurrentQuestions(values[0].results.length);
-    })
-  }, []);
+    });
+    Promise.all(limitQuestionsData).then((values) => {
+      setLimitQuestions(values[0].results)
+    });
+  }, [currentCount]);
 
 
 
@@ -72,7 +80,7 @@ function Qna () {
     <div>
       <h1 id="QAHeader">Question & Answers</h1>
       {/* Passing down all the state values to SearchQuestions and IndividualQandA */}
-      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, allQuestions, setAllQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showModal, setShowModal}}>
+      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, allQuestions, setAllQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showModal, setShowModal, limitQuestions, setLimitQuestions}}>
           <SearchQuestions />
           <IndividualQandA />
           <button id="qnaButton" onClick={increaseCount}>More Answered Questions</button>

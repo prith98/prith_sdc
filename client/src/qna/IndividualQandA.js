@@ -6,7 +6,7 @@ function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, cqCopy, setCQCopy,
     allQuestions, setAllQuestions, currentQuestion, questionIDs, setQuestionIDs, currentCount, setCurrentCount,
-     setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions} = useContext(MainContext);
+     setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions} = useContext(MainContext);
   const [currentAnswers, setCurrentAnswers] = useState(null);
 
   let currentAnswersData = [];
@@ -24,7 +24,7 @@ function IndividualQandA () {
   // Updates the currentQuestion list to show that the YES count has increased
   const updateCPID = function() {
     axios
-      .get('/qa/questions?product_id=' + currentProductId)
+      .get('/qa/questions?product_id=' + currentProductId + '&page=1&count=100')
       .then((result) => {
         setCurrentQuestion(result.data.results);
       })
@@ -41,8 +41,18 @@ function IndividualQandA () {
       .then(() => {updateCPID()})
   }
 
-  const reportQuestion = function(e) {
-
+  // Send a PUT Request for a specific answer ID to mark the question as reported on the database
+  const reportAnswer = function(e) {
+    let aID = e.currentTarget.dataset.id;
+    console.log(aID);
+    axios
+      .put('/qa/questions/' + aID + '/report')
+      .then(() => {
+        alert('Reported Answer ' + aID + '.')
+      })
+      .then(() => {
+        updateCPID()
+      })
   }
 
 
@@ -82,7 +92,7 @@ function IndividualQandA () {
 
   useEffect(() => {
 
-    currentQuestion && currentQuestion.length && currentQuestion.forEach((question) => {
+    limitQuestions && limitQuestions.length && limitQuestions.forEach((question) => {
       currentAnswersData.push(axios.get('/qa/questions/' + question.question_id + '/answers').then((result) => { return result.data; }));
     });
     Promise.all(currentAnswersData).then((values) => {
@@ -90,7 +100,7 @@ function IndividualQandA () {
     });
 
 
-  }, [currentQuestion]);
+  }, [limitQuestions]);
 
 
 
@@ -108,13 +118,13 @@ function IndividualQandA () {
   return (
     <div>
       {/* Dynamically renders questions from currentQuestion prop in the format of Question, then Answer, then asker name, date asked, helpful, how many people found it helpful, and report*/}
-      {currentQuestion.map(oneQuestion => {
+      {limitQuestions.map(oneQuestion => {
         let answerArray = Object.values(oneQuestion.answers);
         let finalAnswers = answerArray.map(oneAnswer => {
           return (
             <div key={oneAnswer.id}>
               <div className="answerBody">A: {oneAnswer.body}</div>
-              <div className="answerBottomText">by {oneAnswer.answerer_name}, {oneAnswer.date.slice(0,10)}   |   Helpful? <span className="helpfulYes" data-id={oneAnswer.id} onClick={updateAHelpful}><u>Yes</u></span>({oneAnswer.helpfulness})   |  <span className="report"><u>Report</u></span></div>
+              <div className="answerBottomText">by {oneAnswer.answerer_name}, {oneAnswer.date.slice(0,10)}   |   Helpful? <span className="helpfulYes" data-id={oneAnswer.id} onClick={updateAHelpful}><u>Yes</u></span>({oneAnswer.helpfulness})   |  <span data-id={oneAnswer.id.toString()} className="reportAnswer" onClick={reportAnswer}><u>Report</u></span></div>
             </div>
           );
         });
@@ -122,7 +132,7 @@ function IndividualQandA () {
           <div key={oneQuestion.question_id} className="individualQA">
             <div>
               Q: {oneQuestion.question_body}
-              <span> by {oneQuestion.asker_name}, Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <span className="helpfulYes" data-id={oneQuestion.question_id} onClick={updateQHelpful}><u>Yes</u></span> ({oneQuestion.question_helpfulness})   | <span className="report"> <u> Add Answer </u></span> </span>
+              <span> by {oneQuestion.asker_name}, Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <span className="helpfulYes" data-id={oneQuestion.question_id} onClick={updateQHelpful}><u>Yes</u></span> ({oneQuestion.question_helpfulness})   | <span className="addAnswer"> <u> Add Answer </u></span> </span>
             </div>
             <div id="answers">{finalAnswers}</div>
           </div>
