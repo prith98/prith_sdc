@@ -8,6 +8,7 @@ function IndividualQandA () {
     allQuestions, setAllQuestions, currentQuestion, questionIDs, setQuestionIDs,
      setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions} = useContext(MainContext);
   const [currentAnswers, setCurrentAnswers] = useState(null);
+  const [currentCount, setCurrentCount] = useState(0);
 
   let currentAnswersData = [];
   let questionIDsArray = [];

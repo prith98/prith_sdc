@@ -20,12 +20,20 @@ function Qna () {
   const [questionIDs, setQuestionIDs] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [numCurrentQuestions, setNumCurrentQuestions] = useState(null);
+  const [currentCount, setCurrentCount] = useState(2);
+
 
 
   let allQuestionsData = [];
   let currentQuestionData = [];
   let questionIDsObj = {};
 
+  const increaseCount = function () {
+    if (numCurrentQuestions > currentCount + 2) {
+      setCurrentCount(currentCount + 2);
+      console.log(currentCount)
+    }
+  }
 
   const openModal = function () {
     setShowModal(true);
@@ -67,7 +75,8 @@ function Qna () {
       <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, allQuestions, setAllQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showModal, setShowModal}}>
           <SearchQuestions />
           <IndividualQandA />
-          <button id="qnaButton" onClick={openModal}>Add A Question</button>
+          <button id="qnaButton" onClick={increaseCount}>More Answered Questions</button>
+          <button id="qnaButton" onClick={openModal}>Add A Question +</button>
           {showModal ? <AddQuestion setShowModal={setShowModal} /> : null}
       </MainContext.Provider>
     </div>
