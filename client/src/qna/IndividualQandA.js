@@ -92,13 +92,16 @@ function IndividualQandA () {
 
   useEffect(() => {
 
-    limitQuestions && limitQuestions.length && limitQuestions.forEach((question) => {
-      currentAnswersData.push(axios.get('/qa/questions/' + question.question_id + '/answers').then((result) => { return result.data; }));
-    });
-    Promise.all(currentAnswersData).then((values) => {
-      setCurrentAnswers(values);
-    });
-
+    let isMounted = true;
+    if(isMounted) {
+      limitQuestions && limitQuestions.length && limitQuestions.forEach((question) => {
+        currentAnswersData.push(axios.get('/qa/questions/' + question.question_id + '/answers').then((result) => { return result.data; }));
+      });
+      Promise.all(currentAnswersData).then((values) => {
+        setCurrentAnswers(values);
+      });
+    }
+    return () => { isMounted = false };
 
   }, []);
 
