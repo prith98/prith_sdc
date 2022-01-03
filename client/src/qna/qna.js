@@ -46,35 +46,6 @@ function Qna () {
 
     let isMounted = true;
     // Getting all of the data from the questions API and storing it in allQuestionsData Array as a promisified object
-<<<<<<< HEAD
-    products.forEach((product) => {
-      allQuestionsData.push(axios.get('/qa/questions?product_id=' + product.id).then((result) => { return result.data; }));
-    });
-
-    // Getting all the questions for the specified currentProductId and storing it in currentQuestionData as a promisified object
-    currentQuestionData.push(axios.get('/qa/questions?product_id=' + currentProductId + '&page=1&count=100').then((result) => { return result.data; }));
-    limitQuestionsData.push(axios.get('/qa/questions?product_id=' + currentProductId + '&page=1&count=' + currentCount).then((result) => { return result.data; }));
-
-
-
-    // Iterate over Promisified array to see if each promise resolves, if they do, then the output will be the specific data
-    // use the relevant setter to set state
-    Promise.all(allQuestionsData).then((values) => {
-      setAllQuestions(values);
-    });
-    Promise.all(currentQuestionData).then((values) => {
-      setCurrentQuestion(values[0].results);
-      setCQCopy(values[0].results);
-      for (let i = 0; i < values[0].results.length; i++) {
-        questionIDsObj[values[0].results[i]["question_id"]] = true;
-      }
-      setQuestionIDs(questionIDsObj);
-      setNumCurrentQuestions(values[0].results.length);
-    });
-    Promise.all(limitQuestionsData).then((values) => {
-      setLimitQuestions(values[0].results)
-    });
-=======
     if (isMounted) {
       products.forEach((product) => {
         allQuestionsData.push(axios.get('/qa/questions?product_id=' + product.id).then((result) => { return result.data; }));
@@ -105,7 +76,6 @@ function Qna () {
       })
     }
     return () => { isMounted = false };
->>>>>>> temp
   }, [currentCount]);
 
 
