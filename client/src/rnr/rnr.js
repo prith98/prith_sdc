@@ -22,7 +22,7 @@ function Rnr() {
   } else {
     return (
       <MainContext.Provider value={{ products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered }}>
-        <div className="ratingsAndReviews">
+        <div id="rnr" className="ratingsAndReviews">
           <div className="ratingsAndReviews-title">
             Ratings and Reviews
           </div>

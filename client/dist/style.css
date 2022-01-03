@@ -423,7 +423,6 @@ span.helpfulYes{
   position: relative;
   width: 100%;
   margin-bottom: 15px;
-  border: 2px solid purple;
 }
 
 .review-summary {
@@ -470,4 +469,8 @@ span.helpfulYes{
 .review-report {
   display: inline-block;
   text-decoration: underline;
+}
+
+review-horizontal-spacer.solid {
+  border-top: 3px solid black;
 }
