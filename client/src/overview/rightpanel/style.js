@@ -21,7 +21,7 @@ function Style(props) {
   }
 
   if (props.style_id === currStyle) {
-    active = 'change';
+
   }
 
 
