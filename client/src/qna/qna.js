@@ -19,6 +19,7 @@ function Qna () {
   const [filteredQuestions, setFilteredQuestions] = useState(null);
   const [questionIDs, setQuestionIDs] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [numCurrentQuestions, setNumCurrentQuestions] = useState(null);
 
 
   let allQuestionsData = [];
@@ -38,7 +39,7 @@ function Qna () {
     });
 
     // Getting all the questions for the specified currentProductId and storing it in currentQuestionData as a promisified object
-    currentQuestionData.push(axios.get('/qa/questions?product_id=' + currentProductId).then((result) => { return result.data; }));
+    currentQuestionData.push(axios.get('/qa/questions?product_id=' + currentProductId + '&page=1&count=100').then((result) => { return result.data; }));
 
 
     // Iterate over Promisified array to see if each promise resolves, if they do, then the output will be the specific data
@@ -53,6 +54,7 @@ function Qna () {
         questionIDsObj[values[0].results[i]["question_id"]] = true;
       }
       setQuestionIDs(questionIDsObj);
+      setNumCurrentQuestions(values[0].results.length);
     })
   }, []);
 
@@ -62,7 +64,7 @@ function Qna () {
     <div>
       <h1 id="QAHeader">Question & Answers</h1>
       {/* Passing down all the state values to SearchQuestions and IndividualQandA */}
-      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, allQuestions, setAllQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showModal, setShowModal}}>
+      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, allQuestions, setAllQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showModal, setShowModal}}>
           <SearchQuestions />
           <IndividualQandA />
           <button id="qnaButton" onClick={openModal}>Add A Question</button>
