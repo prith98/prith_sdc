@@ -100,7 +100,11 @@ function IndividualQandA () {
     });
 
 
+<<<<<<< HEAD
   }, [limitQuestions]);
+=======
+  }, []);
+>>>>>>> temp
 
 
 
