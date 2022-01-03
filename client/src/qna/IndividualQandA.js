@@ -110,7 +110,7 @@ function IndividualQandA () {
           return (
             <div key={oneAnswer.id}>
               <div className="answerBody">A: {oneAnswer.body}</div>
-              <div className="answerBottomText">by {oneAnswer.answerer_name}, {oneAnswer.date.slice(0,10)}   |   Helpful? <span data-id={oneAnswer.id} onClick={updateAHelpful}><u>Yes</u></span>({oneAnswer.helpfulness})   |   <u>Report</u></div>
+              <div className="answerBottomText">by {oneAnswer.answerer_name}, {oneAnswer.date.slice(0,10)}   |   Helpful? <span className="helpfulYes" data-id={oneAnswer.id} onClick={updateAHelpful}><u>Yes</u></span>({oneAnswer.helpfulness})   |   <u>Report</u></div>
             </div>
           );
         });
@@ -118,7 +118,7 @@ function IndividualQandA () {
           <div key={oneQuestion.question_id} className="individualQA">
             <div>
               Q: {oneQuestion.question_body}
-              <span> by {oneQuestion.asker_name}, Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <span data-id={oneQuestion.question_id} onClick={updateQHelpful}><u>Yes</u></span> ({oneQuestion.question_helpfulness})   |   <u> Add Answer </u> </span>
+              <span> by {oneQuestion.asker_name}, Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <span className="helpfulYes" data-id={oneQuestion.question_id} onClick={updateQHelpful}><u>Yes</u></span> ({oneQuestion.question_helpfulness})   |   <u> Add Answer </u> </span>
             </div>
             <div id="answers">{finalAnswers}</div>
           </div>

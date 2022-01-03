@@ -276,14 +276,14 @@ h1#QAHeader{
 input#QASearch {
   width: 80%;
   padding: 12px 20px;
-  margin-left: 180px;
+  margin-left: 250px;
   box-sizing: border-box;
   position: relative;
 }
 
 
 button#qnaButton {
-  margin-left: 182px;
+  margin-left: 250px;
   position: relative;
   padding: 13px 29px;
   font-size: 1rem;
@@ -293,6 +293,10 @@ button#qnaButton {
   outline: none;
   background: crimson;
   color: white;
+  cursor: pointer;
+}
+
+span.helpfulYes{
   cursor: pointer;
 }
 
