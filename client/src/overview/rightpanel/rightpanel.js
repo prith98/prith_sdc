@@ -102,8 +102,6 @@ function RightPanel() {
 
   }
 
-  console.log(status);
-
   return (
       <div className="rightpanel" >
         <div style={{marginBottom: '8px', fontFamiliy: 'sans-serif', color: 'RGB(82,82,82)', fontSize: '13px', display: 'inline-flex', alignItems: 'baseline'}}>★ ★ ★ ★ ☆ <div style={{marginLeft: '5px', fontFamiliy: 'sans-serif', color: 'RGB(82,82,82)', fontSize: '11px', textDecoration: 'underline'}}>Read all reviews</div></div>
