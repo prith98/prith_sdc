@@ -82,7 +82,7 @@ function IndividualQandA () {
 
   useEffect(() => {
 
-    currentQuestion && currentQuestion.length && currentQuestion.forEach((question) => {
+    limitQuestions && limitQuestions.length && limitQuestions.forEach((question) => {
       currentAnswersData.push(axios.get('/qa/questions/' + question.question_id + '/answers').then((result) => { return result.data; }));
     });
     Promise.all(currentAnswersData).then((values) => {
@@ -90,7 +90,7 @@ function IndividualQandA () {
     });
 
 
-  }, [currentQuestion]);
+  }, []);
 
 
 
@@ -108,7 +108,7 @@ function IndividualQandA () {
   return (
     <div>
       {/* Dynamically renders questions from currentQuestion prop in the format of Question, then Answer, then asker name, date asked, helpful, how many people found it helpful, and report*/}
-      {currentQuestion.map(oneQuestion => {
+      {limitQuestions.map(oneQuestion => {
         let answerArray = Object.values(oneQuestion.answers);
         let finalAnswers = answerArray.map(oneAnswer => {
           return (
