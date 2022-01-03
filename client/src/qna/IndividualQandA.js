@@ -24,7 +24,7 @@ function IndividualQandA () {
   // Updates the currentQuestion list to show that the YES count has increased
   const updateCPID = function() {
     axios
-      .get('/qa/questions?product_id=' + currentProductId + '&page=1&count=' + currentCount)
+      .get('/qa/questions?product_id=' + currentProductId + '&count=' + currentCount)
       .then((result) => {
         setLimitQuestions(result.data.results);
       })

@@ -21,11 +21,20 @@ function AddQuestion () {
     }
   }
 
-  // const onSubmit = (event) => {
-  //   // event.preventDefault(event);
-  //   console.log(event.target.name.value);
-  //   console.log(event.target.email.value);
-  // }
+  const onSubmit = (event) => {
+    event.preventDefault(event);
+    // console.log(event.target.nickname.value);
+    // console.log(event.target.email.value);
+    // console.log(event.target.qnaFormQuestion.value)
+    let payload = {
+      "body": event.target.qnaFormQuestion.value,
+      "name": event.target.nickname.value,
+      "email": event.target.email.value,
+      "product_id": currentProductId
+    }
+    console.log(payload)
+    // alert('Your question has been submitted')
+  }
 
   return ReactDOM.createPortal(
     <div className="container" ref={modalRef} onClick={closeModal}>
@@ -39,23 +48,23 @@ function AddQuestion () {
           <div className="form-group">
             <label htmlFor="nickname">Nickname (MANDATORY FIELD)</label>
             <input
-              type="text"
+              type="nickname"
               className="form-control"
-              id="qnaFormNickname"
+              id="nickname"
               placeholder="jackson11!"
             />
           </div>
           <div className="form-group">
             <label htmlFor="email">Email address (MANDATORY FIELD)</label>
             <input
-              type="text"
+              type="email"
               className="form-control"
               id="email"
               placeholder="Why did you like this product or not?"
             />
           </div>
+          <input type="submit" value="SubmitQuestion"></input>
         </form>
-        <button id="formSubmit">Submit Question</button>
       </div>
     </div>,
     document.getElementById("app")
