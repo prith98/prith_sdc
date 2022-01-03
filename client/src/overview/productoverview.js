@@ -9,6 +9,7 @@ function ProductOverview() {
   if (productInformation == null) {
     return <div>Loading...</div>
   }
+
   let {slogan, description, features} = productInformation[0];
   let featuresList = features.map(feature => {
     let text = ' ' + feature['value'] + ' ' + feature['feature'];
@@ -17,7 +18,7 @@ function ProductOverview() {
 
   return (
   <div className="poverview">
-    <div>
+    <div style={{width: '625px', marginRight: '32px'}}>
       <div style={{fontFamiliy: 'sans-serif', fontSize: '17px', fontWeight: 'bold', color: 'RGB(82,82,82)'}}>{slogan}</div>
       <br />
       <div style={{fontFamiliy: 'sans-serif', fontSize: '12px', color: 'RGB(82,82,82)'}}>{description}</div>

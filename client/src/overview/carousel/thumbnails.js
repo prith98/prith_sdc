@@ -5,10 +5,11 @@ import Thumbnail from './thumbnail.js'
 import Arrows from './arrows.js';
 
 function Thumbnails() {
-  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures} = useContext(MainContext);
+  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, thumbnailCount, setThumbnailCount, loadNextThumbnail, setLoadNextThumbnail, thumbnailIncrement, setThumbnailIncrement} = useContext(MainContext);
   let photos;
   let currProdStyles;
   var mainPhotosArr = [];
+  let thumbnailsArr = [];
 
    //Find currentProduct in styles
    styles.forEach(p => {
@@ -19,14 +20,21 @@ function Thumbnails() {
 
   let stylesData = currProdStyles.results.map(style => {
     if (style.style_id === currStyle) {
+      console.log(style);
       photos = style.photos;
+      setThumbnailCount(photos.length);
     }
   });
 
-  let thumbnailsArr = photos.map(photo => {
-    mainPhotosArr.push(photo['url']);
-    return <Thumbnail url={photo['thumbnail_url']} photo={photo}/>
-  });
+    if (thumbnailsArr.length === 0) {
+      for (let i = 0; i < photos.length - 1; i++) {
+        let photo = photos[i + thumbnailIncrement];
+        console.log(photo);
+        mainPhotosArr.push(photo['url']);
+        thumbnailsArr.push(<Thumbnail url={photo['thumbnail_url']} photo={photo} count={photo.length}/>);
+      }
+    }
+
 
   if (mainPictures == null) {
     setMainPictures(mainPhotosArr);
@@ -37,10 +45,6 @@ function Thumbnails() {
     setMainPictures(mainPhotosArr);
     return <div>Loading...</div>
   }
-
-  // if (mainPhotosArr[0] !== mainPictures[0]) {
-  //   setMainPictures(mainPhotosArr);
-  // }
 
   return (
     <div className="dot-container">
