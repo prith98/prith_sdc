@@ -38,6 +38,23 @@ function Qna () {
     }
   }
 
+  const updateCPID = () => {
+    if (showAllQuestions) {
+    axios
+      .get('/qa/questions?product_id=' + currentProductId + '&count=100')
+      .then((result) => {
+        setLimitQuestions(result.data.results);
+      })
+    } else if (!showAllQuestions) {
+      axios
+        .get('/qa/questions?product_id=' + currentProductId + '&count=100')
+        .then((result) => {
+          setCurrentQuestion(result.data.results)
+          setLimitQuestions(result.data.results.slice(0, 2));
+        })
+      }
+  }
+
   const showAllQ = function() {
     if (!showAllQuestions) {
       setShowAllQuestions(true);
@@ -96,7 +113,7 @@ function Qna () {
           <IndividualQandA />
           <button id="qnaButton" onClick={showAllQ}>More Answered Questions</button>
           <button id="qnaButton" onClick={openModal}>Add A Question +</button>
-          {showModal ? <AddQuestion setShowModal={setShowModal} /> : null}
+          {showModal ? <AddQuestion setShowModal={setShowModal} updateCPID={updateCPID}/> : null}
       </MainContext.Provider>
     </div>
   );

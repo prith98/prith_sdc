@@ -23,16 +23,21 @@ function AddQuestion () {
 
   const onSubmit = (event) => {
     event.preventDefault(event);
-    // console.log(event.target.nickname.value);
-    // console.log(event.target.email.value);
-    // console.log(event.target.qnaFormQuestion.value)
     let payload = {
       "body": event.target.qnaFormQuestion.value,
       "name": event.target.nickname.value,
       "email": event.target.email.value,
       "product_id": currentProductId
     }
-    console.log(payload)
+    axios
+      .post('/qa/questions', payload)
+      .then(() => {
+        console.log('Submitted Question')
+        alert('Submitted Question')
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     // alert('Your question has been submitted')
   }
 
