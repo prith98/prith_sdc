@@ -7,17 +7,17 @@ import axios from 'axios';
 function AddAnswer (props) {
 
   const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy,
-     showModal, setShowModal, currentQuestion, setCurrentQuestion, limitQuestions, setLimitQuestions} = useContext(MainContext);
+     showAnswerModal, setShowAnswerModal, currentQuestion, setCurrentQuestion, limitQuestions, setLimitQuestions, qIDAnswer, setqIDAnswer} = useContext(MainContext);
 
   const modalRef = useRef();
 
-  const openModal = function () {
-    setShowModal(true);
+  const openAnswerModal = function () {
+    setShowAnswerModal(true);
   }
 
-  const closeModal = function (e) {
+  const closeAnswerModal = function (e) {
     if (e.target === modalRef.current) {
-      setShowModal(false);
+      setShowAnswerModal(false);
     }
   }
 
@@ -28,7 +28,7 @@ function AddAnswer (props) {
       "name": event.target.nickname.value,
       "email": event.target.email.value    }
     axios
-      .post('/qa/questions', payload)
+      .post('/qa/questions' + qIDAnswer + '/answers', payload)
       .then(() => {
         props.updateCPID()
       })
@@ -42,12 +42,12 @@ function AddAnswer (props) {
   }
 
   return ReactDOM.createPortal(
-    <div className="container" ref={modalRef} onClick={closeModal}>
+    <div className="container" ref={modalRef} onClick={closeAnswerModal}>
       <div className="modal">
-        <h2 id="formQF">Question Fields</h2>
+        <h2 id="formQF">Answer Fields</h2>
         <form onSubmit={onSubmit}>
           <div className="form-group">
-            <label htmlFor="question">Question (MANDATORY FIELD)</label>
+            <label htmlFor="question">Answer (MANDATORY FIELD)</label>
             <input className="form-control" id="qnaFormQuestion" type="text" />
           </div>
           <div className="form-group">
@@ -74,6 +74,7 @@ function AddAnswer (props) {
     </div>,
     document.getElementById("app")
   );
+
 
 
 }

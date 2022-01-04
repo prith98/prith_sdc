@@ -10,7 +10,7 @@ function AddQuestion (props) {
 
   const modalRef = useRef();
 
-  const openModal = function () {
+  const openQuestionModal = function () {
     setShowQuestionModal(true);
   }
 

@@ -5,7 +5,7 @@ import axios from 'axios';
 function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, cqCopy, setCQCopy,
-    currentQuestion, questionIDs, setQuestionIDs, currentCount, setCurrentCount,
+    currentQuestion, questionIDs, setQuestionIDs, currentCount, setCurrentCount, showAnswerModal, setShowAnswerModal,
      setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer} = useContext(MainContext);
   const [currentAnswers, setCurrentAnswers] = useState(null);
 
@@ -98,6 +98,7 @@ function IndividualQandA () {
     let qID = e.currentTarget.dataset.id
     console.log(qID);
     setqIDAnswer(e.currentTarget.dataset.id);
+    setShowAnswerModal(true);
   }
 
   useEffect(() => {

@@ -4,6 +4,7 @@ import axios from 'axios';
 import IndividualQandA from '/client/src/qna/IndividualQandA.js';
 import SearchQuestions from '/client/src/qna/SearchQuestions.js';
 import AddQuestion from '/client/src/qna/AddQuestion.js';
+import AddAnswer from '/client/src/qna/AddAnswer.js';
 
 function Qna () {
 
@@ -14,6 +15,7 @@ function Qna () {
   const [filteredQuestions, setFilteredQuestions] = useState(null);
   const [questionIDs, setQuestionIDs] = useState(null);
   const [showQuestionModal, setShowQuestionModal] = useState(false);
+  const [showAnswerModal, setShowAnswerModal] = useState(false);
   const [numCurrentQuestions, setNumCurrentQuestions] = useState(null);
   const [currentCount, setCurrentCount] = useState(4);
   const [limitQuestions, setLimitQuestions] = useState(null);
@@ -64,7 +66,7 @@ function Qna () {
     }
   }
 
-  const openModal = function () {
+  const openQuestionModal = function () {
     setShowQuestionModal(true);
   }
 
@@ -102,12 +104,13 @@ function Qna () {
     <div>
       <h1 id="QAHeader">Question & Answers</h1>
       {/* Passing down all the state values to SearchQuestions and IndividualQandA */}
-      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showQuestionModal, setShowQuestionModal, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer}}>
+      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showQuestionModal, setShowQuestionModal, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer, showAnswerModal, setShowAnswerModal}}>
           <SearchQuestions />
           <IndividualQandA />
           <button id="qnaButton" onClick={showAllQ}>More Answered Questions</button>
-          <button id="qnaButton" onClick={openModal}>Add A Question +</button>
+          <button id="qnaButton" onClick={openQuestionModal}>Add A Question +</button>
           {showQuestionModal ? <AddQuestion setShowQuestionModal={setShowQuestionModal} updateCPID={updateCPID}/> : null}
+          {showAnswerModal ? <AddAnswer /> : null}
       </MainContext.Provider>
     </div>
   );
