@@ -3,11 +3,14 @@ import {MainContext} from '../../contexts/contexts.js'
 import Axios from 'axios';
 import StyleSelector from './styleselector.js';
 var status;
-
+var select_size = true;
 function RightPanel() {
   const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, size, setSize, quantityList, setQuantityList, isActive, setIsActive} = useContext(MainContext);
+  const [selectSizeWarning, setSelectSizeWarning] = useState(false);
   let sale = false;
   let price;
+  let quantity = 1;
+  let sku_id;
 
   if (productInformation == null) {
     return <div>Loading...</div>
@@ -32,7 +35,7 @@ function RightPanel() {
 
   if (currentStyleData['sale_price'] !== null) {
     var oldPrice = (<div style={{textDecoration: 'line-through'}}>${currentStyleData['original_price'].split('.')[0]}</div>)
-    var newPrice = (<div style={{color: 'red', fontWeight: 'bold', marginLeft: '5px'}}>${currentStyleData['sale_price'].split('.')[0]}</div>)
+    var newPrice = (<div style={{color: 'rgb(220,20,60)', fontWeight: 'bold', marginLeft: '5px'}}>${currentStyleData['sale_price'].split('.')[0]}</div>)
     var salePriceDiv = (<div style={{marginBottom: '20px', fontSize: '14px', color: 'RGB: (197, 49, 45)', display: 'flex'}}>{oldPrice}{newPrice}</div>);
     sale = true;
   } else {
@@ -86,6 +89,11 @@ function RightPanel() {
   };
 
   function changeSizeQuantity(e) {
+    if (e.target.value === 'Select Size') {
+      select_size = true;
+    } else {
+      select_size = false;
+    }
       setSize(e.target.value);
 
         sizes.forEach((val) => {
@@ -96,31 +104,51 @@ function RightPanel() {
         })
 
         status = e.target.value === 'Select Size' ? true:false;
+
+        if (!select_size) {
+          setSelectSizeWarning(false);
+        }
   }
 
   function addToCart() {
-
+    if (select_size) {
+      setSelectSizeWarning(true);
+    } else {
+      setSelectSizeWarning(false);
+      for(let key in currProdStyle['skus']) {
+        if (size === 'XXL') {
+          sku_id = Object.keys(currProdStyle['skus'])[Object.keys(currProdStyle['skus']).length - 1];
+        }
+        if (currProdStyle['skus'][key]['size'] === size) {
+          sku_id = key;
+        }
+      }
+      let body = {"sku_id": sku_id, "count":quantity};
+      console.log(body);
+      Axios.post('/cart', body);
+    }
   }
 
   return (
       <div className="rightpanel" >
-        <div style={{marginBottom: '8px', fontFamiliy: 'sans-serif', color: 'RGB(82,82,82)', fontSize: '13px', display: 'inline-flex', alignItems: 'baseline'}}>★ ★ ★ ★ ☆ <div style={{marginLeft: '5px', fontFamiliy: 'sans-serif', color: 'RGB(82,82,82)', fontSize: '11px', textDecoration: 'underline'}}>Read all reviews</div></div>
+        <div style={{marginBottom: '8px', fontFamiliy: 'sans-serif', color: 'RGB(82,82,82)', fontSize: '13px', display: 'inline-flex', alignItems: 'baseline'}}>★ ★ ★ ★ ☆ <a href="#rnr" style={{marginLeft: '5px', fontFamiliy: 'sans-serif', color: 'RGB(82,82,82)', fontSize: '11px', textDecoration: 'underline', cursor: 'pointer'}}>Read all reviews</a></div>
         <div style={{marginBottom: '-1px', fontFamiliy: 'sans-serif', fontSize: '13px', letterSpacing: '0.5px', color: 'RGB(82,82,82)'}}>{category.toUpperCase()}</div>
         <div style={{marginBottom: '15px', fontFamiliy: 'sans-serif', fontSize: '28px', fontWeight: 'bold', color: 'RGB(82,82,82)', letterSpacing: '0.5px'}}>{name}</div>
         {sale === true ? salePriceDiv:price}
         <div style={{marginBottom: '8px', fontFamiliy: 'sans-serif', letterSpacing: '0.5px', color: 'RGB(82,82,82)', fontSize: '14px'}}><b>STYLE</b> > {styleName}</div>
         <StyleSelector />
-        <select onChange={changeSizeQuantity}className="selectsizetext">
+        <div style={{fontWeight: 'bold', color: 'rgb(139,0,0)', display: selectSizeWarning === true ? '':'none'}}>Please select size</div>
+        <select onChange={changeSizeQuantity}className="selectsizetext"  style={{cursor: 'pointer'}}>
           <option value="Select Size">Select Size</option>
             {sizes}
           </select>
-          <select className="quantitycarttext" disabled={status}>
+          <select onChange={(e)=>{quantity = e.target.value}} className="quantitycarttext" disabled={status}  style={{cursor: 'pointer'}}>
             <option value={status === true ? '-':1}>{status === true ? '-':1}</option>
             {quantityList}
           </select>
         <div style={{display: 'flex', flexDirection: 'row', marginTop: '20px'}}>
-          <button type="button" className="addbagbutton">ADD TO BAG</button>
-          <button type="button" className="starbutton">☆</button>
+          <button onClick={addToCart}type="button" className="addbagbutton" onClick={addToCart} style={{cursor: 'pointer'}}>ADD TO BAG</button>
+          <button type="button" className="starbutton" style={{cursor: 'pointer'}}>☆</button>
         </div>
       </div>
   );

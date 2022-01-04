@@ -119,7 +119,7 @@ textarea:focus, .searchtext:focus{
 .overviewsearch {
   display: flex;
   height: 77PX;
-  width: 78%;
+  width: 90%;
   background-color: RGB(82,82,82);
   margin: auto;
   align-items: center;
