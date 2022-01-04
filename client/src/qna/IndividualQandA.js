@@ -5,7 +5,7 @@ import axios from 'axios';
 function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, cqCopy, setCQCopy,
-    allQuestions, setAllQuestions, currentQuestion, questionIDs, setQuestionIDs, currentCount, setCurrentCount,
+    currentQuestion, questionIDs, setQuestionIDs, currentCount, setCurrentCount,
      setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions} = useContext(MainContext);
   const [currentAnswers, setCurrentAnswers] = useState(null);
 
@@ -92,14 +92,6 @@ function IndividualQandA () {
       alert ('You have already marked this question as helpful!');
     }
 
-    // axios
-    //   .put('/qa/questions/' + qID.toString() + '/helpful')
-    //   .then((results) => {
-    //     console.log('Successfully marked question ' + qID + ' as helpful');
-    //   })
-    //   .then(() => {
-    //     updateCPID()
-    //   })
   }
 
   useEffect(() => {
