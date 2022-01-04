@@ -21,7 +21,9 @@ function Overview() {
   const [loadNextThumbnail, setLoadNextThumbnail] = useState(false);
   const [thumbnailIncrement, setThumbnailIncrement] = useState(0);
   const [quantity, setQuantity] = useState('-');
+  const [slideIndex, setSlideIndex] = useState(0);
 
+  //Get requests
   let productInformationData = [];
   let stylesData = [];
 
@@ -37,12 +39,13 @@ function Overview() {
     });
   }, []);
 
+  //Ensures styles state is defined before rendering components.
   if (styles == null) {
-    return <div>Loading....</div>
+    return <div>Loading Styles....</div>
   }
 
   return (
-    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, size, setSize, quantityList, setQuantityList, isActive, setIsActive, thumbnailCount, setThumbnailCount, loadNextThumbnail, setLoadNextThumbnail, thumbnailIncrement, setThumbnailIncrement}}>
+    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, size, setSize, quantityList, setQuantityList, isActive, setIsActive, thumbnailCount, setThumbnailCount, loadNextThumbnail, setLoadNextThumbnail, thumbnailIncrement, setThumbnailIncrement, slideIndex, setSlideIndex}}>
       <div className="wrapper">
         <div className="overviewsearch">
           <TiChartArea style={{height: '65px', width: '65px', color: 'white', marginLeft: '20px'}}/>

@@ -5,10 +5,10 @@ import Slides from './slides.js';
 import Thumbnails from './thumbnails.js';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
-var slideIndex = 0;
+var localSlideIndex = 0;
 
 function Arrows(props) {
-  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, thumbnailCount, setThumbnailCount, loadNextThumbnail, setLoadNextThumbnail, thumbnailIncrement, setThumbnailIncrement} = useContext(MainContext);
+  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, thumbnailCount, setThumbnailCount, loadNextThumbnail, setLoadNextThumbnail, thumbnailIncrement, setThumbnailIncrement, slideIndex, setSlideIndex} = useContext(MainContext);
     var downActive = thumbnailCount > 5 ? true:false;
     var upActive = thumbnailIncrement > 0 ? true:false;
 
@@ -24,33 +24,54 @@ function Arrows(props) {
 
 
     function plusSlides(n) {
-      showSlides(slideIndex += n);
+      showSlides(localSlideIndex += n);
+      setSlideIndex(localSlideIndex);
     }
 
     function currentSlide(n) {
-      showSlides(slideIndex = n);
+      showSlides(localSlideIndex = n);
+      setSlideIndex(n);
     }
 
     function showSlides(n) {
       //var dots = document.getElementsByClassName("dot");
-      if (n >= mainPictures.length) {slideIndex = 0}
-      if (n < 0) {slideIndex = mainPictures.length -1}
+      if (n >= mainPictures.length) {localSlideIndex = 0; setSlideIndex(0);}
+      if (n < 0) {localSlideIndex = mainPictures.length -1; setSlideIndex(mainPictures.length -1)}
       // for (i = 0; i < dots.length; i++) {
       //     dots[i].className = dots[i].className.replace(" downActive", "");
       // }
-      setMainPicture(mainPictures[slideIndex]);
+      setMainPicture(mainPictures[localSlideIndex]);
       //dots[slideIndex-1].className += " downActive";
-      console.log(slideIndex);
+    }
+
+    function preventOutOfIndex(n, direction) {
+      let currProdStyles;
+      let photos;
+      styles.forEach(p => {
+        if (Number(p.product_id) === currentProductId) {
+          currProdStyles = p;
+        }
+      });
+
+      let stylesData = currProdStyles.results.map(style => {
+        if (style.style_id === currStyle) {
+           photos = style.photos;
+        }
+      });
+
+      if (photos[0 + n] !== undefined && direction === 'up') {
+        setThumbnailIncrement(n);
+      } else if (photos[photos.length - 2 + n] !== undefined && direction === 'down') {
+        setThumbnailIncrement(n);
+      }
     }
 
     function renderThumbnails(direction) {
       if (direction === "up") {
-        setThumbnailIncrement(thumbnailIncrement-1);
-        console.log('SHWABANG', mainPictures[thumbnailIncrement - 1])
-        setMainPicture(mainPictures[slideIndex - 1]);
+        preventOutOfIndex(thumbnailIncrement-1, "up");
       } else {
-        setMainPicture(mainPictures[slideIndex + 1]);
-        setThumbnailIncrement(thumbnailIncrement+1);
+        preventOutOfIndex(thumbnailIncrement+1, "down");
+        localSlideIndex = 0;
       }
     }
 

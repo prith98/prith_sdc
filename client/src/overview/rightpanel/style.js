@@ -27,7 +27,7 @@ function Style(props) {
 
   return (
     <div>
-    <img className="style" src={props.url} onClick={setCurrentStyle} />
+    <img className="style" src={props.url} onClick={setCurrentStyle} style={{cursor: 'pointer'}} />
     <IoCheckmarkCircleOutline className="checkmark" style={{display: active === true ? '':'none'}}/>
     </div>
   );

@@ -29,7 +29,6 @@ function Thumbnails() {
     if (thumbnailsArr.length === 0) {
       for (let i = 0; i < photos.length - 1; i++) {
         let photo = photos[i + thumbnailIncrement];
-        //console.log(photo);
         mainPhotosArr.push(photo['url']);
         thumbnailsArr.push(<Thumbnail url={photo['thumbnail_url']} photo={photo} count={photo.length}/>);
       }
@@ -38,11 +37,16 @@ function Thumbnails() {
 
   if (mainPictures == null) {
     setMainPictures(mainPhotosArr);
+    setMainPicture(mainPhotosArr[0]);
+    console.log('changed main pic')
     return <div>Loading...</div>
   }
 
   if (mainPictures[0] !== mainPhotosArr[0]) {
+    console.log('changing')
     setMainPictures(mainPhotosArr);
+    setMainPicture(mainPhotosArr[0]);
+    console.log('changed main pic')
     return <div>Loading...</div>
   }
 
