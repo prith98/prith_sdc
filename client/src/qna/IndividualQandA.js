@@ -27,7 +27,9 @@ function IndividualQandA () {
     axios
       .get('/qa/questions?product_id=' + currentProductId + '&count=100')
       .then((result) => {
+        setCurrentQuestion(result.data.results)
         setLimitQuestions(result.data.results);
+        setCQCopy(result.data.results);
       })
     } else if (!showAllQuestions) {
       axios
@@ -35,6 +37,7 @@ function IndividualQandA () {
         .then((result) => {
           setCurrentQuestion(result.data.results)
           setLimitQuestions(result.data.results.slice(0, currentCount));
+          setCQCopy(result.data.results.slice(0, currentCount));
         })
       }
   }

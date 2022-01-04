@@ -60,6 +60,7 @@ function Qna () {
     if (!showAllQuestions) {
       setShowAllQuestions(true);
       setLimitQuestions(currentQuestion);
+      setCQCopy(currentQuestion);
     }
   }
 
@@ -88,7 +89,7 @@ function Qna () {
       });
       Promise.all(currentQuestionData).then((values) => {
         setCurrentQuestion(values[0].results);
-        setCQCopy(values[0].results);
+        // setCQCopy(values[0].results);
         for (let i = 0; i < values[0].results.length; i++) {
           questionIDsObj[values[0].results[i]["question_id"]] = true;
         }
@@ -96,7 +97,7 @@ function Qna () {
         setNumCurrentQuestions(values[0].results.length);
       })
       Promise.all(limitQuestionsData).then((values) => {
-        // setCQCopy(values[0].results);
+        setCQCopy(values[0].results);
         setLimitQuestions(values[0].results)
       })
     }
