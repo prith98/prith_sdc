@@ -6,7 +6,7 @@ function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, cqCopy, setCQCopy,
     currentQuestion, questionIDs, setQuestionIDs, currentCount, setCurrentCount,
-     setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions} = useContext(MainContext);
+     setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer} = useContext(MainContext);
   const [currentAnswers, setCurrentAnswers] = useState(null);
 
   let currentAnswersData = [];
@@ -94,6 +94,12 @@ function IndividualQandA () {
 
   }
 
+  const updateQID = function (e) {
+    let qID = e.currentTarget.dataset.id
+    console.log(qID);
+    setqIDAnswer(e.currentTarget.dataset.id);
+  }
+
   useEffect(() => {
 
     let isMounted = true;
@@ -142,7 +148,7 @@ function IndividualQandA () {
           <div key={oneQuestion.question_id} className="individualQA">
             <div>
               Q: {oneQuestion.question_body}
-              <span> by {oneQuestion.asker_name}, Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <span className="helpfulYes" data-id={oneQuestion.question_id} onClick={updateQHelpful}><u>Yes</u></span> ({oneQuestion.question_helpfulness})   | <span className="addAnswer"> <u> Add Answer </u></span> </span>
+              <span> by {oneQuestion.asker_name}, Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <span className="helpfulYes" data-id={oneQuestion.question_id} onClick={updateQHelpful}><u>Yes</u></span> ({oneQuestion.question_helpfulness})   | <span data-id={oneQuestion.question_id} className="addAnswer" onClick={updateQID}> <u> Add Answer </u></span> </span>
             </div>
             <div id="answers">{finalAnswers}</div>
           </div>

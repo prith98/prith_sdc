@@ -13,11 +13,12 @@ function Qna () {
   const [query, setQuery] = useState("");
   const [filteredQuestions, setFilteredQuestions] = useState(null);
   const [questionIDs, setQuestionIDs] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [showQuestionModal, setShowQuestionModal] = useState(false);
   const [numCurrentQuestions, setNumCurrentQuestions] = useState(null);
   const [currentCount, setCurrentCount] = useState(4);
   const [limitQuestions, setLimitQuestions] = useState(null);
   const [showAllQuestions, setShowAllQuestions] = useState(false);
+  const [qIDAnswer, setqIDAnswer] = useState(null);
 
 
   let allQuestionsData = [];
@@ -64,7 +65,7 @@ function Qna () {
   }
 
   const openModal = function () {
-    setShowModal(true);
+    setShowQuestionModal(true);
   }
 
   useEffect(() => {
@@ -101,12 +102,12 @@ function Qna () {
     <div>
       <h1 id="QAHeader">Question & Answers</h1>
       {/* Passing down all the state values to SearchQuestions and IndividualQandA */}
-      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showModal, setShowModal, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions}}>
+      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, questionIDs, setQuestionIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showQuestionModal, setShowQuestionModal, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer}}>
           <SearchQuestions />
           <IndividualQandA />
           <button id="qnaButton" onClick={showAllQ}>More Answered Questions</button>
           <button id="qnaButton" onClick={openModal}>Add A Question +</button>
-          {showModal ? <AddQuestion setShowModal={setShowModal} updateCPID={updateCPID}/> : null}
+          {showQuestionModal ? <AddQuestion setShowQuestionModal={setShowQuestionModal} updateCPID={updateCPID}/> : null}
       </MainContext.Provider>
     </div>
   );

@@ -4,19 +4,20 @@ import {MainContext} from '../contexts/contexts.js'
 import axios from 'axios';
 
 
-function AddQuestion (props) {
+function AddAnswer (props) {
 
-  const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy, showQuestionModal, setShowQuestionModal, currentQuestion, setCurrentQuestion, limitQuestions, setLimitQuestions} = useContext(MainContext);
+  const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy,
+     showModal, setShowModal, currentQuestion, setCurrentQuestion, limitQuestions, setLimitQuestions} = useContext(MainContext);
 
   const modalRef = useRef();
 
   const openModal = function () {
-    setShowQuestionModal(true);
+    setShowModal(true);
   }
 
   const closeModal = function (e) {
     if (e.target === modalRef.current) {
-      setShowQuestionModal(false);
+      setShowModal(false);
     }
   }
 
@@ -25,9 +26,7 @@ function AddQuestion (props) {
     let payload = {
       "body": event.target.qnaFormQuestion.value,
       "name": event.target.nickname.value,
-      "email": event.target.email.value,
-      "product_id": currentProductId
-    }
+      "email": event.target.email.value    }
     axios
       .post('/qa/questions', payload)
       .then(() => {
@@ -79,5 +78,5 @@ function AddQuestion (props) {
 
 }
 
-export default AddQuestion;
+export default AddAnswer;
 
