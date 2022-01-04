@@ -34,7 +34,7 @@ function IndividualQandA () {
         .get('/qa/questions?product_id=' + currentProductId + '&count=100')
         .then((result) => {
           setCurrentQuestion(result.data.results)
-          setLimitQuestions(result.data.results.slice(0, 2));
+          setLimitQuestions(result.data.results.slice(0, currentCount));
         })
       }
   }

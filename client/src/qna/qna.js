@@ -20,7 +20,7 @@ function Qna () {
   const [questionIDs, setQuestionIDs] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [numCurrentQuestions, setNumCurrentQuestions] = useState(null);
-  const [currentCount, setCurrentCount] = useState(2);
+  const [currentCount, setCurrentCount] = useState(4);
   const [limitQuestions, setLimitQuestions] = useState(null);
   const [showAllQuestions, setShowAllQuestions] = useState(false);
 
@@ -38,6 +38,7 @@ function Qna () {
     }
   }
 
+  // Update questions for currentProductID and limitQuestion
   const updateCPID = () => {
     if (showAllQuestions) {
     axios
@@ -50,7 +51,7 @@ function Qna () {
         .get('/qa/questions?product_id=' + currentProductId + '&count=100')
         .then((result) => {
           setCurrentQuestion(result.data.results)
-          setLimitQuestions(result.data.results.slice(0, 2));
+          setLimitQuestions(result.data.results.slice(0, 4));
         })
       }
   }

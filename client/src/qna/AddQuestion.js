@@ -5,7 +5,7 @@ import axios from 'axios';
 // import { Form } from './Form.js';
 
 
-function AddQuestion () {
+function AddQuestion (props) {
 
   const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy, showModal, setShowModal} = useContext(MainContext);
 
