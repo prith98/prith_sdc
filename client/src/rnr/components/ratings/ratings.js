@@ -35,6 +35,7 @@ function Reviews() {
   // statusText: "OK"
   // [[Prototype]]: Object
 
+  //Create overall product rating decimal number
   let oneStarRatings = Number(productRatings.data.ratings[1]);
   let twoStarRatings = Number(productRatings.data.ratings[2]);
   let threeStarRatings = Number(productRatings.data.ratings[3]);
@@ -50,6 +51,9 @@ function Reviews() {
   let fiveStarRatingsWeighted = twoStarRatings * 5;
 
   let totalRatingsWeighted = oneStarRatingsWeighted + twoStarRatingsWeighted + threeStarRatingsWeighted + fourStarRatingsWeighted + fiveStarRatingsWeighted;
+
+  let overallProductRating = totalRatingsWeighted / totalRatingsCount;
+  overallProductRating = Math.round(overallProductRating * 10) / 10;
 
   //Create the recommended percentage
   let recommendedTrue = Number(productRatings.data.recommended.true);
@@ -84,7 +88,7 @@ function Reviews() {
     <div>
       <div className="ratings-number-and-stars">
         <div className="ratings-decimal">
-          3.5
+          {overallProductRating}
         </div>
         <div className="ratings-overall-star">
           star rating
