@@ -71,6 +71,7 @@ function Review(reviewData) {
           Report
         </div>
       </div>
+      <hr className="review-horizontal-spacer"></hr>
     </div>
 
   )
