@@ -2,12 +2,11 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import {MainContext} from '../contexts/contexts.js'
 import axios from 'axios';
-// import { Form } from './Form.js';
 
 
 function AddQuestion (props) {
 
-  const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy, showModal, setShowModal} = useContext(MainContext);
+  const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy, showModal, setShowModal, currentQuestion, setCurrentQuestion, limitQuestions, setLimitQuestions} = useContext(MainContext);
 
   const modalRef = useRef();
 
@@ -32,13 +31,15 @@ function AddQuestion (props) {
     axios
       .post('/qa/questions', payload)
       .then(() => {
+        props.updateCPID()
+      })
+      .then(() => {
         console.log('Submitted Question')
         alert('Submitted Question')
       })
       .catch((err) => {
         console.log(err);
       })
-    // alert('Your question has been submitted')
   }
 
   return ReactDOM.createPortal(
