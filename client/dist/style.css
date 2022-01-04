@@ -474,3 +474,13 @@ span.helpfulYes{
 review-horizontal-spacer.solid {
   border-top: 3px solid black;
 }
+
+.ratings-decimal {
+  display: inline-block;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.ratings-overall-star {
+  display: inline-block;
+}

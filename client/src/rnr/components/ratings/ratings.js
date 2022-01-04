@@ -3,10 +3,85 @@ import Rnr from '../../rnr.js';
 import { MainContext } from '../../../contexts/contexts.js';
 
 function Reviews() {
-  const { products, setProducts, currentProduct, setCurrentProduct, productReviews, setProductReviews } = useContext(MainContext);
+  const { products, setProducts, currentProduct, setCurrentProduct, productReviews, setProductReviews, productRatings, setProductRatings } = useContext(MainContext);
+
+  console.log('productRatings', productRatings);
+
+  // Object
+  // config: {url: '/reviews/meta?product_id=44388', method: 'get', headers: {…}, transformRequest: Array(1), transformResponse: Array(1), …}
+  // data:
+  // characteristics:
+  // Comfort: {id: 148892, value: '2.5000000000000000'}
+  // Fit: {id: 148890, value: '2.2826086956521739'}
+  // Length: {id: 148891, value: '2.4565217391304348'}
+  // Quality: {id: 148893, value: '2.8163265306122449'}
+  // [[Prototype]]: Object
+  // product_id: "44388"
+  // ratings:
+  // 1: "8"
+  // 2: "20"
+  // 3: "15"
+  // 4: "17"
+  // 5: "29"
+  // [[Prototype]]: Object
+  // recommended:
+  // false: "8"
+  // true: "81"
+  // [[Prototype]]: Object
+  // [[Prototype]]: Object
+  // headers: {content-length: '345', content-type: 'application/json; charset=utf-8', date: 'Tue, 04 Jan 2022 02:47:19 GMT', etag: 'W/"159-sHgBP00Iljbj1vVdMhOfsOX0XQU"', x-powered-by: 'Express'}
+  // request: XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
+  // status: 200
+  // statusText: "OK"
+  // [[Prototype]]: Object
+
+  let oneStarRatings = Number(productRatings.data.ratings[1]);
+  let twoStarRatings = Number(productRatings.data.ratings[2]);
+  let threeStarRatings = Number(productRatings.data.ratings[3]);
+  let fourStarRatings = Number(productRatings.data.ratings[4]);
+  let fiveStarRatings = Number(productRatings.data.ratings[5]);
+
+  let totalRatingsCount = oneStarRatings + twoStarRatings + threeStarRatings + fourStarRatings + fiveStarRatings;
+
+  let oneStarRatingsWeighted = oneStarRatings;
+  let twoStarRatingsWeighted = twoStarRatings * 2;
+  let threeStarRatingsWeighted = twoStarRatings * 3;
+  let fourStarRatingsWeighted = twoStarRatings * 4;
+  let fiveStarRatingsWeighted = twoStarRatings * 5;
+
+  let totalRatingsWeighted = oneStarRatingsWeighted + twoStarRatingsWeighted + threeStarRatingsWeighted + fourStarRatingsWeighted + fiveStarRatingsWeighted;
+
+  //Create the recommended percentage
+  let recommendedTrue = Number(productRatings.data.recommended.true);
+  let recommendedFalse = Number(productRatings.data.recommended.false);
+  let recommendedPercentage = (recommendedTrue / (recommendedTrue + recommendedFalse)) * 100;
+  let recommendedPercentageAsAString = recommendedPercentage.toString();
+
+  //REALLY create the recommended percentage
+  if (Number(recommendedPercentageAsAString[4]) >= 5) {
+    if (recommendedPercentageAsAString[3] === '9') {
+      if (recommendedPercentageAsAString[1] === '9') {
+        if (recommendedPercentageAsAString[0] === '9') {
+          recommendedPercentageAsAString = '100%';
+        } else {
+          recommendedPercentageAsAString = (Number(recommendedPercentageAsAString[0]) + 1).toString() + '0%';
+        }
+      } else {
+        recommendedPercentageAsAString = recommendedPercentageAsAString[0] + (Number(recommendedPercentageAsAString[1]) + 1).toString() + '%';
+      }
+    } else {
+      recommendedPercentageAsAString = recommendedPercentageAsAString.slice(0, 3) + (Number(recommendedPercentageAsAString[3]) + 1).toString() + '%';
+    }
+  } else {
+    recommendedPercentageAsAString = recommendedPercentageAsAString.slice(0, 4) + '%';
+  }
+
+  if (recommendedPercentageAsAString[3] === '0') {
+    recommendedPercentageAsAString = recommendedPercentageAsAString.slice(0, 2) + '%';
+  }
 
   return (
-    <div className="ratings">
+    <div>
       <div className="ratings-number-and-stars">
         <div className="ratings-decimal">
           3.5
@@ -16,7 +91,7 @@ function Reviews() {
         </div>
       </div>
       <div className="ratings-recommend-percentage">
-        100% of reviewers recommend this product.
+        {recommendedPercentageAsAString} of reviewers recommend this product
       </div>
       <div className="ratings-5-star">
         <div className="ratings-5-star-text">
