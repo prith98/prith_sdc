@@ -308,6 +308,13 @@ input#QASearch {
   position: relative;
 }
 
+span.reportAnswer{
+  cursor: pointer;
+}
+
+span.addAnswer{
+  cursor: pointer;
+}
 
 button#qnaButton {
   margin-left: 250px;

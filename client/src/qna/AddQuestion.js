@@ -2,12 +2,11 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import {MainContext} from '../contexts/contexts.js'
 import axios from 'axios';
-import { Form } from './Form.js';
 
 
-function AddQuestion () {
+function AddQuestion (props) {
 
-  const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy, showModal, setShowModal} = useContext(MainContext);
+  const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy, showModal, setShowModal, currentQuestion, setCurrentQuestion, limitQuestions, setLimitQuestions} = useContext(MainContext);
 
   const modalRef = useRef();
 
@@ -23,8 +22,24 @@ function AddQuestion () {
 
   const onSubmit = (event) => {
     event.preventDefault(event);
-    console.log(event.target.name.value);
-    console.log(event.target.email.value);
+    let payload = {
+      "body": event.target.qnaFormQuestion.value,
+      "name": event.target.nickname.value,
+      "email": event.target.email.value,
+      "product_id": currentProductId
+    }
+    axios
+      .post('/qa/questions', payload)
+      .then(() => {
+        props.updateCPID()
+      })
+      .then(() => {
+        console.log('Submitted Question')
+        alert('Submitted Question')
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   return ReactDOM.createPortal(
@@ -34,14 +49,14 @@ function AddQuestion () {
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="question">Question (MANDATORY FIELD)</label>
-            <input className="form-control" id="qnaFormQuestion" />
+            <input className="form-control" id="qnaFormQuestion" type="text" />
           </div>
           <div className="form-group">
             <label htmlFor="nickname">Nickname (MANDATORY FIELD)</label>
             <input
-              type="name"
+              type="nickname"
               className="form-control"
-              id="qnaFormNickname"
+              id="nickname"
               placeholder="jackson11!"
             />
           </div>
@@ -54,8 +69,8 @@ function AddQuestion () {
               placeholder="Why did you like this product or not?"
             />
           </div>
+          <input type="submit" value="SubmitQuestion"></input>
         </form>
-        <button id="formSubmit">Submit Question</button>
       </div>
     </div>,
     document.getElementById("app")
