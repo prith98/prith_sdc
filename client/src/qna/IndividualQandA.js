@@ -6,7 +6,7 @@ function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, cqCopy, setCQCopy,
     allQuestions, setAllQuestions, currentQuestion, questionIDs, setQuestionIDs, currentCount, setCurrentCount,
-     setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions} = useContext(MainContext);
+     setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions} = useContext(MainContext);
   const [currentAnswers, setCurrentAnswers] = useState(null);
 
   let currentAnswersData = [];
@@ -23,11 +23,20 @@ function IndividualQandA () {
 
   // Updates the currentQuestion list to show that the YES count has increased
   const updateCPID = function() {
+    if (showAllQuestions) {
     axios
-      .get('/qa/questions?product_id=' + currentProductId + '&count=' + currentCount)
+      .get('/qa/questions?product_id=' + currentProductId + '&count=100')
       .then((result) => {
         setLimitQuestions(result.data.results);
       })
+    } else if (!showAllQuestions) {
+      axios
+        .get('/qa/questions?product_id=' + currentProductId + '&count=100')
+        .then((result) => {
+          setCurrentQuestion(result.data.results)
+          setLimitQuestions(result.data.results.slice(0, 2));
+        })
+      }
   }
 
   // Send a PUT Request for a specific Answer ID to mark it as helpful and increase helpful count on server
@@ -93,18 +102,18 @@ function IndividualQandA () {
   useEffect(() => {
 
     let isMounted = true;
+    if (isMounted) {
       limitQuestions && limitQuestions.length && limitQuestions.forEach((question) => {
         currentAnswersData.push(axios.get('/qa/questions/' + question.question_id + '/answers').then((result) => { return result.data; }));
       });
       Promise.all(currentAnswersData).then((values) => {
-        if (isMounted) {
-          setCurrentAnswers(values);
-        }
+        setCurrentAnswers(values);
       });
+    }
 
     return () => { isMounted = false };
 
-  }, []);
+  }, [currentQuestion]);
 
 
 
