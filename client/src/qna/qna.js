@@ -40,6 +40,9 @@ function Qna () {
       .get('/qa/questions?product_id=' + currentProductId + '&count=100')
       .then((result) => {
         setLimitQuestions(result.data.results);
+        setCurrentQuestion(result.data.results);
+        setCQCopy(result.data.results);
+
       })
     } else if (!showAllQuestions) {
       axios
