@@ -408,6 +408,7 @@ span.helpfulYes{
   height: 95%;
   border: 2px solid blue;
   bottom: 0px;
+  padding: 3px;
 }
 
 .reviews {
@@ -482,6 +483,10 @@ review-horizontal-spacer.solid {
   border-top: 3px solid black;
 }
 
+.ratings-container {
+  position: relative;
+}
+
 .ratings-decimal {
   display: inline-block;
   font-size: 30px;
@@ -490,4 +495,81 @@ review-horizontal-spacer.solid {
 
 .ratings-overall-star {
   display: inline-block;
+}
+
+.ratings-5-star-text {
+  display: inline-block;
+  position: absolute;
+  margin-top: 10px;
+}
+
+.ratings-5-star-bar {
+  display: inline-block;
+  position: absolute;
+  margin-left: 80px;
+  margin-top: 10px;
+}
+
+.ratings-4-star-text {
+  display: inline-block;
+  position: absolute;
+  margin-top: 20px;
+}
+
+.ratings-4-star-bar {
+  display: inline-block;
+  position: absolute;
+  margin-left: 80px;
+  margin-top: 20px;
+}
+
+.ratings-3-star-text {
+  display: inline-block;
+  position: absolute;
+  margin-top: 20px;
+}
+
+.ratings-3-star-bar {
+  display: inline-block;
+  position: absolute;
+  margin-left: 80px;
+  margin-top: 20px;
+}
+
+.ratings-2-star-text {
+  display: inline-block;
+  position: absolute;
+  margin-top: 20px;
+}
+
+.ratings-2-star-bar {
+  display: inline-block;
+  position: absolute;
+  margin-left: 80px;
+  margin-top: 20px;
+}
+
+.ratings-1-star-text {
+  display: inline-block;
+  position: absolute;
+  margin-top: 20px;
+}
+
+.ratings-1-star-bar {
+  display: inline-block;
+  position: absolute;
+  margin-left: 80px;
+  margin-top: 20px;
+}
+
+.ratings-size-slider {
+  display: inline-block;
+  position: absolute;
+  bottom: -300px;
+}
+
+.ratings-comfort-slider {
+  display: inline-block;
+  position:absolute;
+  bottom: -10px;
 }

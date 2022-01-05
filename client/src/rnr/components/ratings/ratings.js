@@ -85,7 +85,7 @@ function Reviews() {
   }
 
   return (
-    <div>
+    <div className="ratings-container">
       <div className="ratings-number-and-stars">
         <div className="ratings-decimal">
           {overallProductRating}
