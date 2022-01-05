@@ -43,12 +43,22 @@ function IndividualQandA () {
   // Send a PUT Request for a specific Answer ID to mark it as helpful and increase helpful count on server
   const updateAHelpful = function(e) {
     let aID = e.currentTarget.dataset.id;
-    axios
-      .put('/qa/answers/' + aID.toString() + '/helpful')
-      .then((results) => {
-        console.log('Successfully marked answer ' + aID.toString() + ' as helpful');
-      })
-      .then(() => {updateCPID()})
+    let stateCopy = answerIDs;
+    console.log(answerIDs[aID])
+    if (!answerIDs[aID]) {
+      axios
+        .put('/qa/answers/' + aID.toString() + '/helpful')
+        .then(() => {
+          stateCopy[aID] = true;
+          setAnswerIDs(stateCopy);
+        })
+        .then((results) => {
+          console.log('Successfully marked answer ' + aID.toString() + ' as helpful');
+        })
+        .then(() => {updateCPID()})
+    } else {
+      alert('You have already marked this answer as helpful!')
+    }
   }
 
   // Send a PUT Request for a specific answer ID to mark the question as reported on the database
@@ -100,7 +110,14 @@ function IndividualQandA () {
   }
 
   const fillAnswerIDs = function() {
-    // let aIDObject = {};
+    let aIDObject = {};
+    const helper = function(array) {
+      for (var i = 0; i < array.length; i++) {
+        aIDObject[array[i]['answer_id']] = false;
+      }
+      console.log(aIDObject);
+      setAnswerIDs(aIDObject);
+    }
     let qIDArray = Object.keys(questionIDs);
     for (var i = 0; i < qIDArray.length; i++) {
       let qID = qIDArray[i];
@@ -108,16 +125,15 @@ function IndividualQandA () {
         .get('/qa/questions/' + qID + '/answers')
         .then((results) => {
           let resultsArray = results.data.results
-          console.log(resultsArray)
+          resultsArray.length ? helper(resultsArray) : null;
         })
     }
-
 
   }
 
   useEffect(() => {
     questionIDs ? fillAnswerIDs() : null;
-  }, [])
+  }, [questionIDs])
 
 
 
