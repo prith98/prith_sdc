@@ -5,12 +5,8 @@ import axios from 'axios';
 function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, cqCopy, setCQCopy,
-    currentQuestion, questionIDs, setQuestionIDs, currentCount, setCurrentCount, showAnswerModal, setShowAnswerModal,
+    currentQuestion, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, currentCount, setCurrentCount, showAnswerModal, setShowAnswerModal,
      setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer} = useContext(MainContext);
-  const [currentAnswers, setCurrentAnswers] = useState(null);
-
-  let currentAnswersData = [];
-  let questionIDsArray = [];
 
   // Get all answers for a specific Question based on questionID
   const getAnswers = function (id) {
@@ -102,20 +98,8 @@ function IndividualQandA () {
   }
 
   useEffect(() => {
-
-    let isMounted = true;
-    if (isMounted) {
-      limitQuestions && limitQuestions.length && limitQuestions.forEach((question) => {
-        currentAnswersData.push(axios.get('/qa/questions/' + question.question_id + '/answers').then((result) => { return result.data; }));
-      });
-      Promise.all(currentAnswersData).then((values) => {
-        setCurrentAnswers(values);
-      });
-    }
-
-    return () => { isMounted = false };
-
-  }, [currentQuestion]);
+    questionIDs ? console.log(Object.keys(questionIDs)) : null;
+  }, [questionIDs, currentQuestion])
 
 
 
