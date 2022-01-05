@@ -18,9 +18,9 @@ function SearchQuestions (props) {
   const onQueryChange = function () {
     let filter = filteredQuestion();
     if (query.length >= 3) {
-      setLimitQuestions(filter);
+      showAllQuestions ? setLimitQuestions(filter) : setLimitQuestions(filter.slice(0, 4));
     } else {
-      setLimitQuestions(cqCopy)
+      showAllQuestions ? setLimitQuestions(currentQuestion) : setLimitQuestions(currentQuestion.slice(0, 4));
     }
   }
 
@@ -28,7 +28,7 @@ function SearchQuestions (props) {
   // Filters current question list based on whether or not
   // the question in lower case contains lower case query string
   const filteredQuestion = function() {
-    const result = cqCopy.filter(oneQuestion =>
+    const result = currentQuestion.filter(oneQuestion =>
       oneQuestion.question_body.toLowerCase().includes(query.toLowerCase())
     );
     return result;

@@ -78,7 +78,7 @@ function Qna () {
     if (isMounted) {
       // Getting all the questions for the specified currentProductId and storing it in currentQuestionData as a promisified object
       currentQuestionData.push(axios.get('/qa/questions?product_id=' + currentProductId + '&count=100').then((result) => { return result.data; }));
-      limitQuestionsData.push(axios.get('/qa/questions?product_id=' + currentProductId + '&count=' + currentCount).then((result) => { return result.data; }));
+      limitQuestionsData.push(axios.get('/qa/questions?product_id=' + currentProductId + '&count=4').then((result) => { return result.data; }));
 
 
       // Iterate over Promisified array to see if each promise resolves, if they do, then the output will be the specific data

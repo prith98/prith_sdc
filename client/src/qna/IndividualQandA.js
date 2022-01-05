@@ -13,7 +13,9 @@ function IndividualQandA () {
     axios
       .get('/qa/questions/' + id.toString() + '/answers')
       .then((results) => {
-        return results.data.results
+        let resultsArray = results.data.results
+        console.log(resultsArray)
+        return resultsArray;
       })
   }
 
@@ -32,8 +34,8 @@ function IndividualQandA () {
         .get('/qa/questions?product_id=' + currentProductId + '&count=100')
         .then((result) => {
           setCurrentQuestion(result.data.results)
-          setLimitQuestions(result.data.results.slice(0, currentCount));
-          setCQCopy(result.data.results.slice(0, currentCount));
+          setLimitQuestions(result.data.results.slice(0, 4));
+          setCQCopy(result.data.results.slice(0, 4));
         })
       }
   }
@@ -97,9 +99,25 @@ function IndividualQandA () {
     setShowAnswerModal(true);
   }
 
+  const fillAnswerIDs = function() {
+    // let aIDObject = {};
+    let qIDArray = Object.keys(questionIDs);
+    for (var i = 0; i < qIDArray.length; i++) {
+      let qID = qIDArray[i];
+      axios
+        .get('/qa/questions/' + qID + '/answers')
+        .then((results) => {
+          let resultsArray = results.data.results
+          console.log(resultsArray)
+        })
+    }
+
+
+  }
+
   useEffect(() => {
-    questionIDs ? console.log(Object.keys(questionIDs)) : null;
-  }, [questionIDs, currentQuestion])
+    questionIDs ? fillAnswerIDs() : null;
+  }, [])
 
 
 
