@@ -110,7 +110,7 @@ function Qna () {
           <button id="qnaButton" onClick={showAllQ}>More Answered Questions</button>
           <button id="qnaButton" onClick={openQuestionModal}>Add A Question +</button>
           {showQuestionModal ? <AddQuestion setShowQuestionModal={setShowQuestionModal} updateCPID={updateCPID}/> : null}
-          {showAnswerModal ? <AddAnswer /> : null}
+          {showAnswerModal ? <AddAnswer updateCPID={updateCPID}/> : null}
       </MainContext.Provider>
     </div>
   );

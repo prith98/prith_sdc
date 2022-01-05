@@ -26,9 +26,13 @@ function AddAnswer (props) {
     let payload = {
       "body": event.target.qnaFormQuestion.value,
       "name": event.target.nickname.value,
-      "email": event.target.email.value    }
+      "email": event.target.email.value,
+      "photos": []
+    }
+    console.log(payload);
+    console.log(qIDAnswer);
     axios
-      .post('/qa/questions' + qIDAnswer + '/answers', payload)
+      .post('/qa/questions/' + qIDAnswer + '/answers', payload)
       .then(() => {
         props.updateCPID()
       })
