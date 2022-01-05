@@ -115,7 +115,6 @@ function IndividualQandA () {
       for (var i = 0; i < array.length; i++) {
         aIDObject[array[i]['answer_id']] = false;
       }
-      console.log(aIDObject);
       setAnswerIDs(aIDObject);
     }
     let qIDArray = Object.keys(questionIDs);
