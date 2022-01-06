@@ -117,6 +117,7 @@ function IndividualQandA () {
   // Function that fills up the answerIDs and reportAnswerIDs state
   // with an object of objects with key of answerID and value of false
   const fillAnswerIDs = function() {
+    console.log(questionIDs2)
     let aIDObject = {};
     let raIDObject = {};
     const helper = function(array) {
@@ -163,7 +164,7 @@ function IndividualQandA () {
       {/* Dynamically renders questions from currentQuestion prop in the format of Question, then Answer, then asker name, date asked, helpful, how many people found it helpful, and report*/}
 
       {limitQuestions && reportAnswerIDs ? limitQuestions.map(oneQuestion => {
-        let answerArray = Object.values(oneQuestion.answers).slice(0, 2);
+        let answerArray = Object.values(oneQuestion.answers);
         let finalAnswers = answerArray.map(oneAnswer => {
           return (
             <div key={oneAnswer.id} id="totalAnswer">
@@ -180,7 +181,7 @@ function IndividualQandA () {
             </div>
             <div id="answers">{finalAnswers}</div>
             <div id="loadingButton">
-              <button className="answerLoad">LOAD MORE ANSWERS</button>
+              { questionIDs2[oneQuestion.question_id] ? <button className="answerLoad">LOAD MORE ANSWERS</button> : null}
             </div>
           </div>
         )

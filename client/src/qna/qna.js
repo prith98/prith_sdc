@@ -90,7 +90,11 @@ function Qna () {
         setCurrentQuestion(values[0].results);
         for (let i = 0; i < values[0].results.length; i++) {
           questionIDsObj[values[0].results[i]["question_id"]] = true;
-          questionIDsObj2[values[0].results[i]["question_id"]] = true;
+          if (Object.keys(values[0].results[i]['answers']).length > 2) {
+            questionIDsObj2[values[0].results[i]["question_id"]] = true;
+          } else {
+            questionIDsObj2[values[0].results[i]["question_id"]] = false;
+          }
         }
         setQuestionIDs2(questionIDsObj2);
         setQuestionIDs(questionIDsObj);
