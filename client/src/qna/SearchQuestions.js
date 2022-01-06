@@ -35,6 +35,7 @@ function SearchQuestions (props) {
     return result;
   }
 
+
   // useEffect only runs when query value is changed to prevent infinite loops
   useEffect(() => {
 
@@ -48,8 +49,6 @@ function SearchQuestions (props) {
       <form id="formQASearch">
         <div id="searchText">
           <FaSearch />
-            for previously asked questions
-            {/* <FaSearch style={{transform: [{rotateY: '180deg'}]}}/> */}
         </div>
         <label>
           <input
@@ -57,7 +56,7 @@ function SearchQuestions (props) {
             id="QASearch"
             type="text"
             value={query}
-            placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
+            placeholder="Have a question? Search for answers..."
             onChange={onFormChange}
             />
         </label>
