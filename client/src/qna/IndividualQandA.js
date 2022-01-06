@@ -5,7 +5,7 @@ import axios from 'axios';
 function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, cqCopy, setCQCopy,
-    currentQuestion, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, reportAnswerIDs, setReportAnswerIDs, showAllAnswers, setShowAllAnswers, currentCount, setCurrentCount, showAnswerModal, setShowAnswerModal,
+    currentQuestion, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, reportAnswerIDs, setReportAnswerIDs, questionIDs2, setQuestionIDs2, currentCount, setCurrentCount, showAnswerModal, setShowAnswerModal,
      setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer} = useContext(MainContext);
 
   // Get all answers for a specific Question based on questionID
@@ -117,7 +117,6 @@ function IndividualQandA () {
   // Function that fills up the answerIDs and reportAnswerIDs state
   // with an object of objects with key of answerID and value of false
   const fillAnswerIDs = function() {
-    console.log(questionIDs)
     let aIDObject = {};
     let raIDObject = {};
     const helper = function(array) {
@@ -180,6 +179,7 @@ function IndividualQandA () {
               <span id="questionAskedInfo"> asked by: {oneQuestion.asker_name}   |    Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <span className="helpfulYes" data-id={oneQuestion.question_id} onClick={updateQHelpful}><u>Yes</u></span> ({oneQuestion.question_helpfulness})   | <span data-id={oneQuestion.question_id} className="addAnswer" onClick={updateQID}> <u> Add Answer </u></span> </span>
             </div>
             <div id="answers">{finalAnswers}</div>
+            <div className="answerLoad">LOAD MORE ANSWERS</div>
           </div>
         )
       }): <div>LOADING...</div>}

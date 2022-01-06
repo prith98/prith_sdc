@@ -14,13 +14,13 @@ function Qna () {
   const [query, setQuery] = useState("");
   const [filteredQuestions, setFilteredQuestions] = useState(null);
   const [questionIDs, setQuestionIDs] = useState(null);
+  const [questionIDs2, setQuestionIDs2] = useState(null);
   const [showQuestionModal, setShowQuestionModal] = useState(false);
   const [showAnswerModal, setShowAnswerModal] = useState(false);
   const [numCurrentQuestions, setNumCurrentQuestions] = useState(null);
   const [currentCount, setCurrentCount] = useState(4);
   const [limitQuestions, setLimitQuestions] = useState(null);
   const [showAllQuestions, setShowAllQuestions] = useState(false);
-  const [showAllAnswers, setShowAllAnswers] = useState(null);
   const [qIDAnswer, setqIDAnswer] = useState(null);
   const [answerIDs, setAnswerIDs] = useState(null);
   const [reportAnswerIDs, setReportAnswerIDs] = useState(null);
@@ -29,7 +29,7 @@ function Qna () {
   let allQuestionsData = [];
   let currentQuestionData = [];
   let questionIDsObj = {};
-  let questionIDsObjAnswer = {};
+  let questionIDsObj2 = {};
   let limitQuestionsData = [];
 
   const increaseCount = function () {
@@ -90,10 +90,10 @@ function Qna () {
         setCurrentQuestion(values[0].results);
         for (let i = 0; i < values[0].results.length; i++) {
           questionIDsObj[values[0].results[i]["question_id"]] = true;
-          questionIDsObjAnswer[values[0].results[i]["question_id"]] = true;
+          questionIDsObj2[values[0].results[i]["question_id"]] = true;
         }
+        setQuestionIDs2(questionIDsObj2);
         setQuestionIDs(questionIDsObj);
-        setShowAllAnswers(questionIDsObjAnswer);
         setNumCurrentQuestions(values[0].results.length);
       })
       Promise.all(limitQuestionsData).then((values) => {
@@ -110,7 +110,7 @@ function Qna () {
     <div>
       <h1 id="QAHeader">Question & Answers</h1>
       {/* Passing down all the state values to SearchQuestions and IndividualQandA */}
-      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, reportAnswerIDs, setReportAnswerIDs, showAllAnswers, setShowAllAnswers, numCurrentQuestions, setNumCurrentQuestions, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showQuestionModal, setShowQuestionModal, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer, showAnswerModal, setShowAnswerModal}}>
+      <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, reportAnswerIDs, setReportAnswerIDs, questionIDs2, setQuestionIDs2, numCurrentQuestions, setNumCurrentQuestions, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showQuestionModal, setShowQuestionModal, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer, showAnswerModal, setShowAnswerModal}}>
           <SearchQuestions />
           <IndividualQandA />
           <div id="QAButtons">
