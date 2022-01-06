@@ -141,6 +141,14 @@ function IndividualQandA () {
 
   }
 
+  const loadAnswers = function(e) {
+    let qID = e.target.name;
+    let stateCopy = questionIDs2;
+    stateCopy[qID] = false;
+    setQuestionIDs2(stateCopy);
+    updateCPID()
+  }
+
   useEffect(() => {
     questionIDs ? fillAnswerIDs() : null;
   }, [questionIDs])
@@ -173,15 +181,23 @@ function IndividualQandA () {
             </div>
           );
         });
+        let finalAnswersSliced = answerArray.slice(0, 2).map(oneAnswer => {
+          return (
+            <div key={oneAnswer.id} id="totalAnswer">
+              <div className="answerBody"><span><b>A: </b></span>{oneAnswer.body}</div>
+              <div className="answerBottomText">by {oneAnswer.answerer_name}, {oneAnswer.date.slice(0,10)}   |   Helpful? <span className="helpfulYes" data-id={oneAnswer.id} onClick={updateAHelpful}><u>Yes</u></span>({oneAnswer.helpfulness})   |  <span data-id={oneAnswer.id.toString()} className="reportAnswer" onClick={reportAnswer}><u>{reportAnswerIDs[oneAnswer.id] ? "Reported" : "Report"}</u></span></div>
+            </div>
+          );
+        });
         return (
           <div key={oneQuestion.question_id} className="individualQA">
             <div id="questionAsked">
               Q: {oneQuestion.question_body}
               <span id="questionAskedInfo"> asked by: {oneQuestion.asker_name}   |    Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <span className="helpfulYes" data-id={oneQuestion.question_id} onClick={updateQHelpful}><u>Yes</u></span> ({oneQuestion.question_helpfulness})   | <span data-id={oneQuestion.question_id} className="addAnswer" onClick={updateQID}> <u> Add Answer </u></span> </span>
             </div>
-            <div id="answers">{finalAnswers}</div>
+            <div id="answers">{questionIDs2[oneQuestion.question_id] ? finalAnswersSliced : finalAnswers}</div>
             <div id="loadingButton">
-              { questionIDs2[oneQuestion.question_id] ? <button className="answerLoad">LOAD MORE ANSWERS</button> : null}
+              {questionIDs2[oneQuestion.question_id] ? <button onClick={loadAnswers} name={oneQuestion.question_id} className="answerLoad">LOAD MORE ANSWERS</button> : null}
             </div>
           </div>
         )
