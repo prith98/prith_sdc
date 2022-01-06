@@ -5,7 +5,7 @@ import axios from 'axios';
 function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, cqCopy, setCQCopy,
-    currentQuestion, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, reportAnswerIDs, setReportAnswerIDs, currentCount, setCurrentCount, showAnswerModal, setShowAnswerModal,
+    currentQuestion, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, reportAnswerIDs, setReportAnswerIDs, showAllAnswers, setShowAllAnswers, currentCount, setCurrentCount, showAnswerModal, setShowAnswerModal,
      setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer} = useContext(MainContext);
 
   // Get all answers for a specific Question based on questionID
@@ -117,6 +117,7 @@ function IndividualQandA () {
   // Function that fills up the answerIDs and reportAnswerIDs state
   // with an object of objects with key of answerID and value of false
   const fillAnswerIDs = function() {
+    console.log(questionIDs)
     let aIDObject = {};
     let raIDObject = {};
     const helper = function(array) {
@@ -163,8 +164,8 @@ function IndividualQandA () {
       {/* Dynamically renders questions from currentQuestion prop in the format of Question, then Answer, then asker name, date asked, helpful, how many people found it helpful, and report*/}
 
       {limitQuestions && reportAnswerIDs ? limitQuestions.map(oneQuestion => {
-        let answerArray = Object.values(oneQuestion.answers);
-        let finalAnswers = answerArray.slice(0,3).map(oneAnswer => {
+        let answerArray = Object.values(oneQuestion.answers).slice(0, 2);
+        let finalAnswers = answerArray.map(oneAnswer => {
           return (
             <div key={oneAnswer.id} id="totalAnswer">
               <div className="answerBody"><span><b>A: </b></span>{oneAnswer.body}</div>
