@@ -38,14 +38,6 @@ function Ratings() {
 
   let starRatingsArray = [];
 
-  // for (var star in productRatings.data.ratings) {
-  //   starRatingsArray.push(star);
-  // }
-
-  for (var i = 5; i > 0; i--) {
-    starRatingsArray.push(productRatings.data.ratings[i.toString()]);
-  }
-
   //Create overall product rating decimal number
   let oneStarRatings = Number(productRatings.data.ratings[1]);
   let twoStarRatings = Number(productRatings.data.ratings[2]);
@@ -95,72 +87,39 @@ function Ratings() {
     recommendedPercentageAsAString = recommendedPercentageAsAString.slice(0, 2) + '%';
   }
 
+  for (let i = 5; i > 0; i--) {
+    let stars = i.toString();
+    let starPercentage = productRatings.data.ratings[i] / totalRatingsCount;
+    let starPercentageRounded = Math.round(starPercentage * 100) / 100;
+    starRatingsArray.push({ stars: stars, numberOfRatings: productRatings.data.ratings[i.toString()], percentage: starPercentageRounded });
+  }
+
   return (
-    <MainContext.Provider value={{productRatings}}>
-    <div className="ratings-container">
-      <div className="ratings-number-and-stars">
-        <div className="ratings-decimal">
-          {overallProductRating}
+    <MainContext.Provider value={{ productRatings }}>
+      <div className="ratings-container">
+        <div className="ratings-number-and-stars">
+          <div className="ratings-decimal">
+            {overallProductRating}
+          </div>
+          <div className="ratings-overall-star">
+            star rating
+          </div>
         </div>
-        <div className="ratings-overall-star">
-          star rating
+        <div className="ratings-recommend-percentage">
+          {recommendedPercentageAsAString} of reviewers recommend this product
         </div>
-      </div>
-      <div className="ratings-recommend-percentage">
-        {recommendedPercentageAsAString} of reviewers recommend this product
-      </div>
-      <div>
-        {starRatingsArray.map((starData) => {
-          return <Rating starData={starData}/>
-        })}
-      </div>
-      <div className="ratings-5-star">
-        <span className="ratings-5-star-text">
-          5 stars
-        </span>
-        <span className="ratings-5-star-bar">
-          bar
-        </span>
-      </div>
-      <div className="ratings-4-star">
-        <div className="ratings-4-star-text">
-          4 stars
+        <div>
+          {starRatingsArray.map((starData) => {
+            return <Rating starData={starData} />
+          })}
         </div>
-        <div className="ratings-4-star-bar">
-          bar
+        <div className="ratings-size-slider">
+          size-slider
+        </div>
+        <div className="ratings-comfort-slider">
+          comfort-slider
         </div>
       </div>
-      <div className="ratings-3-star">
-        <div className="ratings-3-star-text">
-          3 stars
-        </div>
-        <div className="ratings-3-star-bar">
-          bar
-        </div>
-      </div>
-      <div className="ratings-2-star">
-        <div className="ratings-2-star-text">
-          2 stars
-        </div>
-        <div className="ratings-2-star-bar">
-          bar
-        </div>
-      </div>
-      <div className="ratings-1-star">
-        <div className="ratings-1-star-text">
-          1 stars
-        </div>
-        <div className="ratings-1-star-bar">
-          bar
-        </div>
-      </div>
-      <div className="ratings-size-slider">
-        size-slider
-      </div>
-      <div className="ratings-comfort-slider">
-        comfort-slider
-      </div>
-    </div>
     </MainContext.Provider>
   )
 }
