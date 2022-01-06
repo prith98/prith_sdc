@@ -81,7 +81,7 @@ function Qna () {
     if (isMounted) {
       // Getting all the questions for the specified currentProductId and storing it in currentQuestionData as a promisified object
       currentQuestionData.push(axios.get('/qa/questions?product_id=' + currentProductId + '&count=100').then((result) => { return result.data; }));
-      limitQuestionsData.push(axios.get('/qa/questions?product_id=' + currentProductId + '&count=4').then((result) => { return result.data; }));
+      // limitQuestionsData.push(axios.get('/qa/questions?product_id=' + currentProductId + '&count=4').then((result) => { return result.data; }));
 
 
       // Iterate over Promisified array to see if each promise resolves, if they do, then the output will be the specific data
@@ -95,11 +95,13 @@ function Qna () {
         setQuestionIDs2(questionIDsObj2);
         setQuestionIDs(questionIDsObj);
         setNumCurrentQuestions(values[0].results.length);
+        setCQCopy(values[0].results.slice(0, 4));
+        setLimitQuestions(values[0].results.slice(0, 4));
       })
-      Promise.all(limitQuestionsData).then((values) => {
-        setCQCopy(values[0].results);
-        setLimitQuestions(values[0].results)
-      })
+      // Promise.all(limitQuestionsData).then((values) => {
+      //   setCQCopy(values[0].results);
+      //   setLimitQuestions(values[0].results)
+      // })
     }
     return () => { isMounted = false };
   }, []);
