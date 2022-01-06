@@ -4,7 +4,6 @@ import Reviews from './reviews.js';
 import { MainContext } from '../../../contexts/contexts.js';
 
 function Review(reviewData) {
-  const { products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered } = useContext(MainContext);
 
   //   reviewData:
   // body: "Great outfit for huntin clams!"
@@ -73,7 +72,6 @@ function Review(reviewData) {
       </div>
       <hr className="review-horizontal-spacer"></hr>
     </div>
-
   )
 }
 
