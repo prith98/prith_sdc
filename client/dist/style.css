@@ -341,10 +341,6 @@ input#QASearch {
 
 }
 
-/* div#IndividualQA {
-
-} */
-
 div#searchText {
   font-weight: bold;
   text-align: center;
@@ -354,7 +350,9 @@ div#searchText {
 }
 
 div#totalAnswer {
-  padding: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 div#questionAsked {
@@ -366,6 +364,19 @@ div.answerBottomText{
   font-size: small;
   font-weight: normal;
   position: relative;
+}
+
+div#loadingButton{
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+button.answerLoad {
+  font-size: small;
+  font-weight: normal;
+  position: relative;
+  padding: 10px;
+  cursor: pointer;
 }
 
 span#questionAskedInfo {

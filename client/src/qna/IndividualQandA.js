@@ -179,7 +179,9 @@ function IndividualQandA () {
               <span id="questionAskedInfo"> asked by: {oneQuestion.asker_name}   |    Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <span className="helpfulYes" data-id={oneQuestion.question_id} onClick={updateQHelpful}><u>Yes</u></span> ({oneQuestion.question_helpfulness})   | <span data-id={oneQuestion.question_id} className="addAnswer" onClick={updateQID}> <u> Add Answer </u></span> </span>
             </div>
             <div id="answers">{finalAnswers}</div>
-            <div className="answerLoad">LOAD MORE ANSWERS</div>
+            <div id="loadingButton">
+              <button className="answerLoad">LOAD MORE ANSWERS</button>
+            </div>
           </div>
         )
       }): <div>LOADING...</div>}
