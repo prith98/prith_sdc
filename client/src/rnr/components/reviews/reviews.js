@@ -36,7 +36,7 @@ function Reviews() {
       <div className="relevance" style={{marginBottom: "10px"}}>
             {productReviews.results.length} reviews, sorted by relevance
           </div>
-        <div className="reviews-scroll-container" style={{ border: "2px solid lime", width: "100%", height: "450px", overflowY: "scroll" }}>
+        <div className="reviews-scroll-container" style={{ border: "1px solid black", borderRadius: "1px", width: "100%", height: "450px", overflowY: "scroll" }}>
           {reviews}
         </div>
         <div className="reviews-button-container" style={{float: "left", marginTop: "15px"}}>
