@@ -12,7 +12,7 @@ function Reviews() {
 
   let mapOverReviews = function () {
     setReviews(reviewResults.map((reviewData) => {
-      return (<Review reviewData={reviewData}/>);
+      return (<Review reviewData={reviewData} />);
     }))
   }
 
@@ -31,16 +31,19 @@ function Reviews() {
   }
 
   return (
-    <MainContext.Provider value={{ products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered}}>
+    <MainContext.Provider value={{ products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered }}>
       <div>
-        <div className="relevance">
-          {productReviews.results.length} reviews, sorted by relevance
+      <div className="relevance" style={{marginBottom: "10px"}}>
+            {productReviews.results.length} reviews, sorted by relevance
+          </div>
+        <div className="reviews-scroll-container" style={{ border: "2px solid lime", width: "100%", height: "450px", overflowY: "scroll" }}>
+          {reviews}
         </div>
-        {reviews}
-        <div>
-          {reviewsRendered < productReviews.results.length ? <button className="show-more-reviews" onClick={(event) => {
+        <div className="reviews-button-container" style={{float: "left", marginTop: "15px"}}>
+          {reviewsRendered < productReviews.results.length ? <button className="show-more-reviews" style={{ display: "inline-block", marginRight: "20px" }} onClick={(event) => {
             showMoreReviews(event);
-          }}>Show more reviews</button> : ''}
+          }}>Show More Reviews</button> : ''}
+          <button style={{ display: "inline-block" }}>Add a Review</button>
         </div>
       </div>
     </MainContext.Provider>

@@ -107,7 +107,7 @@ function Ratings() {
 
   return (
     <MainContext.Provider value={{ productRatings }}>
-      <div className="ratings-container">
+      <div className="ratings-container" style={{padding: "10px"}}>
         <div className="ratings-number-and-stars">
           <div className="ratings-decimal">
             {overallProductRating}
