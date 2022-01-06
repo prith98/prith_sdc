@@ -328,9 +328,6 @@ form#formQASearch {
 
 input#QASearch {
   text-align: center;
-  /* border-style: solid;
-  border-radius: 25px;
-  border: 2px solid #000000; */
   width: 100%;
   margin: 20px auto;
   position: relative;
@@ -374,8 +371,8 @@ div.answerBottomText{
 span#questionAskedInfo {
   font-size: small;
   font-weight: normal;
-  position: relative;
-  right: -500px;
+  position: absolute;
+  right: 10px;
 }
 
 span.reportAnswer{
@@ -386,9 +383,27 @@ span.addAnswer{
   cursor: pointer;
 }
 
-button#qnaButton {
-  margin-left: 250px;
+div#QAButtons{
+  margin: 50px auto;
   position: relative;
+  width: 80%;
+}
+
+button#qnaButton {
+  padding: 13px 29px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: crimson;
+  color: white;
+  cursor: pointer;
+}
+
+button#qnaButton2 {
+  position: absolute;
+  right: 0;
   padding: 13px 29px;
   font-size: 1rem;
   font-weight: bold;

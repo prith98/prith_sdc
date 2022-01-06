@@ -164,7 +164,7 @@ function IndividualQandA () {
 
       {limitQuestions && reportAnswerIDs ? limitQuestions.map(oneQuestion => {
         let answerArray = Object.values(oneQuestion.answers);
-        let finalAnswers = answerArray.map(oneAnswer => {
+        let finalAnswers = answerArray.slice(0,3).map(oneAnswer => {
           return (
             <div key={oneAnswer.id} id="totalAnswer">
               <div className="answerBody"><span><b>A: </b></span>{oneAnswer.body}</div>

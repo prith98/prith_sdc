@@ -109,8 +109,10 @@ function Qna () {
       <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, reportAnswerIDs, setReportAnswerIDs, numCurrentQuestions, setNumCurrentQuestions, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showQuestionModal, setShowQuestionModal, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer, showAnswerModal, setShowAnswerModal}}>
           <SearchQuestions />
           <IndividualQandA />
-          <button id="qnaButton" onClick={showAllQ}>More Answered Questions</button>
-          <button id="qnaButton" onClick={openQuestionModal}>Add A Question +</button>
+          <div id="QAButtons">
+            <button id="qnaButton" onClick={showAllQ}>More Answered Questions</button>
+            <button id="qnaButton2" onClick={openQuestionModal}>Add A Question +</button>
+          </div>
           {showQuestionModal ? <AddQuestion setShowQuestionModal={setShowQuestionModal} updateCPID={updateCPID}/> : null}
           {showAnswerModal ? <AddAnswer updateCPID={updateCPID}/> : null}
       </MainContext.Provider>
