@@ -2,25 +2,71 @@ import React, { useState, useContext, useEffect} from 'react';
 import {MainContext} from '../../contexts/contexts.js'
 import Axios from 'axios';
 import { FaExpand } from 'react-icons/fa';
-
+import Zoom from 'react-img-zoom';
+var freeze = false;
 function Slide() {
-  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures} = useContext(MainContext);
-  let currProdStyles;
-  //Find currentProduct in styles
-  styles.forEach(p => {
-    if (Number(p.product_id) === currentProductId) {
-      currProdStyles = p;
+  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, extend, setExtend, zoomEnabled, setZoomEnabled} = useContext(MainContext);
+
+  function extendToggle() {
+    if (extend === false) {
+      setExtend(true);
+    } else {
+      setExtend(false);
     }
-  })
+  }
 
-  // if (mainPicture == null) {
-  //   return <div>Loading...</div>
-  // }
+  function extendView(e) {
+    if (extend === false) {
+      setExtend(true);
+      return;
+    }
+    if (zoomEnabled) {
+      setZoomEnabled(false);
+    } else {
+      setZoomEnabled(true);
+    }
+  }
 
+  function zoom(e) {
+    let original = e.target,
+        magnified = e.target,
+        style = original.style,
+        x = e.pageX - e.target.offsetLeft,
+        y = e.pageY - e.target.offsetTop,
+        imgWidth = original.offsetWidth ,
+        imgHeight = original.offsetHeight,
+        xperc = ((x/imgWidth) * 100),
+        yperc = ((y/imgHeight) * 100);
+    // //lets user scroll past right edge of image
+    // if(x > (.01 * imgWidth)) {
+    //   xperc += (.15 * xperc);
+    // }
+
+    // //lets user scroll past bottom edge of image
+    // if(y >= (.01 * imgHeight)) {
+    //   yperc += (.15 * yperc);
+    // };
+    let xlimit;
+    let ylimit;
+    // 668 × 1002 px width: 60:33 ||
+    if (xperc-30 < 100 && xperc-30 > 0) {
+      style.backgroundPositionX = (xperc - 30) + '%';
+    }
+
+
+    if (yperc-9 < 100 && yperc-9 > 0) {
+      style.backgroundPositionY = (yperc - 30) + '%';
+    }
+
+      style.left = (x - 180) + 'px';
+      style.top = (y - 180) + 'px';
+  }
+
+  let zoomDiv = zoomEnabled === true ? <div style={{backgroundImage: 'URL(' + mainPicture + ')', backgroundRepeat: 'no-repeat', transform:'scale(2.5)', backgroundPositionX: '50%', cursor: extend === true ? 'crosshair':'zoom-in', height: '100%', width: '100%'}} onMouseMove={zoom} onClick={extendView}> </div>:<img src={mainPicture} style={{cursor: extend === true ? 'crosshair':'zoom-in', height: '100%', width: extend===true ? '160%':'100%', objectFit: 'cover', webkitTransition: 'width 1s ease, height 1s ease'}} onClick={extendView}/>
   return (
-    <div className="mySlides fade" style={{width:'94%', backgroundColor:'yellow', height:'590px', display: 'block'}}>
-      <FaExpand className="extend"/>
-      <img src={mainPicture} style={{height: '100%', width: '100%', objectFit: 'cover'}}/>
+    <div className="mySlides fade" style={{width: zoomEnabled===true ? '1205px':'94%', backgroundColor:'yellow', height:'590px', display: 'block', overflow: zoomEnabled === true ? 'hidden':''}}>
+      <FaExpand className="extend" style={{display: zoomEnabled === true ? 'none':'', color: 'black', right: extend===true ? '-371px':'77px', webkitTransition: 'right 1s ease'}} onClick={extendToggle}/>
+      {zoomDiv}
     </div>
   );
 }

@@ -1,14 +1,13 @@
 import React, { useState, useContext, useEffect} from 'react';
 import {MainContext} from '../../contexts/contexts.js'
 import Axios from 'axios';
-import Slides from './slides.js';
 import Thumbnails from './thumbnails.js';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
 var localSlideIndex = 0;
 
 function Arrows(props) {
-  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, thumbnailCount, setThumbnailCount, loadNextThumbnail, setLoadNextThumbnail, thumbnailIncrement, setThumbnailIncrement, slideIndex, setSlideIndex} = useContext(MainContext);
+  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, thumbnailCount, setThumbnailCount, loadNextThumbnail, setLoadNextThumbnail, thumbnailIncrement, setThumbnailIncrement, slideIndex, setSlideIndex, extend, setExtend,  zoomEnabled, setZoomEnabled} = useContext(MainContext);
     var downActive = thumbnailCount > 5 ? true:false;
     var upActive = thumbnailIncrement > 0 ? true:false;
 
@@ -71,7 +70,7 @@ function Arrows(props) {
         preventOutOfIndex(thumbnailIncrement-1, "up");
       } else {
         preventOutOfIndex(thumbnailIncrement+1, "down");
-        localSlideIndex = 0;
+        localSlideIndex = slideIndex;
       }
     }
 
@@ -81,10 +80,10 @@ function Arrows(props) {
 
   return (
     <div>
-      <a className="prev" onClick={() => {plusSlides(-1)}}><FiArrowLeft style={{height: '23px', width: '23px', color: 'black'}}/></a>
-      <a className="next" onClick={() => {plusSlides(1)}}><FiArrowRight style={{height: '23px', width: '23px', color: 'black'}}/></a>
-      <a className="down" onClick={() => {renderThumbnails('down')}}><RiArrowDownSLine style={{height: '20px', width: '20px', color: 'black', display: downActive === true ? '':'none'}}/></a>
-      <a className="up"   onClick={() => {renderThumbnails('up')}}><RiArrowUpSLine style={{height: '20px', width: '20px', color: 'black', display: upActive === true ? '':'none'}}/></a>
+      <a className="prev" onClick={() => {plusSlides(-1)}}><FiArrowLeft style={{display: zoomEnabled === true ? 'none':'', height: '23px', width: '23px', color: 'black'}}/></a>
+      <a className="next" style={{display: zoomEnabled === true ? 'none':'', right: extend===true ? '-388px':'60px', webkitTransition: 'right 1s ease'}} onClick={() => {plusSlides(1)}}><FiArrowRight style={{height: '23px', width: '23px', color: 'black'}}/></a>
+      <a className="down" onClick={() => {renderThumbnails('down')}}><RiArrowDownSLine style={{display: zoomEnabled === true ? 'none':'', height: '20px', width: '20px', color: 'black', display: downActive === true ? '':'none'}}/></a>
+      <a className="up"   onClick={() => {renderThumbnails('up')}}><RiArrowUpSLine style={{display: zoomEnabled === true ? 'none':'', height: '20px', width: '20px', color: 'black', display: upActive === true ? '':'none'}}/></a>
     </div>
     )
   }

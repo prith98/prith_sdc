@@ -10,6 +10,7 @@ function Style(props) {
   function setCurrentStyle(event) {
     setCurrStyle(props.style_id);
     setMainPicture(props.main);
+    console.log(props.main);
     let sizesQuantities = {};
     active = true;
     Object.values(props.skus).forEach((obj) => {
