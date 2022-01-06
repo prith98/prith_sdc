@@ -21,6 +21,7 @@ function StyleSelector() {
 
   useEffect(() => {
     if (currStyle == null) {
+      console.log('null');
       setCurrStyle(currProdStyles.results[0].style_id);
     }
     if (mainPicture == null) {
@@ -34,18 +35,5 @@ function StyleSelector() {
     </div>
   );
 }
-//productInformation.js
-//----------------
-//Star Ratings
-//Category
-//Product Name
-//Price
-
-//StyleSelector.js
-//---------------
-//Style > Selected Style Header
-//Style Bubbles
-//Select Size
-//Add To Bag / Star Button
 
 export default StyleSelector;
