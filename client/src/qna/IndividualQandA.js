@@ -5,7 +5,7 @@ import axios from 'axios';
 function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, cqCopy, setCQCopy,
-    currentQuestion, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, reportAnswerIDs, setReportAnswerIDs, currentCount, setCurrentCount, showAnswerModal, setShowAnswerModal,
+    currentQuestion, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, reportAnswerIDs, setReportAnswerIDs, questionIDs2, setQuestionIDs2, currentCount, setCurrentCount, showAnswerModal, setShowAnswerModal,
      setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer} = useContext(MainContext);
 
   // Get all answers for a specific Question based on questionID
@@ -114,7 +114,10 @@ function IndividualQandA () {
     setShowAnswerModal(true);
   }
 
+  // Function that fills up the answerIDs and reportAnswerIDs state
+  // with an object of objects with key of answerID and value of false
   const fillAnswerIDs = function() {
+    // console.log(questionIDs2)
     let aIDObject = {};
     let raIDObject = {};
     const helper = function(array) {
@@ -157,26 +160,29 @@ function IndividualQandA () {
 
   return (
 
-    <div>
+    <div id="IndividualQA">
       {/* Dynamically renders questions from currentQuestion prop in the format of Question, then Answer, then asker name, date asked, helpful, how many people found it helpful, and report*/}
 
       {limitQuestions && reportAnswerIDs ? limitQuestions.map(oneQuestion => {
         let answerArray = Object.values(oneQuestion.answers);
         let finalAnswers = answerArray.map(oneAnswer => {
           return (
-            <div key={oneAnswer.id}>
-              <div className="answerBody">A: {oneAnswer.body}</div>
+            <div key={oneAnswer.id} id="totalAnswer">
+              <div className="answerBody"><span><b>A: </b></span>{oneAnswer.body}</div>
               <div className="answerBottomText">by {oneAnswer.answerer_name}, {oneAnswer.date.slice(0,10)}   |   Helpful? <span className="helpfulYes" data-id={oneAnswer.id} onClick={updateAHelpful}><u>Yes</u></span>({oneAnswer.helpfulness})   |  <span data-id={oneAnswer.id.toString()} className="reportAnswer" onClick={reportAnswer}><u>{reportAnswerIDs[oneAnswer.id] ? "Reported" : "Report"}</u></span></div>
             </div>
           );
         });
         return (
           <div key={oneQuestion.question_id} className="individualQA">
-            <div>
+            <div id="questionAsked">
               Q: {oneQuestion.question_body}
-              <span> by {oneQuestion.asker_name}, Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <span className="helpfulYes" data-id={oneQuestion.question_id} onClick={updateQHelpful}><u>Yes</u></span> ({oneQuestion.question_helpfulness})   | <span data-id={oneQuestion.question_id} className="addAnswer" onClick={updateQID}> <u> Add Answer </u></span> </span>
+              <span id="questionAskedInfo"> asked by: {oneQuestion.asker_name}   |    Date Asked: {oneQuestion.question_date.slice(0, 10)}   |   Helpful? <span className="helpfulYes" data-id={oneQuestion.question_id} onClick={updateQHelpful}><u>Yes</u></span> ({oneQuestion.question_helpfulness})   | <span data-id={oneQuestion.question_id} className="addAnswer" onClick={updateQID}> <u> Add Answer </u></span> </span>
             </div>
             <div id="answers">{finalAnswers}</div>
+            <div id="loadingButton">
+              { questionIDs2[oneQuestion.question_id] ? <button className="answerLoad">LOAD MORE ANSWERS</button> : null}
+            </div>
           </div>
         )
       }): <div>LOADING...</div>}

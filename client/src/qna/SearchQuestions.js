@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import {MainContext} from '../contexts/contexts.js'
 import Axios from 'axios';
+import { FaSearch } from "react-icons/fa";
 
 function SearchQuestions (props) {
 
@@ -34,6 +35,7 @@ function SearchQuestions (props) {
     return result;
   }
 
+
   // useEffect only runs when query value is changed to prevent infinite loops
   useEffect(() => {
 
@@ -43,18 +45,23 @@ function SearchQuestions (props) {
   }, [query])
 
   return (
-    <form id="formQASearch">
-      <label>
-        <input
-          name="search"
-          id="QASearch"
-          type="text"
-          value={query}
-          placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
-          onChange={onFormChange}
-          />
-      </label>
-    </form>
+    <div className="form-center">
+      <form id="formQASearch">
+        <div id="searchText">
+          <FaSearch />
+        </div>
+        <label>
+          <input
+            name="search"
+            id="QASearch"
+            type="text"
+            value={query}
+            placeholder="Have a question? Search for answers..."
+            onChange={onFormChange}
+            />
+        </label>
+      </form>
+    </div>
   )
 
 }

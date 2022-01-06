@@ -283,9 +283,9 @@ textarea:focus, .searchtext:focus{
 
 .individualQA {
   border-style: solid;
-  border-radius: 25px;
-  border: 2px solid #73AD21;
-  padding: 20px;
+  border-radius: 5px;
+  border: 2px solid #040404;
+  padding: 5px;
   width: 80%;
   margin: 50px auto;
   position: relative;
@@ -307,14 +307,83 @@ h1#QAHeader{
   width: 80%;
   margin: 50px auto;
   position: relative;
+  top: 50px;
+}
+
+
+form#formQASearch {
+  border-style: solid;
+  border-radius: 5px;
+  border: 2px solid #040404;
+  width: 80%;
+  margin: 50px auto;
+  position: relative;
+}
+
+.form-center {
+	display:flex;
+	justify-content: center;
+  text-align: center;
 }
 
 input#QASearch {
-  width: 80%;
-  padding: 12px 20px;
-  margin-left: 250px;
-  box-sizing: border-box;
+  text-align: center;
+  width: 100%;
+  margin: 20px auto;
   position: relative;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  outline: none;
+  font-weight: bold;
+  font-size: x-large;
+
+}
+
+div#searchText {
+  font-weight: bold;
+  text-align: center;
+  font-size: x-large;
+  top: 10px;
+  position: relative;
+}
+
+div#totalAnswer {
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+div#questionAsked {
+  font-weight: bold;
+  font-size: larger;
+}
+
+div.answerBottomText{
+  font-size: small;
+  font-weight: normal;
+  position: relative;
+}
+
+div#loadingButton{
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+button.answerLoad {
+  font-size: small;
+  font-weight: normal;
+  position: relative;
+  padding: 10px;
+  cursor: pointer;
+}
+
+span#questionAskedInfo {
+  font-size: small;
+  font-weight: normal;
+  position: absolute;
+  right: 10px;
 }
 
 span.reportAnswer{
@@ -325,9 +394,27 @@ span.addAnswer{
   cursor: pointer;
 }
 
-button#qnaButton {
-  margin-left: 250px;
+div#QAButtons{
+  margin: 50px auto;
   position: relative;
+  width: 80%;
+}
+
+button#qnaButton {
+  padding: 13px 29px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: crimson;
+  color: white;
+  cursor: pointer;
+}
+
+button#qnaButton2 {
+  position: absolute;
+  right: 0;
   padding: 13px 29px;
   font-size: 1rem;
   font-weight: bold;
