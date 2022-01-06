@@ -36,7 +36,15 @@ function Ratings() {
   // statusText: "OK"
   // [[Prototype]]: Object
 
-  let starRatingsArray = [];
+  let comfortRating = productRatings.data.characteristics.Comfort.value || null;
+  let fitRating = productRatings.data.characteristics.Fit.value || null;
+  let lengthRating = productRatings.data.characteristics.Length.value || null;
+  let qualityRating = productRatings.data.characteristics.Quality.value || null;
+
+  let comfortSliderPosition = (comfortRating * 52).toString() + 'px';
+  let fitSliderPosition = (fitRating * 52).toString() + 'px';
+  let lengthSliderPosition = (lengthRating * 52).toString() + 'px';
+  let qualitySliderPosition = (qualityRating * 52).toString() + 'px';
 
   //Create overall product rating decimal number
   let oneStarRatings = Number(productRatings.data.ratings[1]);
@@ -87,6 +95,9 @@ function Ratings() {
     recommendedPercentageAsAString = recommendedPercentageAsAString.slice(0, 2) + '%';
   }
 
+  //Create star percentage bar data
+  let starRatingsArray = [];
+
   for (let i = 5; i > 0; i--) {
     let stars = i.toString();
     let starPercentage = productRatings.data.ratings[i] / totalRatingsCount;
@@ -105,7 +116,7 @@ function Ratings() {
             star rating
           </div>
         </div>
-        <div className="ratings-recommend-percentage">
+        <div className="ratings-recommend-percentage" style={{ fontSize: "10px", marginTop: "10px" }}>
           {recommendedPercentageAsAString} of reviewers recommend this product
         </div>
         <div>
@@ -113,11 +124,56 @@ function Ratings() {
             return <Rating starData={starData} />
           })}
         </div>
-        <div className="ratings-size-slider">
-          size-slider
-        </div>
-        <div className="ratings-comfort-slider">
-          comfort-slider
+        <div className="ratings-sliders" style={{ marginTop: "10px" }}>
+          {comfortRating !== null ?
+            <div className="ratings-comfort">
+              <div className="ratings-comfort-text" style={{ marginTop: "20px" }}>
+                Comfort
+              </div>
+              <span className="comfort-bar" style={{ position: "absolute", display: "inline-block", marginTop: "4px", marginLeft: "0px", backgroundColor: "#a5acb8", height: "10px", width: "270px" }}></span>
+              <span style={{ display: "inline-block", position: "absolute", marginLeft: comfortSliderPosition }}>&nabla;</span>
+              <div className="comfort-descriptors" style={{ marginTop: "12px" }}>
+                <span style={{ fontSize: "10px" }}>Poor</span>
+                <span style={{ fontSize: "10px", marginLeft: "212px" }}>Perfect</span>
+              </div>
+            </div> : ''}
+          {fitRating !== null ?
+            <div className="ratings-fit" style={{ marginTop: "10px" }}>
+              <div className="ratings-fit-text">
+                Fit
+              </div>
+              <span className="fit-bar" style={{ position: "absolute", display: "inline-block", marginTop: "4px", marginLeft: "0px", backgroundColor: "#a5acb8", height: "10px", width: "270px" }}></span>
+              <span style={{ display: "inline-block", position: "absolute", marginLeft: fitSliderPosition }}>&nabla;</span>
+              <div className="fit-descriptors" style={{ marginTop: "12px" }}>
+                <span style={{ fontSize: "10px" }}>Poor</span>
+                <span style={{ fontSize: "10px", marginLeft: "212px" }}>Perfect</span>
+              </div>
+            </div> : ''}
+          {lengthRating !== null ?
+            <div className="ratings-length" style={{ marginTop: "10px" }}>
+              <div className="ratings-length-text">
+                Length
+              </div>
+              <span className="length-bar" style={{ position: "absolute", display: "inline-block", marginTop: "4px", marginLeft: "0px", backgroundColor: "#a5acb8", height: "10px", width: "270px" }}></span>
+              <span style={{ display: "inline-block", position: "absolute", marginLeft: lengthSliderPosition }}>&nabla;</span>
+              <div className="length-descriptors" style={{ marginTop: "12px" }}>
+                <span style={{ fontSize: "10px" }}>Too Short</span>
+                <span style={{ fontSize: "10px", marginLeft: "72px" }}>Perfect</span>
+                <span style={{ fontSize: "10px", marginLeft: "72px" }}>Too Long</span>
+              </div>
+            </div> : ''}
+          {qualityRating !== null ?
+            <div className="ratings-quality" style={{ marginTop: "10px" }}>
+              <div className="ratings-quality-text">
+                Quality
+              </div>
+              <span className="quaility-bar" style={{ position: "absolute", display: "inline-block", marginTop: "4px", marginLeft: "0px", backgroundColor: "#a5acb8", height: "10px", width: "270px" }}></span>
+              <span style={{ display: "inline-block", position: "absolute", marginLeft: qualitySliderPosition }}>&nabla;</span>
+              <div className="quality-descriptors" style={{ marginTop: "12px" }}>
+                <span style={{ fontSize: "10px" }}>Poor</span>
+                <span style={{ fontSize: "10px", marginLeft: "212px" }}>Perfect</span>
+              </div>
+            </div> : ''}
         </div>
       </div>
     </MainContext.Provider>

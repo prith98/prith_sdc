@@ -497,14 +497,6 @@ review-horizontal-spacer.solid {
   display: inline-block;
 }
 
-.ratings-size-slider {
-  display: inline-block;
-  position: absolute;
-  bottom: -300px;
-}
-
-.ratings-comfort-slider {
-  display: inline-block;
-  position:absolute;
-  bottom: -10px;
+.ratings-recommend-percentage {
+  margin-bottom: 20px;
 }
