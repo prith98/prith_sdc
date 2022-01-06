@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Rnr from '../../rnr.js';
 import { MainContext } from '../../../contexts/contexts.js';
+import Rating from './rating.js';
 
-function Reviews() {
+function Ratings() {
   const { products, setProducts, currentProduct, setCurrentProduct, productReviews, setProductReviews, productRatings, setProductRatings } = useContext(MainContext);
 
   console.log('productRatings', productRatings);
@@ -34,6 +35,16 @@ function Reviews() {
   // status: 200
   // statusText: "OK"
   // [[Prototype]]: Object
+
+  let starRatingsArray = [];
+
+  // for (var star in productRatings.data.ratings) {
+  //   starRatingsArray.push(star);
+  // }
+
+  for (var i = 5; i > 0; i--) {
+    starRatingsArray.push(productRatings.data.ratings[i.toString()]);
+  }
 
   //Create overall product rating decimal number
   let oneStarRatings = Number(productRatings.data.ratings[1]);
@@ -85,6 +96,7 @@ function Reviews() {
   }
 
   return (
+    <MainContext.Provider value={{productRatings}}>
     <div className="ratings-container">
       <div className="ratings-number-and-stars">
         <div className="ratings-decimal">
@@ -97,13 +109,18 @@ function Reviews() {
       <div className="ratings-recommend-percentage">
         {recommendedPercentageAsAString} of reviewers recommend this product
       </div>
+      <div>
+        {starRatingsArray.map((starData) => {
+          return <Rating starData={starData}/>
+        })}
+      </div>
       <div className="ratings-5-star">
-        <div className="ratings-5-star-text">
+        <span className="ratings-5-star-text">
           5 stars
-        </div>
-        <div className="ratings-5-star-bar">
+        </span>
+        <span className="ratings-5-star-bar">
           bar
-        </div>
+        </span>
       </div>
       <div className="ratings-4-star">
         <div className="ratings-4-star-text">
@@ -144,7 +161,8 @@ function Reviews() {
         comfort-slider
       </div>
     </div>
+    </MainContext.Provider>
   )
 }
 
-export default Reviews;
+export default Ratings;

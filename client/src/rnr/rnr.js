@@ -4,6 +4,7 @@ import Axios from 'axios';
 import Reviews from './components/reviews/reviews.js';
 import Ratings from './components/ratings/ratings.js';
 import Review from './components/reviews/review.js';
+import Rating from './components/ratings/rating.js';
 
 function Rnr() {
   const { products, setProducts, currentProductId, setCurrentProductId } = useContext(MainContext);
