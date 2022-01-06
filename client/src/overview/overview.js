@@ -22,6 +22,8 @@ function Overview() {
   const [thumbnailIncrement, setThumbnailIncrement] = useState(0);
   const [quantity, setQuantity] = useState('-');
   const [slideIndex, setSlideIndex] = useState(0);
+  const [extend, setExtend] = useState(false);
+  const [zoomEnabled, setZoomEnabled] = useState(false);
 
   //Get requests
   let productInformationData = [];
@@ -45,7 +47,7 @@ function Overview() {
   }
 
   return (
-    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, size, setSize, quantityList, setQuantityList, isActive, setIsActive, thumbnailCount, setThumbnailCount, loadNextThumbnail, setLoadNextThumbnail, thumbnailIncrement, setThumbnailIncrement, slideIndex, setSlideIndex}}>
+    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, size, setSize, quantityList, setQuantityList, isActive, setIsActive, thumbnailCount, setThumbnailCount, loadNextThumbnail, setLoadNextThumbnail, thumbnailIncrement, setThumbnailIncrement, slideIndex, setSlideIndex, extend, setExtend, zoomEnabled, setZoomEnabled}}>
       <div className="wrapper">
         <div className="overviewsearch">
           <TiChartArea style={{height: '65px', width: '65px', color: 'white', marginLeft: '20px'}}/>
