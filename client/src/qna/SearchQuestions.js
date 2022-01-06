@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import {MainContext} from '../contexts/contexts.js'
 import Axios from 'axios';
+import { FaSearch } from "react-icons/fa";
 
 function SearchQuestions (props) {
 
@@ -43,18 +44,25 @@ function SearchQuestions (props) {
   }, [query])
 
   return (
-    <form id="formQASearch">
-      <label>
-        <input
-          name="search"
-          id="QASearch"
-          type="text"
-          value={query}
-          placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
-          onChange={onFormChange}
-          />
-      </label>
-    </form>
+    <div class="form-center">
+      <form id="formQASearch">
+        <div id="searchText">
+          <FaSearch />
+            for previously asked questions
+            {/* <FaSearch style={{transform: [{rotateY: '180deg'}]}}/> */}
+        </div>
+        <label>
+          <input
+            name="search"
+            id="QASearch"
+            type="text"
+            value={query}
+            placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
+            onChange={onFormChange}
+            />
+        </label>
+      </form>
+    </div>
   )
 
 }
