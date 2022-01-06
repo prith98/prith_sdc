@@ -4,19 +4,20 @@ import {MainContext} from '../contexts/contexts.js'
 import axios from 'axios';
 
 
-function AddQuestion (props) {
+function AddAnswer (props) {
 
-  const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy, showQuestionModal, setShowQuestionModal, currentQuestion, setCurrentQuestion, limitQuestions, setLimitQuestions} = useContext(MainContext);
+  const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy,
+     showAnswerModal, setShowAnswerModal, currentQuestion, setCurrentQuestion, limitQuestions, setLimitQuestions, qIDAnswer, setqIDAnswer} = useContext(MainContext);
 
   const modalRef = useRef();
 
-  const openQuestionModal = function () {
-    setShowQuestionModal(true);
+  const openAnswerModal = function () {
+    setShowAnswerModal(true);
   }
 
-  const closeModal = function (e) {
+  const closeAnswerModal = function (e) {
     if (e.target === modalRef.current) {
-      setShowQuestionModal(false);
+      setShowAnswerModal(false);
     }
   }
 
@@ -26,10 +27,12 @@ function AddQuestion (props) {
       "body": event.target.qnaFormQuestion.value,
       "name": event.target.nickname.value,
       "email": event.target.email.value,
-      "product_id": currentProductId
+      "photos": []
     }
+    console.log(payload);
+    console.log(qIDAnswer);
     axios
-      .post('/qa/questions', payload)
+      .post('/qa/questions/' + qIDAnswer + '/answers', payload)
       .then(() => {
         props.updateCPID()
       })
@@ -43,13 +46,13 @@ function AddQuestion (props) {
   }
 
   return ReactDOM.createPortal(
-    <div className="container" ref={modalRef} onClick={closeModal}>
+    <div className="container" ref={modalRef} onClick={closeAnswerModal}>
       <div className="modal">
-        <h2 id="formQF">Question Fields</h2>
+        <h2 id="formQF">Answer Fields</h2>
         <form onSubmit={onSubmit}>
           <div className="form-group">
-            <label htmlFor="question">Question (MANDATORY FIELD)</label>
-            <input className="form-control" id="qnaFormQuestion" type="text" placeholder="What question(s) do you have about this product?" />
+            <label htmlFor="question">Answer (MANDATORY FIELD)</label>
+            <input className="form-control" id="qnaFormQuestion" type="text" placeholder="Your answer here" />
           </div>
           <div className="form-group">
             <label htmlFor="nickname">Nickname (MANDATORY FIELD)</label>
@@ -57,7 +60,7 @@ function AddQuestion (props) {
               type="nickname"
               className="form-control"
               id="nickname"
-              placeholder="jackson11!"
+              placeholder="jack543!"
             />
           </div>
           <div className="form-group">
@@ -66,7 +69,7 @@ function AddQuestion (props) {
               type="email"
               className="form-control"
               id="email"
-              placeholder="jack@mail.com"
+              placeholder="jack@email.com"
             />
           </div>
           <input type="submit" value="SubmitQuestion"></input>
@@ -77,7 +80,8 @@ function AddQuestion (props) {
   );
 
 
+
 }
 
-export default AddQuestion;
+export default AddAnswer;
 
