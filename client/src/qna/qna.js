@@ -118,7 +118,9 @@ function Qna () {
       {/* Passing down all the state values to SearchQuestions and IndividualQandA */}
       <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, reportAnswerIDs, setReportAnswerIDs, questionIDs2, setQuestionIDs2, numCurrentQuestions, setNumCurrentQuestions, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showQuestionModal, setShowQuestionModal, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer, showAnswerModal, setShowAnswerModal}}>
           <SearchQuestions />
-          <IndividualQandA />
+          <div style={{ border: "2px solid black", borderRadius: "5px", margin: "50px auto", width: "80%", height: "1000px", overflowY: "scroll" }} >
+            <IndividualQandA />
+          </div>
           <div id="QAButtons">
             <button id="qnaButton" onClick={showAllQ}>More Answered Questions</button>
             <button id="qnaButton2" onClick={openQuestionModal}>Add A Question +</button>
