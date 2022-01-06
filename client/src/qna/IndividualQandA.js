@@ -5,7 +5,7 @@ import axios from 'axios';
 function IndividualQandA () {
 
   const {products, setProducts, currentProductId, setCurrentProductId, numCurrentQuestions, setNumCurrentQuestions, cqCopy, setCQCopy,
-    currentQuestion, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, currentCount, setCurrentCount, showAnswerModal, setShowAnswerModal,
+    currentQuestion, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, reportAnswerIDs, setReportAnswerIDs, currentCount, setCurrentCount, showAnswerModal, setShowAnswerModal,
      setCurrentQuestion, query, setQuery, filteredQuestions, setFilteredQuestions, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer} = useContext(MainContext);
 
   // Get all answers for a specific Question based on questionID
@@ -43,19 +43,18 @@ function IndividualQandA () {
   // Send a PUT Request for a specific Answer ID to mark it as helpful and increase helpful count on server
   const updateAHelpful = function(e) {
     let aID = e.currentTarget.dataset.id;
-    let stateCopy = answerIDs;
-    console.log(answerIDs[aID])
+    let stateCopy1 = answerIDs;
     if (!answerIDs[aID]) {
       axios
         .put('/qa/answers/' + aID.toString() + '/helpful')
+        .then(() => {updateCPID()})
         .then(() => {
-          stateCopy[aID] = true;
-          setAnswerIDs(stateCopy);
+          stateCopy1[aID] = true;
+          setAnswerIDs(stateCopy1);
         })
         .then((results) => {
           console.log('Successfully marked answer ' + aID.toString() + ' as helpful');
         })
-        .then(() => {updateCPID()})
     } else {
       alert('You have already marked this answer as helpful!')
     }
@@ -64,15 +63,21 @@ function IndividualQandA () {
   // Send a PUT Request for a specific answer ID to mark the question as reported on the database
   const reportAnswer = function(e) {
     let aID = e.currentTarget.dataset.id;
-    console.log(aID);
-    axios
-      .put('/qa/questions/' + aID + '/report')
-      .then(() => {
-        alert('Reported Answer ' + aID + '.')
-      })
-      .then(() => {
-        updateCPID()
-      })
+    let stateCopy2 = reportAnswerIDs;
+    if (!reportAnswerIDs[aID]) {
+      axios
+        .put('/qa/questions/' + aID.toString() + '/report')
+        .then(() => {
+          updateCPID()
+        })
+        .then(() => {
+          stateCopy2[aID] = true;
+          setReportAnswerIDs(stateCopy2);
+          // alert('Reported Answer ' + aID + '.')
+        })
+    } else {
+      alert ('You have already reported this answer!');
+    }
   }
 
 
@@ -111,11 +116,14 @@ function IndividualQandA () {
 
   const fillAnswerIDs = function() {
     let aIDObject = {};
+    let raIDObject = {};
     const helper = function(array) {
       for (var i = 0; i < array.length; i++) {
         aIDObject[array[i]['answer_id']] = false;
+        raIDObject[array[i]['answer_id']] = false;
       }
       setAnswerIDs(aIDObject);
+      setReportAnswerIDs(raIDObject);
     }
     let qIDArray = Object.keys(questionIDs);
     for (var i = 0; i < qIDArray.length; i++) {
@@ -152,13 +160,13 @@ function IndividualQandA () {
     <div>
       {/* Dynamically renders questions from currentQuestion prop in the format of Question, then Answer, then asker name, date asked, helpful, how many people found it helpful, and report*/}
 
-      {limitQuestions ? limitQuestions.map(oneQuestion => {
+      {limitQuestions && reportAnswerIDs ? limitQuestions.map(oneQuestion => {
         let answerArray = Object.values(oneQuestion.answers);
         let finalAnswers = answerArray.map(oneAnswer => {
           return (
             <div key={oneAnswer.id}>
               <div className="answerBody">A: {oneAnswer.body}</div>
-              <div className="answerBottomText">by {oneAnswer.answerer_name}, {oneAnswer.date.slice(0,10)}   |   Helpful? <span className="helpfulYes" data-id={oneAnswer.id} onClick={updateAHelpful}><u>Yes</u></span>({oneAnswer.helpfulness})   |  <span data-id={oneAnswer.id.toString()} className="reportAnswer" onClick={reportAnswer}><u>Report</u></span></div>
+              <div className="answerBottomText">by {oneAnswer.answerer_name}, {oneAnswer.date.slice(0,10)}   |   Helpful? <span className="helpfulYes" data-id={oneAnswer.id} onClick={updateAHelpful}><u>Yes</u></span>({oneAnswer.helpfulness})   |  <span data-id={oneAnswer.id.toString()} className="reportAnswer" onClick={reportAnswer}><u>{reportAnswerIDs[oneAnswer.id] ? "Reported" : "Report"}</u></span></div>
             </div>
           );
         });
