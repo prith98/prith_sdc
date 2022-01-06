@@ -1,11 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Rnr from '../../rnr.js';
 import { MainContext } from '../../../contexts/contexts.js';
+import Rating from './rating.js';
 
-function Reviews() {
+function Ratings() {
   const { products, setProducts, currentProduct, setCurrentProduct, productReviews, setProductReviews, productRatings, setProductRatings } = useContext(MainContext);
-
-  console.log('productRatings', productRatings);
 
   // Object
   // config: {url: '/reviews/meta?product_id=44388', method: 'get', headers: {…}, transformRequest: Array(1), transformResponse: Array(1), …}
@@ -34,6 +33,17 @@ function Reviews() {
   // status: 200
   // statusText: "OK"
   // [[Prototype]]: Object
+
+  //Creating position for slider to appear on each characteristic bar
+  let comfortRating = productRatings.data.characteristics.Comfort.value || null;
+  let fitRating = productRatings.data.characteristics.Fit.value || null;
+  let lengthRating = productRatings.data.characteristics.Length.value || null;
+  let qualityRating = productRatings.data.characteristics.Quality.value || null;
+
+  let comfortSliderPosition = (comfortRating * 52).toString() + 'px';
+  let fitSliderPosition = (fitRating * 52).toString() + 'px';
+  let lengthSliderPosition = (lengthRating * 52).toString() + 'px';
+  let qualitySliderPosition = (qualityRating * 52).toString() + 'px';
 
   //Create overall product rating decimal number
   let oneStarRatings = Number(productRatings.data.ratings[1]);
@@ -84,67 +94,89 @@ function Reviews() {
     recommendedPercentageAsAString = recommendedPercentageAsAString.slice(0, 2) + '%';
   }
 
+  //Create star percentage bar data
+  let starRatingsArray = [];
+
+  for (let i = 5; i > 0; i--) {
+    let stars = i.toString();
+    let starPercentage = productRatings.data.ratings[i] / totalRatingsCount;
+    let starPercentageRounded = Math.round(starPercentage * 100) / 100;
+    starRatingsArray.push({ stars: stars, numberOfRatings: productRatings.data.ratings[i.toString()], percentage: starPercentageRounded });
+  }
+
   return (
-    <div>
-      <div className="ratings-number-and-stars">
-        <div className="ratings-decimal">
-          {overallProductRating}
+    <MainContext.Provider value={{ productRatings }}>
+      <div className="ratings-container" style={{padding: "10px"}}>
+        <div className="ratings-number-and-stars">
+          <div className="ratings-decimal">
+            {overallProductRating}
+          </div>
+          <div className="ratings-overall-star">
+            star rating
+          </div>
         </div>
-        <div className="ratings-overall-star">
-          star rating
+        <div className="ratings-recommend-percentage" style={{ fontSize: "10px", marginTop: "10px" }}>
+          {recommendedPercentageAsAString} of reviewers recommend this product
+        </div>
+        <div>
+          {starRatingsArray.map((starData) => {
+            return <Rating starData={starData} />
+          })}
+        </div>
+        <div className="ratings-sliders" style={{ marginTop: "10px" }}>
+          {comfortRating !== null ?
+            <div className="ratings-comfort">
+              <div className="ratings-comfort-text" style={{ marginTop: "20px" }}>
+                Comfort
+              </div>
+              <span className="comfort-bar" style={{ position: "absolute", display: "inline-block", marginTop: "4px", marginLeft: "0px", backgroundColor: "#a5acb8", height: "10px", width: "270px" }}></span>
+              <span style={{ display: "inline-block", position: "absolute", marginLeft: comfortSliderPosition }}>&nabla;</span>
+              <div className="comfort-descriptors" style={{ marginTop: "12px" }}>
+                <span style={{ fontSize: "10px" }}>Poor</span>
+                <span style={{ fontSize: "10px", marginLeft: "212px" }}>Perfect</span>
+              </div>
+            </div> : ''}
+          {fitRating !== null ?
+            <div className="ratings-fit" style={{ marginTop: "10px" }}>
+              <div className="ratings-fit-text">
+                Fit
+              </div>
+              <span className="fit-bar" style={{ position: "absolute", display: "inline-block", marginTop: "4px", marginLeft: "0px", backgroundColor: "#a5acb8", height: "10px", width: "270px" }}></span>
+              <span style={{ display: "inline-block", position: "absolute", marginLeft: fitSliderPosition }}>&nabla;</span>
+              <div className="fit-descriptors" style={{ marginTop: "12px" }}>
+                <span style={{ fontSize: "10px" }}>Poor</span>
+                <span style={{ fontSize: "10px", marginLeft: "212px" }}>Perfect</span>
+              </div>
+            </div> : ''}
+          {lengthRating !== null ?
+            <div className="ratings-length" style={{ marginTop: "10px" }}>
+              <div className="ratings-length-text">
+                Length
+              </div>
+              <span className="length-bar" style={{ position: "absolute", display: "inline-block", marginTop: "4px", marginLeft: "0px", backgroundColor: "#a5acb8", height: "10px", width: "270px" }}></span>
+              <span style={{ display: "inline-block", position: "absolute", marginLeft: lengthSliderPosition }}>&nabla;</span>
+              <div className="length-descriptors" style={{ marginTop: "12px" }}>
+                <span style={{ fontSize: "10px" }}>Too Short</span>
+                <span style={{ fontSize: "10px", marginLeft: "72px" }}>Perfect</span>
+                <span style={{ fontSize: "10px", marginLeft: "72px" }}>Too Long</span>
+              </div>
+            </div> : ''}
+          {qualityRating !== null ?
+            <div className="ratings-quality" style={{ marginTop: "10px" }}>
+              <div className="ratings-quality-text">
+                Quality
+              </div>
+              <span className="quaility-bar" style={{ position: "absolute", display: "inline-block", marginTop: "4px", marginLeft: "0px", backgroundColor: "#a5acb8", height: "10px", width: "270px" }}></span>
+              <span style={{ display: "inline-block", position: "absolute", marginLeft: qualitySliderPosition }}>&nabla;</span>
+              <div className="quality-descriptors" style={{ marginTop: "12px" }}>
+                <span style={{ fontSize: "10px" }}>Poor</span>
+                <span style={{ fontSize: "10px", marginLeft: "212px" }}>Perfect</span>
+              </div>
+            </div> : ''}
         </div>
       </div>
-      <div className="ratings-recommend-percentage">
-        {recommendedPercentageAsAString} of reviewers recommend this product
-      </div>
-      <div className="ratings-5-star">
-        <div className="ratings-5-star-text">
-          5 stars
-        </div>
-        <div className="ratings-5-star-bar">
-          bar
-        </div>
-      </div>
-      <div className="ratings-4-star">
-        <div className="ratings-4-star-text">
-          4 stars
-        </div>
-        <div className="ratings-4-star-bar">
-          bar
-        </div>
-      </div>
-      <div className="ratings-3-star">
-        <div className="ratings-3-star-text">
-          3 stars
-        </div>
-        <div className="ratings-3-star-bar">
-          bar
-        </div>
-      </div>
-      <div className="ratings-2-star">
-        <div className="ratings-2-star-text">
-          2 stars
-        </div>
-        <div className="ratings-2-star-bar">
-          bar
-        </div>
-      </div>
-      <div className="ratings-1-star">
-        <div className="ratings-1-star-text">
-          1 stars
-        </div>
-        <div className="ratings-1-star-bar">
-          bar
-        </div>
-      </div>
-      <div className="ratings-size-slider">
-        size-slider
-      </div>
-      <div className="ratings-comfort-slider">
-        comfort-slider
-      </div>
-    </div>
+    </MainContext.Provider>
   )
 }
 
-export default Reviews;
+export default Ratings;

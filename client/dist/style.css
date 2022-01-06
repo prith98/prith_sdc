@@ -396,7 +396,7 @@ span.helpfulYes{
   display: block;
   position: relative;
   width: 80%;
-  height: 500px;
+  height: 600px;
   border: 2px solid black;
   border-radius: 10px;
   margin: 50px auto;
@@ -407,7 +407,12 @@ span.helpfulYes{
   position: absolute;
   width: 100%;
   height: 5%;
-  border: 2px solid red;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  border-bottom: 2px solid black;
+  text-align: center;
+  padding-top: 4px;
 }
 
 .ratings {
@@ -415,8 +420,8 @@ span.helpfulYes{
   position: absolute;
   width: 35%;
   height: 95%;
-  border: 2px solid blue;
   bottom: 0px;
+  padding: 3px;
 }
 
 .reviews {
@@ -426,12 +431,7 @@ span.helpfulYes{
   bottom: 0px;
   width: 65%;
   height: 95%;
-  border: 2px solid green;
-}
-
-.show-more-reviews {
-  margin-top: 15px;
-  margin-right: 15px;
+  padding: 10px;
 }
 
 .review {
@@ -491,6 +491,10 @@ review-horizontal-spacer.solid {
   border-top: 3px solid black;
 }
 
+.ratings-container {
+  position: relative;
+}
+
 .ratings-decimal {
   display: inline-block;
   font-size: 30px;
@@ -499,4 +503,8 @@ review-horizontal-spacer.solid {
 
 .ratings-overall-star {
   display: inline-block;
+}
+
+.ratings-recommend-percentage {
+  margin-bottom: 20px;
 }
