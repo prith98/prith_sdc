@@ -45,7 +45,7 @@ function SearchQuestions (props) {
   }, [query])
 
   return (
-    <div class="form-center">
+    <div className="form-center">
       <form id="formQASearch">
         <div id="searchText">
           <FaSearch />
