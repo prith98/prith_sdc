@@ -6,8 +6,6 @@ import Rating from './rating.js';
 function Ratings() {
   const { products, setProducts, currentProduct, setCurrentProduct, productReviews, setProductReviews, productRatings, setProductRatings } = useContext(MainContext);
 
-  console.log('productRatings', productRatings);
-
   // Object
   // config: {url: '/reviews/meta?product_id=44388', method: 'get', headers: {…}, transformRequest: Array(1), transformResponse: Array(1), …}
   // data:
@@ -36,6 +34,7 @@ function Ratings() {
   // statusText: "OK"
   // [[Prototype]]: Object
 
+  //Creating position for slider to appear on each characteristic bar
   let comfortRating = productRatings.data.characteristics.Comfort.value || null;
   let fitRating = productRatings.data.characteristics.Fit.value || null;
   let lengthRating = productRatings.data.characteristics.Length.value || null;

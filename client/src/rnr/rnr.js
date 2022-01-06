@@ -22,7 +22,7 @@ function Rnr() {
     })
   }, [currentProductId]);
 
-  if (productReviews == null || productRatings == null) {
+  if (productReviews == null || productRatings == null ) {
     return (<div>Loading...</div>);
   } else {
     return (

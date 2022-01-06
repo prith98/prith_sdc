@@ -6,8 +6,6 @@ import Ratings from './ratings.js';
 function Rating({ starData }) {
   const {productRatings} = useContext(MainContext);
 
-  console.log('starData', starData);
-
   let containerClassName = "ratings-" + starData.stars + "-star";
   let textClassName = "ratings-" + starData.stars + "-star-text";
   let greenBarClassName = "ratings-" + starData.stars + "-star-green-bar";
