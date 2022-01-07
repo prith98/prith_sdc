@@ -70,6 +70,14 @@ function Qna () {
     }
   }
 
+  const hideAllQ = function() {
+    if (showAllQuestions) {
+      setShowAllQuestions(false);
+      setLimitQuestions(currentQuestion.slice(0, 4));
+      setCQCopy(currentQuestion.slice(0, 4));
+    }
+  }
+
   const openQuestionModal = function () {
     setShowQuestionModal(true);
   }
@@ -81,7 +89,6 @@ function Qna () {
     if (isMounted) {
       // Getting all the questions for the specified currentProductId and storing it in currentQuestionData as a promisified object
       currentQuestionData.push(axios.get('/qa/questions?product_id=' + currentProductId + '&count=100').then((result) => { return result.data; }));
-      // limitQuestionsData.push(axios.get('/qa/questions?product_id=' + currentProductId + '&count=4').then((result) => { return result.data; }));
 
 
       // Iterate over Promisified array to see if each promise resolves, if they do, then the output will be the specific data
@@ -102,10 +109,7 @@ function Qna () {
         setCQCopy(values[0].results.slice(0, 4));
         setLimitQuestions(values[0].results.slice(0, 4));
       })
-      // Promise.all(limitQuestionsData).then((values) => {
-      //   setCQCopy(values[0].results);
-      //   setLimitQuestions(values[0].results)
-      // })
+
     }
     return () => { isMounted = false };
   }, []);
@@ -118,11 +122,12 @@ function Qna () {
       {/* Passing down all the state values to SearchQuestions and IndividualQandA */}
       <MainContext.Provider value={{products, setProducts, currentProductId, setCurrentProductId, reportAnswerIDs, setReportAnswerIDs, questionIDs2, setQuestionIDs2, numCurrentQuestions, setNumCurrentQuestions, questionIDs, setQuestionIDs, answerIDs, setAnswerIDs, currentQuestion, setCurrentQuestion, cqCopy, setCQCopy, query, setQuery, filteredQuestions, setFilteredQuestions, showQuestionModal, setShowQuestionModal, limitQuestions, setLimitQuestions, showAllQuestions, setShowAllQuestions, qIDAnswer, setqIDAnswer, showAnswerModal, setShowAnswerModal}}>
           <SearchQuestions />
-          <div style={{ border: "2px solid black", borderRadius: "5px", margin: "50px auto", width: "80%", height: "1000px", overflowY: "scroll" }} >
+          <div className="scrollBarQA" >
             <IndividualQandA />
           </div>
           <div id="QAButtons">
-            <button id="qnaButton" onClick={showAllQ}>More Answered Questions</button>
+            {!showAllQuestions ? <button id="qnaButton" onClick={showAllQ}>More Answered Questions</button> : <button id="qnaButton" onClick={hideAllQ}>Hide Loaded Questions</button> }
+            <a href="#searchText"><button id="qnaButton3">Back to search bar</button></a>
             <button id="qnaButton2" onClick={openQuestionModal}>Add A Question +</button>
           </div>
           {showQuestionModal ? <AddQuestion setShowQuestionModal={setShowQuestionModal} updateCPID={updateCPID}/> : null}

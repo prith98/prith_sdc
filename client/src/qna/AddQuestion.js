@@ -49,7 +49,7 @@ function AddQuestion (props) {
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="question">Question (MANDATORY FIELD)</label>
-            <input className="form-control" id="qnaFormQuestion" type="text" placeholder="What question(s) do you have about this product?" />
+            <input className="form-controlQA" id="qnaFormQuestion" type="text" placeholder="What question(s) do you have about this product?" required="true"/>
           </div>
           <div className="form-group">
             <label htmlFor="nickname">Nickname (MANDATORY FIELD)</label>
@@ -58,6 +58,7 @@ function AddQuestion (props) {
               className="form-control"
               id="nickname"
               placeholder="jackson11!"
+              required="true"
             />
           </div>
           <div className="form-group">
@@ -67,6 +68,7 @@ function AddQuestion (props) {
               className="form-control"
               id="email"
               placeholder="jack@mail.com"
+              required="true"
             />
           </div>
           <input type="submit" value="SubmitQuestion"></input>
