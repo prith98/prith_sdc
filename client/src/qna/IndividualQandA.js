@@ -117,7 +117,6 @@ function IndividualQandA () {
   // Function that fills up the answerIDs and reportAnswerIDs state
   // with an object of objects with key of answerID and value of false
   const fillAnswerIDs = function() {
-    // console.log(questionIDs2)
     let aIDObject = {};
     let raIDObject = {};
     const helper = function(array) {
