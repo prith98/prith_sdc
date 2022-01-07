@@ -8,7 +8,7 @@ import { FaSearch } from 'react-icons/fa';
 import { TiChartArea } from 'react-icons/ti';
 
 function Overview() {
-  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme} = useContext(MainContext);
+  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productStarRating, setProductStarRating} = useContext(MainContext);
   const [productInformation, setProductInformation] = useState(null);
   const [styles, setStyles] = useState(null);
   const [currStyle, setCurrStyle] = useState(null);
@@ -47,7 +47,7 @@ function Overview() {
   }
 
   return (
-    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, size, setSize, quantityList, setQuantityList, isActive, setIsActive, thumbnailCount, setThumbnailCount, loadNextThumbnail, setLoadNextThumbnail, thumbnailIncrement, setThumbnailIncrement, slideIndex, setSlideIndex, extend, setExtend, zoomEnabled, setZoomEnabled}}>
+    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, size, setSize, quantityList, setQuantityList, isActive, setIsActive, thumbnailCount, setThumbnailCount, loadNextThumbnail, setLoadNextThumbnail, thumbnailIncrement, setThumbnailIncrement, slideIndex, setSlideIndex, extend, setExtend, zoomEnabled, setZoomEnabled, productStarRating, setProductStarRating}}>
       <div className="wrapper">
         <div className="overviewsearch">
           <TiChartArea style={{height: '65px', width: '65px', color: 'white', marginLeft: '20px'}}/>
