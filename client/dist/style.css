@@ -38,7 +38,7 @@ img {vertical-align: middle;}
   top: 15px;
 }
 
-/* Position the "next button" to the right */
+/* Position the next button to the right */
 .next {
   border-radius: 3px 0 0 3px;
 }
@@ -310,6 +310,15 @@ h1#QAHeader{
   top: 50px;
 }
 
+div.scrollBarQA{
+  border: 2px solid black;
+  border-radius: 5px;
+  margin: 50px auto;
+  width: 80%;
+  height: 1000px;
+  overflow-y: scroll;
+  /* background-color: rgb(206, 206, 206); */
+}
 
 form#formQASearch {
   border-style: solid;
@@ -338,7 +347,40 @@ input#QASearch {
   outline: none;
   font-weight: bold;
   font-size: x-large;
+}
 
+.form-group{
+  text-align: center;
+  padding: 2%;
+}
+
+input[type=submit] {
+  padding: 13px 29px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: crimson;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
+
+input.form-controlQA {
+  height: 50px;
+  font-size: 10pt;
+  position: relative;
+  justify-content: center;
+  padding-bottom: 5%;
+}
+
+input.form-control {
+  font-size: 10pt;
+  position: relative;
+  justify-content: center;
 }
 
 div#searchText {
@@ -444,8 +486,8 @@ span.helpfulYes{
 }
 .container .modal {
   z-index: 1;
-  width: 800px;
-  height: 800px;
+  width: 400px;
+  height: 400px;
   background: white;
   display: flex;
   align-items: center;

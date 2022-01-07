@@ -49,7 +49,7 @@ function AddQuestion (props) {
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="question">Question (MANDATORY FIELD)</label>
-            <input className="form-control" id="qnaFormQuestion" type="text" placeholder="What question(s) do you have about this product?" />
+            <input className="form-controlQA" id="qnaFormQuestion" type="text" placeholder="What question(s) do you have about this product?"/>
           </div>
           <div className="form-group">
             <label htmlFor="nickname">Nickname (MANDATORY FIELD)</label>

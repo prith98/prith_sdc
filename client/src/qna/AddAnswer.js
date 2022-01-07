@@ -52,7 +52,7 @@ function AddAnswer (props) {
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="question">Answer (MANDATORY FIELD)</label>
-            <input className="form-control" id="qnaFormQuestion" type="text" placeholder="Your answer here" />
+            <input className="form-controlQA" id="qnaFormQuestion" type="text" placeholder="Your answer here" />
           </div>
           <div className="form-group">
             <label htmlFor="nickname">Nickname (MANDATORY FIELD)</label>
