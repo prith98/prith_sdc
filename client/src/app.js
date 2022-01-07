@@ -10,6 +10,7 @@ const App = () => {
   const [cart, setCart] = useState(null);
   const [currentProductId, setCurrentProductId] = useState(null);
   const [currentTheme, setCurrentTheme] = useState('normal');
+  const [productStarRating, setProductStarRating] = useState(null);
   let getRequests = [];
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const App = () => {
 
   return (
     <div className='main'>
-    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme }}>
+    <MainContext.Provider value={{products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productStarRating, setProductStarRating }}>
       <Overview />
       <Qna />
       <Rnr />
