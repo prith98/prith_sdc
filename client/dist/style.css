@@ -595,3 +595,31 @@ review-horizontal-spacer.solid {
 .ratings-recommend-percentage {
   margin-bottom: 20px;
 }
+
+.reviews-sort-button:focus {
+  outline: none;
+}
+
+.show-more-reviews-button {
+  justify-content: center;
+  padding: 8px 11px;
+  background: green;
+  color: white;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.add-a-review-button {
+  justify-content: center;
+  padding: 8px 11px;
+  background: green;
+  color: white;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  cursor: pointer;
+}

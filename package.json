@@ -26,6 +26,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-icons": "^4.3.1",
-    "react-img-zoom": "^0.1.0"
+    "react-img-zoom": "^0.1.0",
+    "react-star-ratings": "^2.3.0"
   }
 }
