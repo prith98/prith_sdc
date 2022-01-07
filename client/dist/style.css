@@ -595,3 +595,7 @@ review-horizontal-spacer.solid {
 .ratings-recommend-percentage {
   margin-bottom: 20px;
 }
+
+.reviews-sort-button:focus {
+  outline: none;
+}
