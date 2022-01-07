@@ -2,8 +2,10 @@ import React, { useState, useContext, useEffect } from 'react';
 import Rnr from '../../rnr.js';
 import Reviews from './reviews.js';
 import { MainContext } from '../../../contexts/contexts.js';
+import StarRatings from 'react-star-ratings';
 
 function Review(reviewData) {
+  console.log('reviewData', reviewData);
 
   //   reviewData:
   // body: "Great outfit for huntin clams!"
@@ -36,7 +38,12 @@ function Review(reviewData) {
   return (
     <div className="review">
       <div className="review-star-rating">
-        Star Rating
+        <StarRatings
+          rating={reviewData.reviewData.rating}
+          starDimension="15px"
+          starSpacing="0px"
+          starRatedColor="green"
+        />
       </div>
       <div className="review-user-header">
         Verified, {reviewData.reviewData.reviewer_name}, {reviewMonth} {reviewDay}, {reviewYear}
