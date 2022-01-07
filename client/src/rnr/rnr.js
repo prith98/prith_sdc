@@ -7,7 +7,7 @@ import Review from './components/reviews/review.js';
 import Rating from './components/ratings/rating.js';
 
 function Rnr() {
-  const { products, setProducts, currentProductId, setCurrentProductId } = useContext(MainContext);
+  const { products, setProducts, currentProductId, setCurrentProductId, productStarRating, setProductStarRating } = useContext(MainContext);
 
   const [productReviews, setProductReviews] = useState(null);
   const [reviewsRendered, setReviewsRendered] = useState(2);
@@ -40,7 +40,7 @@ function Rnr() {
     return (<div>Loading...</div>);
   } else {
     return (
-      <MainContext.Provider value={{ products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered, productRatings, setProductRatings, sortedNewest, sortedHelpful, sortedRelevant, currentSort, setCurrentSort }}>
+      <MainContext.Provider value={{ products, setProducts, currentProductId, setCurrentProductId, productReviews, setProductReviews, reviewsRendered, setReviewsRendered, productRatings, setProductRatings, sortedNewest, sortedHelpful, sortedRelevant, currentSort, setCurrentSort, productStarRating, setProductStarRating }}>
         <div id="rnr" className="ratingsAndReviews">
           <div className="ratingsAndReviews-title">
             Ratings and Reviews

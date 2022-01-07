@@ -2,9 +2,10 @@ import React, { useState, useContext, useEffect } from 'react';
 import Rnr from '../../rnr.js';
 import { MainContext } from '../../../contexts/contexts.js';
 import Rating from './rating.js';
+import StarRatings from 'react-star-ratings';
 
 function Ratings() {
-  const { products, setProducts, currentProduct, setCurrentProduct, productReviews, setProductReviews, productRatings, setProductRatings } = useContext(MainContext);
+  const { products, setProducts, currentProduct, setCurrentProduct, productReviews, setProductReviews, productRatings, setProductRatings, productStarRating, setProductStarRating } = useContext(MainContext);
 
   // Object
   // config: {url: '/reviews/meta?product_id=44388', method: 'get', headers: {…}, transformRequest: Array(1), transformResponse: Array(1), …}
@@ -104,15 +105,46 @@ function Ratings() {
     starRatingsArray.push({ stars: stars, numberOfRatings: productRatings.data.ratings[i.toString()], percentage: starPercentageRounded });
   }
 
+  //Create star rating icon
+  let numberToProduceStar;
+  let overallProductRatingToTheHundreth = Math.round(overallProductRating * 100) / 100;
+  let overallStarRatingAsAString = overallProductRatingToTheHundreth.toString();
+  let overallStarRatingAsAStringFirstDigit = overallStarRatingAsAString[0];
+  let overallStarRatingAsAStringAfterDecimal = overallStarRatingAsAString.slice(1);
+
+  if (Number(overallStarRatingAsAStringAfterDecimal) < 0.13) {
+    numberToProduceStar = Number(overallStarRatingAsAStringFirstDigit);
+  } else if (Number(overallStarRatingAsAStringAfterDecimal) >= 0.13 && Number(overallStarRatingAsAStringAfterDecimal) < 0.38) {
+    numberToProduceStar = Number(overallStarRatingAsAStringFirstDigit) + 0.25;
+  } else if (Number(overallStarRatingAsAStringAfterDecimal) >= 0.38 && Number(overallStarRatingAsAStringAfterDecimal) < 0.63) {
+    numberToProduceStar = Number(overallStarRatingAsAStringFirstDigit) + 0.5;
+  } else if (Number(overallStarRatingAsAStringAfterDecimal) >= 0.63 && Number(overallStarRatingAsAStringAfterDecimal) < 0.88) {
+    numberToProduceStar = Number(overallStarRatingAsAStringFirstDigit) + 0.75;
+  } else {
+    numberToProduceStar = Number(overallStarRatingAsAStringFirstDigit) + 1;
+  }
+
+  let starRatingImage = <StarRatings
+  rating={numberToProduceStar}
+  starDimension="15px"
+  starSpacing="0px"
+  starRatedColor="green"
+/>;
+
+  if (productStarRating == null) {
+    setProductStarRating(starRatingImage);
+    return <div>Loading...</div>
+  }
+
   return (
     <MainContext.Provider value={{ productRatings }}>
-      <div className="ratings-container" style={{padding: "10px"}}>
+      <div className="ratings-container" style={{ padding: "10px" }}>
         <div className="ratings-number-and-stars">
           <div className="ratings-decimal">
             {overallProductRating}
           </div>
-          <div className="ratings-overall-star">
-            star rating
+          <div className="ratings-overall-star" style={{ marginLeft: "15px" }}>
+            {productStarRating}
           </div>
         </div>
         <div className="ratings-recommend-percentage" style={{ fontSize: "10px", marginTop: "10px" }}>
