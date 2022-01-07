@@ -132,7 +132,7 @@ function Ratings() {
 />;
 
   if (productStarRating == null) {
-    setProductStarRating(starRatingImage);
+    setProductStarRating(numberToProduceStar);
     return <div>Loading...</div>
   }
 
@@ -144,7 +144,7 @@ function Ratings() {
             {overallProductRating}
           </div>
           <div className="ratings-overall-star" style={{ marginLeft: "15px" }}>
-            {productStarRating}
+            {starRatingImage}
           </div>
         </div>
         <div className="ratings-recommend-percentage" style={{ fontSize: "10px", marginTop: "10px" }}>
