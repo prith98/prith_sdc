@@ -127,6 +127,7 @@ function Qna () {
           </div>
           <div id="QAButtons">
             {!showAllQuestions ? <button id="qnaButton" onClick={showAllQ}>More Answered Questions</button> : <button id="qnaButton" onClick={hideAllQ}>Hide Loaded Questions</button> }
+            <a href="#searchText"><button id="qnaButton3">Back to search bar</button></a>
             <button id="qnaButton2" onClick={openQuestionModal}>Add A Question +</button>
           </div>
           {showQuestionModal ? <AddQuestion setShowQuestionModal={setShowQuestionModal} updateCPID={updateCPID}/> : null}
