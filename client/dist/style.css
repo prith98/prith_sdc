@@ -316,7 +316,7 @@ div.scrollBarQA{
   width: 80%;
   height: 1000px;
   overflow-y: scroll;
-  /* background-color: rgb(206, 206, 206); */
+  /* background-color: rgb(219, 219, 219); */
 }
 
 form#formQASearch {
