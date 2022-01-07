@@ -16,6 +16,10 @@ let config = {
   }
 }
 
+app.get('/products', (req, res) => {
+  Axios.get(URL + '/products', config).then((response) => {res.send(response.data)});
+});
+
 app.get('/*', (req, res) => {
   Axios.get(URL + req.originalUrl, config).then((response) => {res.send(response.data)});
 });

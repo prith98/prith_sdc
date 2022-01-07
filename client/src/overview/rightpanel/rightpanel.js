@@ -2,10 +2,12 @@ import React, { useState, useContext, useEffect} from 'react';
 import {MainContext} from '../../contexts/contexts.js'
 import Axios from 'axios';
 import StyleSelector from './styleselector.js';
+import StarRatings from 'react-star-ratings';
+
 var status;
 var select_size = true;
 function RightPanel() {
-  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, size, setSize, quantityList, setQuantityList, isActive, setIsActive, extend, setExtend} = useContext(MainContext);
+  const {products, setProducts, cart, setCart, currentProductId, setCurrentProductId, currentTheme, setCurrentTheme, productInformation, setProductInformation, styles, setStyles, currStyle, setCurrStyle, mainPicture, setMainPicture, mainPictures, setMainPictures, size, setSize, quantityList, setQuantityList, isActive, setIsActive, extend, setExtend, productStarRating, setProductStarRating} = useContext(MainContext);
   const [selectSizeWarning, setSelectSizeWarning] = useState(false);
   let sale = false;
   let price;
@@ -24,6 +26,10 @@ function RightPanel() {
   if (currStyle == null) {
     setCurrStyle(styles[0].results[0]['style_id']);
     return <div>Loading styles...</div>
+  }
+
+  if (productStarRating == null) {
+    return <div>Loading..</div>
   }
 
   let currentStyleData;
@@ -126,14 +132,14 @@ function RightPanel() {
       let body = {"sku_id": sku_id, "count":quantity};
       console.log(body);
       Axios.post('/cart', body);
-      let pText = quantiy > 1 ? 'products':'product';
+      let pText = quantity > 1 ? 'products':'product';
       alert(quantity, ' ', pText, ' added to cart!')
     }
   }
 
   return (
       <div className="rightpanel" style={{display: extend === false ? '':'none', webkitTransition: 'display 1s ease'}}>
-        <div style={{marginBottom: '8px', fontFamiliy: 'sans-serif', color: 'RGB(82,82,82)', fontSize: '13px', display: 'inline-flex', alignItems: 'baseline'}}>★ ★ ★ ★ ☆ <a href="#rnr" style={{marginLeft: '5px', fontFamiliy: 'sans-serif', color: 'RGB(82,82,82)', fontSize: '11px', textDecoration: 'underline', cursor: 'pointer'}}>Read all reviews</a></div>
+        <div style={{marginBottom: '8px', fontFamiliy: 'sans-serif', color: 'RGB(82,82,82)', fontSize: '13px', display: 'inline-flex', alignItems: 'baseline'}}><StarRatings rating={productStarRating} starDimension="17px" starSpacing="0px" starRatedColor="RGB(82,82,82)"/><a href="#rnr" style={{marginLeft: '5px', fontFamiliy: 'sans-serif', color: 'RGB(82,82,82)', fontSize: '11px', textDecoration: 'underline', cursor: 'pointer'}}>Read all reviews</a></div>
         <div style={{marginBottom: '-1px', fontFamiliy: 'sans-serif', fontSize: '13px', letterSpacing: '0.5px', color: 'RGB(82,82,82)'}}>{category.toUpperCase()}</div>
         <div style={{marginBottom: '15px', fontFamiliy: 'sans-serif', fontSize: '28px', fontWeight: 'bold', color: 'RGB(82,82,82)', letterSpacing: '0.5px'}}>{name}</div>
         {sale === true ? salePriceDiv:price}
