@@ -38,7 +38,7 @@ img {vertical-align: middle;}
   top: 15px;
 }
 
-/* Position the "next button" to the right */
+/* Position the next button to the right */
 .next {
   border-radius: 3px 0 0 3px;
 }
@@ -284,9 +284,8 @@ textarea:focus, .searchtext:focus{
 .individualQA {
   border-style: solid;
   border-radius: 5px;
-  border: 2px solid #040404;
+  border: 2px solid #ffffff;
   padding: 5px;
-  width: 80%;
   margin: 50px auto;
   position: relative;
 
@@ -310,6 +309,15 @@ h1#QAHeader{
   top: 50px;
 }
 
+div.scrollBarQA{
+  border: 1px solid rgb(218, 218, 218);
+  border-radius: 5px;
+  margin: 50px auto;
+  width: 80%;
+  height: 1000px;
+  overflow-y: scroll;
+  /* background-color: rgb(219, 219, 219); */
+}
 
 form#formQASearch {
   border-style: solid;
@@ -338,7 +346,40 @@ input#QASearch {
   outline: none;
   font-weight: bold;
   font-size: x-large;
+}
 
+.form-group{
+  text-align: center;
+  padding: 2%;
+}
+
+input[type=submit] {
+  padding: 13px 29px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: crimson;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
+
+input.form-controlQA {
+  height: 75px;
+  font-size: 10pt;
+  position: relative;
+  justify-content: center;
+  padding-bottom: 5%;
+}
+
+input.form-control {
+  font-size: 10pt;
+  position: relative;
+  justify-content: center;
 }
 
 div#searchText {
@@ -396,8 +437,8 @@ span.addAnswer{
 
 div#QAButtons{
   margin: 50px auto;
-  position: relative;
   width: 80%;
+  position: relative;
 }
 
 button#qnaButton {
@@ -415,6 +456,20 @@ button#qnaButton {
 button#qnaButton2 {
   position: absolute;
   right: 0;
+  padding: 13px 29px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: crimson;
+  color: white;
+  cursor: pointer;
+}
+
+button#qnaButton3 {
+  position: absolute;
+  right: 50%;
   padding: 13px 29px;
   font-size: 1rem;
   font-weight: bold;
@@ -444,8 +499,8 @@ span.helpfulYes{
 }
 .container .modal {
   z-index: 1;
-  width: 800px;
-  height: 800px;
+  width: 400px;
+  height: 400px;
   background: white;
   display: flex;
   align-items: center;
