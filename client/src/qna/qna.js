@@ -87,7 +87,6 @@ function Qna () {
       // use the relevant setter to set state
       Promise.all(currentQuestionData).then((values) => {
         setCurrentQuestion(values[0].results);
-        console.log(values[0].results);
         for (let i = 0; i < values[0].results.length; i++) {
           questionIDsObj[values[0].results[i]["question_id"]] = true;
           if (Object.keys(values[0].results[i]['answers']).length > 2) {
