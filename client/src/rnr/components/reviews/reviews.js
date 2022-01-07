@@ -43,12 +43,12 @@ function Reviews() {
         })}
       </div>
       <div className="reviews-button-container" style={{ float: "left", marginTop: "15px" }}>
-        {reviewsRendered < productReviews.results.length ? <button className="show-more-reviews" style={{ display: "inline-block", marginRight: "20px" }} onClick={(event) => {
+        {reviewsRendered < productReviews.results.length ? <button className="show-more-reviews-button" style={{ display: "inline-block", marginRight: "20px" }} onClick={(event) => {
           showMoreReviews(event);
         }}>Show More Reviews</button> : ''}
         <button onClick={(event) => {
           addAReview(event);
-        }} style={{ display: "inline-block" }}>Add a Review</button>
+        }} className="add-a-review-button" style={{ display: "inline-block" }}>Add a Review</button>
       </div>
     </div>
   )
