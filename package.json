@@ -1,5 +1,5 @@
 {
-  "name": "hackreactor-groceries",
+  "name": "prith_sdc",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "react-dev": "webpack --config ./webpack.config.js --mode development -w",
     "start": "nodemon server/index.js"
   },
-  "author": "Beth Johnson",
+  "author": "Prith Jaganathan",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.12.13",
@@ -23,6 +23,8 @@
     "express": "^4.17.1",
     "live-server": "^1.2.1",
     "mysql": "^2.18.1",
+    "pg": "^8.7.1",
+    "postgres": "^1.0.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-icons": "^4.3.1",
