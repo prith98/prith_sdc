@@ -20,7 +20,7 @@ const config = {
   },
 };
 
-app.get('/products', db.getProducts);
+// app.get('/products', db.getProducts);
 
 // app.get('/products', (req, res) => {
 //   Axios.get(URL + '/products', config).then((response) => {
