@@ -3,35 +3,51 @@ DROP DATABASE IF EXISTS qadb;
 CREATE DATABASE qadb;
 \c qadb;
 
-CREATE TABLE product (
- product_id BIGSERIAL PRIMARY KEY
- );
 
 CREATE TABLE questions (
- id BIGSERIAL PRIMARY KEY,
- question_id INT,
+ question_id BIGSERIAL PRIMARY KEY,
+ product_id INT,
  question_body VARCHAR(1000),
- question_date TIMESTAMP,
+ question_date BIGINT,
  asker_name VARCHAR(50),
+ asker_email VARCHAR(50),
  question_helpfulness INT,
- reported BOOLEAN,
- id_product INT,
- FOREIGN KEY (id_product) REFERENCES product(product_id)
+ reported BOOLEAN
 );
 
 CREATE TABLE answers (
- id BIGSERIAL PRIMARY KEY,
- answer_id INT,
- body VARCHAR(1000),
- date TIMESTAMP,
- helpfulness INT,
+ answers_id BIGSERIAL PRIMARY KEY,
  id_questions INT,
- FOREIGN KEY (id_questions) REFERENCES questions(id)
+ body VARCHAR(1000),
+ date BIGINT,
+ answerer_name VARCHAR(50),
+ answerer_email VARCHAR(100),
+ reported BOOLEAN,
+ helpfulness INT,
+ FOREIGN KEY (id_questions) REFERENCES questions(question_id)
 );
 
 CREATE TABLE photos (
- id BIGSERIAL PRIMARY KEY,
- url VARCHAR(300),
+ photos_id BIGSERIAL PRIMARY KEY,
  id_answers INT,
- FOREIGN KEY (id_answers) REFERENCES answers(id)
+ url VARCHAR(500),
+ FOREIGN KEY (id_answers) REFERENCES answers(answers_id)
 );
+
+
+COPY questions(question_id, product_id, question_body, question_date, asker_name, asker_email, reported, question_helpfulness)
+FROM '/home/prithjaganathan/Downloads/questions.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY answers(answers_id, id_questions, body, date, answerer_name, answerer_email, reported, helpfulness)
+FROM '/home/prithjaganathan/Downloads/answers.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY photos(photos_id, id_answers, url)
+FROM '/home/prithjaganathan/Downloads/answers_photos.csv'
+DELIMITER ','
+CSV HEADER;
+
+

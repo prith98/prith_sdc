@@ -3,7 +3,9 @@ const {Pool, Client} = require('pg');
 const fs = require('fs');
 const fastcsv = require('fast-csv');
 
-const stream = fs.createReadStream('database/test.csv');
+// eslint-disable-next-line max-len
+// const stream = fs.createReadStream('/home/prithjaganathan/Downloads/product.csv');
+const stream = fs.createReadStream('/home/prithjaganathan/Downloads/product.csv');
 
 const csvData = [];
 const csvStream = fastcsv
@@ -24,6 +26,7 @@ const csvStream = fastcsv
         port: 5432,
       });
 
+      // const query = 'INSERT INTO questions (question_id, question_body, question_date, asker_name, question_helpfulness, reported, id_product) VALUES($1, $2, $3, $4, $5, $6, $7)';
       const query = 'INSERT INTO product (product_id) VALUES($1)';
 
       pool.connect((err, client, done) => {
@@ -32,13 +35,13 @@ const csvStream = fastcsv
           csvData.forEach((row) => {
             client.query(query, row, (err, res) => {
               if (err) {
-                console.log(err.stack);
-              } else {
-                console.log('inserted ' + res.rowCount + ' row:', row);
+                console.log(err);
+                done();
               }
             });
           });
         } finally {
+          console.log('DONE');
           done();
         }
       });
@@ -62,15 +65,16 @@ const client = new Client({
   port: 5432,
 });
 
-const getProducts = (request, response) => {
-  pool.query('SELECT * FROM product', (err, results) => {
-    if (err) {
-      console.log(err);
-      response.send(err);
-    }
-    response.status(200).json(results.rows);
-  });
-};
+// const getProduct = (request, response) => {
+//   const {id} = request.body;
+//   pool.query('SELECT * FROM product WHERE product_id = (?)', [id] (err, results) => {
+//     if (err) {
+//       console.log(err);
+//       response.send(err);
+//     }
+//     response.status(200).json(results.rows);
+//   });
+// };
 
 client.connect((err) => {
   if (err) {
@@ -80,7 +84,7 @@ client.connect((err) => {
   }
 });
 
-module.exports = {
-  getProducts,
-};
+// module.exports = {
+//   getProduct,
+// };
 
