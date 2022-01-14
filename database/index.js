@@ -24,16 +24,21 @@ const getQuestions = (request, response) => {
   page = page || 1;
   count = count || 5;
 
+  let resultsObject = {
+    "product_id": product_id,
+    "results": ''
+  };
+
   const queryString = `SELECT (json_agg(
     json_build_object(
-      'question_id', q.question_id,
-      'question_body', q.question_body,
-      'question_date', q.question_date,
-      'asker_name', q.asker_name,
-      'question_helpfulness', q.question_helpfulness,
-      'reported', q.reported
-    )
-  )
+        'question_id', q.question_id,
+        'question_body', q.question_body,
+        'question_date', q.question_date,
+        'asker_name', q.asker_name,
+        'question_helpfulness', q.question_helpfulness,
+        'reported', q.reported
+      )
+      )
   ) FROM questions q WHERE product_id = ${product_id} LIMIT ${count}`;
 
   pool.query(queryString, (err, results) => {
@@ -41,8 +46,9 @@ const getQuestions = (request, response) => {
       console.log(err);
       response.send(err);
     }
-    console.log(JSON.stringify(results.rows));
-    response.status(200).json(results.rows[0]['json_agg']);
+    resultsObject.results = results.rows[0]['json_agg'];
+    console.log(JSON.stringify(resultsObject));
+    response.status(200).send(resultsObject);
   });
 };
 
