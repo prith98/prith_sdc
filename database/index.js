@@ -41,8 +41,8 @@ const getQuestions = (request, response) => {
       console.log(err);
       response.send(err);
     }
-    console.log(results.rows);
-    response.status(200).send(results.rows);
+    console.log(JSON.stringify(results.rows));
+    response.status(200).json(results.rows[0]['json_agg']);
   });
 };
 
@@ -58,7 +58,7 @@ const getAnswers = (request, response) => {
       response.send(err);
     }
     console.log(results.rows);
-    response.status(200).send(results.rows);
+    response.status(200).json(results.rows[0]['json_agg']);
   });
 };
 
