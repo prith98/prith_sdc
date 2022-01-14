@@ -21,6 +21,7 @@ const config = {
 };
 
 app.get('/qa/questions', db.getQuestions);
+app.get('/qa/questions/:question_id/answers', db.getAnswers);
 
 // app.get('/products', (req, res) => {
 //   Axios.get(URL + '/products', config).then((response) => {
