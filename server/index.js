@@ -1,27 +1,27 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 // Use this headers object when doing an axios call to the API.
-const express = require('express');
-const Axios = require('axios');
-const path = require('path');
-const bodyParser = require('body-parser');
-const {TOKEN, URL} = require('../config.js');
-const db = require('../database');
+const express = require("express");
+const Axios = require("axios");
+const path = require("path");
+const bodyParser = require("body-parser");
+const { TOKEN, URL } = require("../config.js");
+const db = require("../database");
 
 const app = express();
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
 const config = {
   headers: {
-    'Authorization': TOKEN,
-    'Content-Type': 'application/json',
+    Authorization: TOKEN,
+    "Content-Type": "application/json",
   },
 };
 
-app.get('/qa/questions', db.getQuestions);
-app.get('/qa/questions/:question_id/answers', db.getAnswers);
+app.get("/qa/questions", db.getQuestions);
+app.get("/qa/questions/:question_id/answers", db.getAnswers);
 
 // app.get('/products', (req, res) => {
 //   Axios.get(URL + '/products', config).then((response) => {
@@ -48,5 +48,5 @@ app.get('/qa/questions/:question_id/answers', db.getAnswers);
 // });
 
 app.listen(3000, () => {
-  console.log('Server listening on port 3000');
+  console.log("Server listening on port 3000");
 });

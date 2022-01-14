@@ -1,49 +1,61 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom';
-import {MainContext} from '../contexts/contexts.js'
-import axios from 'axios';
+import React, { useState, useContext, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
+import { MainContext } from "../contexts/contexts.js";
+import axios from "axios";
 
-
-function AddAnswer (props) {
-
-  const {products, setProducts, currentProductId, setCurrentProductId, cqCopy, setCQCopy,
-     showAnswerModal, setShowAnswerModal, currentQuestion, setCurrentQuestion, limitQuestions, setLimitQuestions, qIDAnswer, setqIDAnswer} = useContext(MainContext);
+function AddAnswer(props) {
+  const {
+    products,
+    setProducts,
+    currentProductId,
+    setCurrentProductId,
+    cqCopy,
+    setCQCopy,
+    showAnswerModal,
+    setShowAnswerModal,
+    currentQuestion,
+    setCurrentQuestion,
+    limitQuestions,
+    setLimitQuestions,
+    qIDAnswer,
+    setqIDAnswer,
+  } = useContext(MainContext);
 
   const modalRef = useRef();
 
   const openAnswerModal = function () {
     setShowAnswerModal(true);
-  }
+  };
 
   const closeAnswerModal = function (e) {
     if (e.target === modalRef.current) {
       setShowAnswerModal(false);
     }
-  }
+  };
 
   const onSubmit = (event) => {
     event.preventDefault(event);
     let payload = {
-      "body": event.target.qnaFormQuestion.value,
-      "name": event.target.nickname.value,
-      "email": event.target.email.value,
-      "photos": []
-    }
+      body: event.target.qnaFormQuestion.value,
+      name: event.target.nickname.value,
+      email: event.target.email.value,
+      photos: [],
+    };
     console.log(payload);
     console.log(qIDAnswer);
     axios
-      .post('/qa/questions/' + qIDAnswer + '/answers', payload)
+      .post("/qa/questions/" + qIDAnswer + "/answers", payload)
       .then(() => {
-        props.updateCPID()
+        props.updateCPID();
       })
       .then(() => {
-        console.log('Submitted Question')
-        alert('Submitted Question')
+        console.log("Submitted Question");
+        alert("Submitted Question");
       })
       .catch((err) => {
         console.log(err);
-      })
-  }
+      });
+  };
 
   return ReactDOM.createPortal(
     <div className="container" ref={modalRef} onClick={closeAnswerModal}>
@@ -52,7 +64,13 @@ function AddAnswer (props) {
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="question">Answer (MANDATORY FIELD)</label>
-            <input className="form-controlQA" id="qnaFormQuestion" type="text" placeholder="Your answer here" required="true"/>
+            <input
+              className="form-controlQA"
+              id="qnaFormQuestion"
+              type="text"
+              placeholder="Your answer here"
+              required="true"
+            />
           </div>
           <div className="form-group">
             <label htmlFor="nickname">Nickname (MANDATORY FIELD)</label>
@@ -80,10 +98,6 @@ function AddAnswer (props) {
     </div>,
     document.getElementById("app")
   );
-
-
-
 }
 
 export default AddAnswer;
-
