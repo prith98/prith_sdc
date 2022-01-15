@@ -33,25 +33,6 @@ const getQuestions = (request, response) => {
     )
   ) FROM questions q WHERE q.product_id = ${product_id} LIMIT ${count};`;
 
-  // const queryString = `SELECT (json_agg(
-  //     json_build_object(
-  //     'question_id', q.question_id,
-  //     'question_body', q.question_body,
-  //     'question_date', q.question_date,
-  //     'asker_name', q.asker_name,
-  //     'question_helpfulness', q.question_helpfulness,
-  //     'reported', q.reported,
-  //     'answers', json_build_object(
-  //         'id', a.answers_id,
-  //         'body', a.body,
-  //         'date', a.date,
-  //         'answerer_name', a.answerer_name,
-  //         'helpfulness', a.helpfulness
-  //     )
-  //   )
-  // )
-  // ) FROM questions q INNER JOIN answers a on a.id_questions = q.question_id GROUP BY q.question_id LIMIT ${count};`
-
   pool.query(queryString, (err, results) => {
     if (err) {
       console.log(err);
@@ -124,6 +105,26 @@ const getAnswers = (request, response) => {
   });
 };
 
+const postQuestion = (req, res) => {
+  const { body, name, email, product_id } = req.body;
+  const currentDate = Date.now();
+  const helpfulness = 0;
+  const reported = false;
+  pool.query(
+    `INSERT INTO questions (question_id, product_id, question_body, question_date, asker_name, asker_email, question_helpfulness, reported)
+     VALUES ((SELECT MAX(question_id) + 1 FROM questions), $1, $2, $3, $4, $5, $6, $7)`,
+    [product_id, body, currentDate, name, email, helpfulness, reported],
+    (err) => {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      }
+      console.log("Successfully added question to database");
+      res.send("Successfully added question to database");
+    }
+  );
+};
+
 pool.connect((err) => {
   if (err) {
     console.log(err);
@@ -135,4 +136,5 @@ pool.connect((err) => {
 module.exports = {
   getQuestions,
   getAnswers,
+  postQuestion,
 };
