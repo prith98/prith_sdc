@@ -76,25 +76,51 @@ const getAnswers = (request, response) => {
     results: "",
   };
 
+  //alter table ALTER TABLE tableName ADD INDEX nameofIndex (nameofCol)
+
   const queryString = `SELECT (json_agg(
     json_build_object(
       'answer_id', a.answers_id,
       'body', a.body,
       'date', a.date,
       'answerer_name', a.answerer_name,
-      'helpfulness', a.helpfulness
+      'helpfulness', a.helpfulness,
+      'photos', ''
       )
     )
-  ) FROM answers a WHERE a.id_questions = ${question_id} LIMIT ${count};`;
+  ) FROM answers a WHERE a.id_questions = ${question_id} AND a.reported = FALSE LIMIT ${count};`;
 
   pool.query(queryString, (err, results) => {
     if (err) {
       console.log(err);
       response.send(err);
     }
-    console.log(results.rows);
     responseObject.results = results.rows[0]["json_agg"];
-    response.status(200).json(responseObject);
+    // response.status(200).json(responseObject.results);
+    let promiseArray = [];
+    responseObject.results.forEach(function (ans) {
+      promiseArray.push(
+        new Promise((resolve, reject) => {
+          pool.query(
+            `SELECT * FROM photos WHERE id_answers = ${ans.answer_id}`,
+            (err, results2) => {
+              if (err) {
+                console.log(err);
+                response.send(err);
+              }
+              ans.photos = results2.rows;
+              resolve();
+              // console.log(ans);
+              console.log(responseObject.results);
+            }
+          );
+        })
+      );
+    });
+    Promise.all(promiseArray).then(() => {
+      response.json(responseObject.results);
+    });
+    // response.json(responseObject.results);
   });
 };
 
