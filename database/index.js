@@ -168,8 +168,8 @@ const reportQuestion = (req, res) => {
       console.log(`Successfully reported question ${question_id}`);
       res.send(`Successfully reported question ${question_id}`);
     }
-  )
-}
+  );
+};
 
 const markAnswerHelpful = (req, res) => {
   const { answer_id } = req.params;
@@ -198,8 +198,8 @@ const reportAnswer = (req, res) => {
       console.log(`Successfully reported answer ${answer_id}`);
       res.send(`Successfully reported answer ${answer_id}`);
     }
-  )
-}
+  );
+};
 
 pool.connect((err) => {
   if (err) {
