@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 const { Pool, Client } = require("pg");
+const currentDate = Date.now();
 
 // eslint-disable-next-line max-len
 
@@ -107,7 +108,6 @@ const getAnswers = (request, response) => {
 
 const postQuestion = (req, res) => {
   const { body, name, email, product_id } = req.body;
-  const currentDate = Date.now();
   const helpfulness = 0;
   const reported = false;
   pool.query(
@@ -125,6 +125,26 @@ const postQuestion = (req, res) => {
   );
 };
 
+const postAnswer = (req, res) => {
+  const { question_id } = req.params;
+  const { body, name, email, photos } = req.body;
+  const reported = false;
+  const helpfulness = 0;
+  pool.query(
+    `INSERT INTO answers(answers_id, id_questions, body, date, answerer_name, answerer_email, reported, helpfulness)
+     VALUES ((SELECT MAX(answers_id) + 1 FROM answers), $1, $2, $3, $4, $5, $6, $7)`,
+    [question_id, body, currentDate, name, email, reported, helpfulness],
+    (err) => {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      }
+      console.log("Successfully added answer to database");
+      res.send("Successfully added answer to database");
+    }
+  );
+};
+
 pool.connect((err) => {
   if (err) {
     console.log(err);
@@ -137,4 +157,5 @@ module.exports = {
   getQuestions,
   getAnswers,
   postQuestion,
+  postAnswer,
 };
