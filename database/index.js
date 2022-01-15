@@ -78,7 +78,6 @@ const getAnswers = (request, response) => {
       response.send(err);
     }
     responseObject.results = results.rows[0]["json_agg"];
-    // response.status(200).json(responseObject.results);
     let promiseArray = [];
     responseObject.results.forEach(function (ans) {
       promiseArray.push(
@@ -92,8 +91,6 @@ const getAnswers = (request, response) => {
               }
               ans.photos = results2.rows;
               resolve();
-              // console.log(ans);
-              console.log(responseObject.results);
             }
           );
         })
@@ -102,7 +99,6 @@ const getAnswers = (request, response) => {
     Promise.all(promiseArray).then(() => {
       response.json(responseObject.results);
     });
-    // response.json(responseObject.results);
   });
 };
 
@@ -145,6 +141,66 @@ const postAnswer = (req, res) => {
   );
 };
 
+const markQuestionHelpful = (req, res) => {
+  const { question_id } = req.params;
+  pool.query(
+    `UPDATE questions SET question_helpfulness = question_helpfulness + 1 WHERE question_id = ${question_id}`,
+    (err) => {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      }
+      console.log(`Successfully marked question ${question_id} as helpful`);
+      res.send(`Successfully marked question ${question_id} as helpful`);
+    }
+  );
+};
+
+const reportQuestion = (req, res) => {
+  const { question_id } = req.params;
+  pool.query(
+    `UPDATE questions SET reported = true WHERE question_id = ${question_id}`,
+    (err) => {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      }
+      console.log(`Successfully reported question ${question_id}`);
+      res.send(`Successfully reported question ${question_id}`);
+    }
+  )
+}
+
+const markAnswerHelpful = (req, res) => {
+  const { answer_id } = req.params;
+  pool.query(
+    `UPDATE answers SET helpfulness = helpfulness + 1 WHERE answers_id = ${answer_id}`,
+    (err) => {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      }
+      console.log(`Successfully marked answer ${answer_id} as helpful`);
+      res.send(`Successfully marked answer ${answer_id} as helpful`);
+    }
+  );
+};
+
+const reportAnswer = (req, res) => {
+  const { answer_id } = req.params;
+  pool.query(
+    `UPDATE answers SET reported = true WHERE answers_id = ${answer_id}`,
+    (err) => {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      }
+      console.log(`Successfully reported answer ${answer_id}`);
+      res.send(`Successfully reported answer ${answer_id}`);
+    }
+  )
+}
+
 pool.connect((err) => {
   if (err) {
     console.log(err);
@@ -158,4 +214,8 @@ module.exports = {
   getAnswers,
   postQuestion,
   postAnswer,
+  markQuestionHelpful,
+  reportQuestion,
+  markAnswerHelpful,
+  reportAnswer,
 };
