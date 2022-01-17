@@ -39,8 +39,6 @@ const getQuestions = (request, response) => {
       console.log(err);
       response.send(err);
     }
-    // resultsObject.results = results.rows[0]["json_agg"];
-    console.log(results.rows[0]["json_agg"]);
     response.status(200).send(results.rows[0]["json_agg"]);
   });
 };
@@ -58,8 +56,6 @@ const getAnswers = (request, response) => {
     results: "",
   };
 
-  //alter table ALTER TABLE tableName ADD INDEX nameofIndex (nameofCol)
-
   const queryString = `SELECT (json_agg(
     json_build_object(
       'answer_id', a.answers_id,
@@ -70,35 +66,39 @@ const getAnswers = (request, response) => {
       'photos', ''
       )
     )
-  ) FROM answers a WHERE a.id_questions = ${question_id} AND a.reported = FALSE LIMIT ${count};`;
+  ) FROM answers a WHERE a.id_questions = ${question_id} LIMIT ${count};`;
 
   pool.query(queryString, (err, results) => {
     if (err) {
       console.log(err);
       response.send(err);
     }
-    responseObject.results = results.rows[0]["json_agg"];
-    let promiseArray = [];
-    responseObject.results.forEach(function (ans) {
-      promiseArray.push(
-        new Promise((resolve, reject) => {
-          pool.query(
-            `SELECT * FROM photos WHERE id_answers = ${ans.answer_id}`,
-            (err, results2) => {
-              if (err) {
-                console.log(err);
-                response.send(err);
+    if (results.rows[0]["json_agg"]) {
+      responseObject.results = results.rows[0]["json_agg"];
+      let promiseArray = [];
+      responseObject.results.forEach(function (ans) {
+        promiseArray.push(
+          new Promise((resolve, reject) => {
+            pool.query(
+              `SELECT * FROM photos WHERE id_answers = ${ans.answer_id}`,
+              (err, results2) => {
+                if (err) {
+                  console.log(err);
+                  response.send(err);
+                }
+                ans.photos = results2.rows;
+                resolve();
               }
-              ans.photos = results2.rows;
-              resolve();
-            }
-          );
-        })
-      );
-    });
-    Promise.all(promiseArray).then(() => {
-      response.json(responseObject.results);
-    });
+            );
+          })
+        );
+      });
+      Promise.all(promiseArray).then(() => {
+        response.json(responseObject.results);
+      });
+    } else {
+      response.send("NO ANSWERS FOR THIS QUESTION");
+    }
   });
 };
 
