@@ -1,13 +1,12 @@
-# Ascent Squad API - Products Microservice
+# Silvally Squad API - Products Microservice
 
 ## Background
 
 This repo contains my *System Design Capstone* project for the [Hack Reactor](https://www.hackreactor.com/) software engineering immersive program.
 
-This assignment consisted of taking the functionality of an existing monolithic API for a mock e-commerce web app and dissecting it into a microservice architecture with the goal of improving the performance with higher traffic, with each microservice being built by a different developer.
+This project consisted of taking the functionality of an existing monolithic API for a mock e-commerce web app and dissecting it into a microservice architecture with the goal of improving the performance with higher traffic, with each microservice being built by a different developer.
 
-The microservice contained in this repo is the ```/questions``` and ```/answers``` endpoints, which return data about a product's user-submitted questions and answers,
-including information such as how many times a question/answer was reported and marked helpful and who asked the QA and when
+The microservices contained in this repo are the ```/questions``` and ```/answers``` endpoints, which return data about a product's user-submitted questions and answers, including information such as how many times a question/answer was reported and marked helpful and who asked the QA and when
 
 This microservice was built from scratch in 1.5 weeks.
 
@@ -27,7 +26,7 @@ This microservice was then deployed with the following configuration:
 - 1 Nginx Load Balancer
     - AWS EC2 XXL instance
 
-This configuration was stress tested with LoaderIO, resulting with the following stats from one of the tests:
+This configuration was stress tested with LoaderIO and K6, resulting with the following stats from one of the tests:
 
 - 90,000 requests/minute
 - 79ms avg request duration
